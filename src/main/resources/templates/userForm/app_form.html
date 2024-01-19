@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+<!-- content -->
+<div class="container my-5">
+    <form>
+        <div class="row p-5">
+            <div class="col">
+                <h4 class="headline">개인정보 제공 및 활용 동의서</h4>
+            </div>
+            <div class="row-sm-12">
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <em>개인정보 수집동의 <b class="text-danger">(필수)</b></em>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="map" href="#chk01" data-bs-toggle="modal">약관보기</a>
+                                <label>
+                                    <input type="radio" name="agree_1" id="agree_1" value="Y">
+                                    <label for='terms1'> 동의 </label>
+                                    </input>&nbsp
+                                    <input type="radio" name="agree_11" id="agree_1N" value="N" checked="checked">
+                                    <label for='terms1N'> 미동의 </label>
+                                    </input>
+                                </label>
+                                <input type="hidden" name="viewterms1" id="viewterms1" value="" />
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="chk01" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="chk01Label" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="chk01Label">개인정보 수집동의</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <em>민감정보 수집 및 이용목적 동의 <b class="text-danger">(필수)</b></em>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="map" href="#chk02" data-bs-toggle="modal">약관보기</a>
+                                <label>
+                                    <input type="radio" name="agree_2" id="agree_2" value="Y">
+                                    <label for='terms2'> 동의 </label>
+                                    </input>&nbsp
+                                    <input type="radio" name="agree_2" id="agree_2" value="N" checked="checked">
+                                    <label for='terms2N'> 미동의 </label>
+                                    </input>
+                                </label>
+                                <input type="hidden" name="viewterms2" id="viewterms2" value="" />
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="chk02" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="chk02Label" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="chk02Label">민감정보 수집 및 이용목적 동의</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <em>개인정보 제3자 제공에 관한 동의 <b class="text-danger">(필수)</b></em>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="map" href="#chk03" data-bs-toggle="modal">약관보기</a>
+                                <label>
+                                    <input type="radio" name="agree_3" id="agree_3" value="Y">
+                                    <label for='terms3'> 동의 </label>
+                                    </input>&nbsp
+                                    <input type="radio" name="agree_3" id="agree_3" value="N" checked="checked">
+                                    <label for='terms3N'> 미동의 </label>
+                                    </input>
+                                </label>
+                                <input type="hidden" name="viewterms3" id="viewterms3" value="" />
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="chk03" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="chk03Label" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="chk03Label">개인정보 제3자 제공에 관한 동의</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <em>채용결격 사유에 대한 동의 <b class="text-danger">(필수)</b></em>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="map" href="#chk04" data-bs-toggle="modal">약관보기</a>
+                                <label>
+                                    <input type="radio" name="agree_4" id="agree_4" value="Y">
+                                    <label for='terms4'> 동의 </label>
+                                    </input>&nbsp
+                                    <input type="radio" name="agree_4" id="agree_4" value="N" checked="checked">
+                                    <label for='terms4N'> 미동의 </label>
+                                    </input>
+                                </label>
+                                <input type="hidden" name="viewterms4" id="viewterms4" value="" />
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="chk04" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="chk04Label" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="chk04Label">채용결격 사유에 대한 동의</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <em>채용서류 반환 안내 <b class="text-danger">(필수)</b></em>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="map" href="#chk05" data-bs-toggle="modal">약관보기</a>
+                                <label>
+                                    <input type="radio" name="terms5" id="terms5" value="Y">
+                                    <label for='terms5'> 동의 </label>
+                                    </input>&nbsp
+                                    <input type="radio" name="terms5" id="terms5N" value="N" checked="checked">
+                                    <label for='terms5N'> 미동의 </label>
+                                    </input>
+                                </label>
+                                <input type="hidden" name="viewterms5" id="viewterms5" value="" />
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="chk05" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="chk05Label" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="chk05Label">채용서류 반환 안내</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row" style="width: 150px;">채용공고</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-4" style="font-weight: bold;">
+                                        <span th:text="${app_title}">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row">ID(이메일)</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-5 pe-1">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="email_id" id="email_id">
+                                            <span class="input-group-text">@</span>
+                                            <input type="text" class="form-control" aria-label="email_domain"
+                                                id="email_domain" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 ps-1">
+                                        <select class="form-select" aria-label="emailSelection" id="emailSelection"
+                                            name="emailSelection">
+                                            <option selected="selected">선택</option>
+                                            <option value="typing">직접입력</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 ps-0">
+                                        <button type="button" class="btn btn-dark">중복확인</button>
+                                        <button type="button" class="btn btn-dark">인증메일발송</button>
+                                    </div>
+                                </div>
+                                <div class="ref row-sm-12" style="font-weight: bold;">
+                                    &nbsp;* 본인의 메일주소를 아이디로 입력해주시기 바랍니다. 입력된 아이디(메일)로 합격 결과가 발송됩니다.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row">이메일 인증번호</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="emailAuthNum">
+                                    </div>
+                                    <div class="col-sm ps-0">
+                                        <button type="button" class="btn btn-dark">확인</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row">비밀번호</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" id="user_password">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row">비밀번호 확인</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" id="user_password2">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row">성명</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="user_name">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" id="colname" scope="row">생년월일</th>
+                            <td class="table-light" colspan="3">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control datePicker" id="user_birth" value="">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col m-5 text-center">
+                <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="btn">취소</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="btn"
+                    onClick="location.href='user_info'">지원서
+                    작성</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 공통 스크립트-->
+
+<th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+<script>
+    selectOpt("emailSelection", "EMAIL_DMN");
+
+    // function applyEmailDomain() {
+    //     var emailIdInput = document.getElementById('email_id');
+    //     var emailDomainInput = document.getElementById('email_domain');
+
+    //     // email_id와 email_domain 값을 조합하여 email_domain에 적용
+    //     emailDomainInput.value = emailIdInput.value;
+
+    //     console.log(emailDomainInput.value);
+    // }
+
+    // $('.datePicker').datepicker({
+    //     format: "yyyy-mm-dd",
+    //     language: "ko",
+    //     // viewMode: "years",
+    //     // minViewMode: "years",
+    //     autoclose: true
+    // });
+
+    $('.datePicker').datepicker({
+        format: "yyyy-mm-dd",
+        language: "ko",
+        // viewMode: "years",
+        // minViewMode: "years",
+        autoclose: true
+    });
+</script>
+
+</body>
+
+</html>

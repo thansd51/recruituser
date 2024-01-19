@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dage.recruituser.DAO.BoardDAO">
+    <select id="appForm" resultType="dage.recruituser.DTO.BoardDTO">
+        SELECT
+        APP_NO,
+        APP_TITLE,
+        APP_START_DATE,
+        APP_END_DATE,
+        APP_CONTENT,
+        APP_FILE_1,
+        APP_FILE_2,
+        APP_FILE_3,
+        APP_FILE_4,
+        APP_FILE_5
+        FROM APP_BOARD
+        WHERE APP_NO = #{APP_NO}
+    </select>
+</mapper>

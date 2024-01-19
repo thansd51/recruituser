@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<style>
+
+</style>
+
+<body>
+    <!-- 공통 Nav -->
+    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+    <!-- content -->
+    <div class="container my-5">
+        <div class="row p-5">
+            <div class="col text-left">
+                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+            </div>
+            <div class="row-sm-12 mt-3">
+                <div class="col-sm mx-3 mb-5">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/user_info">기본정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/edu_info">학력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/career_info">경력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cert_info">외국어/자격사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/act_info">활동사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/survey_info">자기소개</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/app_post">지원서 제출</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 경력사항 탭-->
+                <div class="tab-content mx-5 my-4" id="myTabContent">
+                    <!-- 경력사항 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&nbsp;
+                                    </span>경력사항</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <!-- 추가 테이블 -->
+                        <div class="addTableCo">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>회사명</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>근무기간</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_start_date" id="mil_start_date"
+                                                            placeholder="예) 2000.01">
+                                                        <span class="input-group-text">~</span>
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            placeholder="예) 2003.01">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>소재지·업종</th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="소재지">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="업종">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>고용형태</th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>고용형태</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="연봉">
+                                                </div>
+                                                <div class="col-sm-auto p-0">
+                                                    <span class="marking">
+                                                    </span>만원
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>근무부서</th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="직위">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>담당업무 및 &nbsp;&nbsp;&nbsp;주요성과</th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>퇴직사유</th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 초기화/삭제 -->
+                            <div class="row justify-content-sm-end">
+                                <div class="col-sm-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">초기화</button>
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 초기화/삭제 end -->
+                            <hr>
+                        </div>
+                        <!-- 추가 테이블 end-->
+                        <div id="coWrap">
+                        </div>
+                        <!-- 추가 버튼 -->
+                        <div class="row mb-5">
+                            <div class="col">
+                                <button type="button" class="btn btn-dark" id="addbtn_co"
+                                    style="width: 100%;">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 경력사항 end-->
+                    <!-- 프로젝트 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&nbsp;
+                                    </span>프로젝트</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <!-- 추가 테이블-->
+                        <div class="addTablePro">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>프로젝트명</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>참여기간</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_start_date" id="mil_start_date"
+                                                            placeholder="예) 2000.01">
+                                                        <span class="input-group-text">~</span>
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            placeholder="예) 2003.01">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>발주처</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="소재지">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>근무지역</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="소재지">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>담당업무 및 &nbsp;&nbsp;&nbsp;내용</th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 초기화/삭제 -->
+                            <div class="row justify-content-sm-end">
+                                <div class="col-sm-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">초기화</button>
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 초기화/삭제 end -->
+                            <hr>
+                        </div>
+                        <!-- 추가 테이블 end-->
+                        <div id="proWrap">
+                        </div>
+                        <!-- 추가 버튼 -->
+                        <div class="row mb-5">
+                            <div class="col">
+                                <button type="button" class="btn btn-dark" id="addbtn_pro"
+                                    style="width: 100%;">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 프로젝트 end -->
+                    <!-- 경력사항 탭 end-->
+                </div>
+            </div>
+            <!-- 버튼 -->
+            <div class="col mb-5 text-center">
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onclick="location.href='/edu_info'">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onClick="location.href='/cert_info'">다음</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(function () {
+
+            var wrap = $('.addTableCo').wrapAll("<div/>");
+            var tmpl = wrap.parent().html();
+            $("#addbtn_co").click(function () {
+                $("#coWrap").append(tmpl);
+            });
+
+            var wrap2 = $('.addTablePro').wrapAll("<div/>");
+            var tmpl2 = wrap2.parent().html();
+            $("#addbtn_pro").click(function () {
+                $("#proWrap").append(tmpl2);
+            });
+
+        });
+    </script>
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+</body>
+
+</html>

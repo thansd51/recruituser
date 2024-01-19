@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<body>
+    <!-- 공통 Nav -->
+    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+    <!-- content -->
+    <div class="container my-5">
+        <form>
+            <div class="row p-5">
+                <div class="col text-left">
+                    <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+                </div>
+                <div class="row-sm-12 mt-3">
+                    <div class="col-sm mx-3 mb-5">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/user_info">기본정보</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/edu_info">학력사항</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/career_info">경력사항</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cert_info">외국어/자격사항</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/act_info">활동사항</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/survey_info">자기소개</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/app_post">지원서 제출</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 기본정보 탭-->
+                    <div class="tab-content mx-5 my-4" id="myTabContent">
+                        <!-- 지원정보 -->
+                        <div class="row-sm-12 mx-2 table_margin">
+                            <div class="row mx-2">
+                                <div class="col-sm-6 p-0">
+                                    <h4 class="subtitle mb-1"><span class="marking">&#42;
+                                        </span>지원정보</h4>
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                                </div>
+                            </div>
+                            <table class="table mb-5">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>지원직무
+                                        </th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <b class style="font-size: 18px;">토목시공</b>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>입사가능시기
+                                        </th>
+                                        <td class="table-light" rowspan="1">
+                                            <div class="row-sm-3">
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control datePicker" id="request_date"
+                                                        value="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 지원정보 end-->
+                        <!-- 인적사항 -->
+                        <div class="row-sm-12 mx-2 table_margin">
+                            <div class="row mx-2">
+                                <div class="col-sm-6 p-0">
+                                    <h4 class="subtitle mb-1"><span class="marking">&#42;
+                                        </span>인적사항</h4>
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                                </div>
+                            </div>
+                            <table class="table mb-5">
+                                <tbody>
+                                    <tr>
+                                        <td class="table-light" id="idPhoto" rowspan="5">
+                                            <img class="userPhoto" src="images/userimg.png">
+                                            <input type="file" id="user_profile"
+                                                accept="image/gif, image/png, image/jpeg" style="display: none;">
+                                            <button type="button" class="btn btn-dark my-2"
+                                                onclick="document.getElementById('user_profile').click();">사진등록
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>성명
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="user_name">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>생년월일
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control datePicker" id="user_birth"
+                                                    value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>성별
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="col-sm-5">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="male"
+                                                        value="M">
+                                                    <label class="form-check-label" for="male">남성</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                        id="female" value="F">
+                                                    <label class="form-check-label" for="female">여성</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>국적
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="col-sm-5">
+                                                <select class="form-select" aria-label="nationSelection"
+                                                    name="nationSelection" id="nationSelection">
+                                                    <option selected disabled hidden>선택</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 인적사항 end-->
+                        <!-- 연락사항 -->
+                        <div class="row-sm-12 mx-2 table_margin">
+                            <div class="row mx-2">
+                                <div class="col-sm-6 p-0">
+                                    <h4 class="subtitle mb-1"><span class="marking">&#42;
+                                        </span>연락사항</h4>
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                                </div>
+                            </div>
+                            <table class="table mb-5">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>주소지
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row mb-1">
+                                                <div class="col-sm-2 pe-1">
+                                                    <input type="text" class="form-control" id="user_zip" readonly
+                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                                </div>
+                                                <div class="col-sm-3 ps-1">
+                                                    <button type="button" class="btn btn-dark"
+                                                        onclick="findAddr()">우편번호조회
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-sm-7 pe-1">
+                                                    <input type="text" class="form-control" id="user_address" readonly
+                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                                </div>
+                                                <div class="col-sm-5 ps-1">
+                                                    <input type="text" class="form-control" id="user_address_dtl"
+                                                        placeholder="상세 주소">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>휴대전화
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="user_cp" maxlength="13"
+                                                        placeholder="예) 010-1234-5678"
+                                                        oninput="formatPhoneNumber('user_cp')">
+                                                </div>
+                                                <div class="hypen col-sm-3">
+                                                    * 하이픈(-) 제외
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>비상연락처
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="user_tel" maxlength="13"
+                                                        placeholder="예) 010-1234-5678"
+                                                        oninput="formatPhoneNumber('user_tel')">
+                                                </div>
+                                                <div class="hypen col-sm-3">
+                                                    * 하이픈(-) 제외
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 연락사항 end-->
+                        <!-- 병역사항 -->
+                        <div class="row-sm-12 mx-2 table_margin">
+                            <div class="row mx-2">
+                                <div class="col-sm-6 p-0">
+                                    <h4 class="subtitle  mb-1"><span class="marking">&#42;
+                                        </span>병역사항</h4>
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                                </div>
+                            </div>
+                            <table class="table mb-5">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>병역여부
+                                        </th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="milSrvcSelection"
+                                                        name="milSrvcSelection" id="milSrvcSelection">
+                                                        <option selected disabled hidden>선택</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>구분
+                                        </th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-6 pe-1">
+                                                    <select class="form-select" aria-label="milTypeSelection"
+                                                        name="milTypeSelection" id="milTypeSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6 ps-1">
+                                                    <select class="form-select" aria-label="milTypeDtlSelection"
+                                                        name="milTypeDtlSelection" id="milTypeDtlSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>전역사유
+                                        </th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="milDschrSelection"
+                                                        name="milDschrSelection" id="milDschrSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>면제사유
+                                        </th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" name="mil_exem"
+                                                        id="mil_exem" disabled>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>복무기간
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-5" style="width: 40%;">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_start_date" id="mil_start_date"
+                                                            placeholder="예) 2000.01">
+                                                        <span class="input-group-text">~</span>
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            placeholder="예) 2003.01">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 병역사항 end-->
+                        <!-- 신상정보 -->
+                        <div class="row-sm-12 mx-2 table_margin">
+                            <div class="row mx-2">
+                                <div class="col-sm-6 p-0">
+                                    <h4 class="subtitle  mb-1"><span class="marking">&#42;
+                                        </span>신상정보</h4>
+                                </div>
+                                <div class="col-sm-6 text-end p-0">
+                                    <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                                </div>
+                            </div>
+                            <table class="table mb-5">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>보훈
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-auto pe-0">
+                                                    <span class="marking">&#42;
+                                                    </span>보훈여부
+                                                </div>
+                                                <div class="col-sm-auto ps-1 pe-0">
+                                                    <select class="form-select" aria-label="vtrSrvcSelection"
+                                                        id="vtrSrvcSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                        <option value="Y">해당</option>
+                                                        <option value="N">비해당</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm-auto pe-0">
+                                                    <span class="marking">&nbsp;
+                                                    </span>보훈관계
+                                                </div>
+                                                <div class="col-sm-auto ps-1 pe-0">
+                                                    <select class="form-select" aria-label="vtrRltSelection"
+                                                        id="vtrRltSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-auto pe-0">
+                                                    <span class="marking">&nbsp;
+                                                    </span>보훈번호
+                                                </div>
+                                                <div class="col-sm-3 ps-1 pe-0">
+                                                    <input type="text" class="form-control" aria-label="vtr_num"
+                                                        id="vtr_num">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>장애
+                                        </th>
+                                        <td class="table-light" colspan="3">
+                                            <div class="row">
+                                                <div class="col-sm-auto pe-0">
+                                                    <span class="marking">&#42;
+                                                    </span>장애여부
+                                                </div>
+                                                <div class="col-sm-auto ps-1 pe-0">
+                                                    <select class="form-select" aria-label="disSrvcSelection"
+                                                        id="disSrvcSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                        <option value="Y">해당</option>
+                                                        <option value="N">비해당</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm-auto pe-0">
+                                                    <span class="marking">&nbsp;
+                                                    </span>장애구분
+                                                </div>
+                                                <div class="col-sm-auto ps-1 pe-0">
+                                                    <select class="form-select" aria-label="disClsSelection"
+                                                        id="disClsSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-auto pe-0">
+                                                    <span class="marking">&nbsp;
+                                                    </span>장애등급
+                                                </div>
+                                                <div class="col-sm-3 ps-1 pe-0">
+                                                    <select class="form-select" aria-label="disRateSelection"
+                                                        id="disRateSelection">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 신상정보 end-->
+                        <!-- 기본정보 탭 end-->
+                    </div>
+                </div>
+                <!-- 버튼 -->
+                <div class="col mb-5 text-center">
+                    <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                        onclick="location.href='/app_form'">이전
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                        onClick="location.href='/edu_info'">다음
+                    </button>
+                </div>
+        </form>
+    </div>
+    </div>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        $(function () {
+
+            selectOpt("suptypeSelection", "SUP_TYPE");
+            selectOpt("subjobSelection", "SUP_JOB");
+            selectOpt("milSrvcSelection", "MIL_SRVC");
+            selectOpt("milTypeSelection", "MIL_TYPE");
+            selectOpt("milTypeDtlSelection", "MIL_TYPE_DTL");
+            selectOpt("milDschrSelection", "MIL_DSCHR");
+            selectOpt("vtrRltSelection", "VTR_RLT");
+            selectOpt("disClsSelection", "DIS_CLS");
+            selectOpt("disRateSelection", "DIS_RATE");
+
+
+            /* 처음 이미지 가져오기 */
+            let photo_path = $('.userPhoto').attr('src');
+            let my_photo; //회원이 업로드할 이미지 담을 변수
+            $('#user_profile').change(function () {
+                my_photo = this.files[0];
+                if (!my_photo) {
+                    $('.userPhoto').attr('src', photo_path);
+                    return
+                }
+                if (my_photo.size > 1024 * 1024) {
+                    alert(Math.round(my_photo.size / 1024 / 1024) + 'MB(1MB까지만 업로드 가능)');
+                    $('.userPhoto').attr('src', photo_path);
+                    $(this).val('');
+                    return;
+                }
+                /* 이미지 미리보기 처리 */
+                let reader = new FileReader();
+                reader.readAsDataURL(my_photo);
+
+                reader.onload = function () {
+                    $('.userPhoto').attr('src', reader.result);
+                };
+            });
+        });
+
+        /* 휴대폰 번호 형식 변환 */
+        function formatPhoneNumber(inputId) {
+            var inputElement = document.getElementById(inputId);
+            var inputValue = inputElement.value;
+
+            // 입력값에서 숫자만 추출
+            var numericValue = inputValue.replace(/\D/g, '');
+
+            // 숫자를 전화번호 형식으로 변환
+            var formattedValue = numericValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+
+            // 변환된 값을 다시 입력 필드에 설정
+            inputElement.value = formattedValue;
+        }
+
+        /* 우편 번호 조회 */
+        function findAddr() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var addr = ''; // 주소 변수
+                    var extraAddr = ''; // 참고항목 변수
+
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+
+                    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                    if (data.userSelectedType === 'R') {
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if (data.buildingName !== '' && data.apartment === 'Y') {
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if (extraAddr !== '') {
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+                        // 조합된 참고항목을 해당 필드에 넣는다.
+                        document.getElementById("user_address").value = extraAddr;
+
+                    } else {
+                        document.getElementById("user_address").value = '';
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('user_zip').value = data.zonecode;
+                    document.getElementById("user_address").value = addr + extraAddr;
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById("user_address_dtl").focus();
+                }
+            }).open();
+        }
+
+        document.getElementById('milSrvcSelection').addEventListener('change', function () {
+            var milSelection = this.value;
+            var milExemInput = document.getElementById('mil_exem');
+
+            if (milSelection === 'D05') {
+                // "면제"가 선택되었을 때 입력 가능하도록 설정하고 배경색 해제
+                milExemInput.removeAttribute('readonly');
+                milExemInput.style.backgroundColor = '';
+            } else {
+                // 다른 옵션이 선택되었을 때 입력 불가능하도록 설정하고 배경색 적용
+                milExemInput.setAttribute('readonly', true);
+                milExemInput.style.backgroundColor = 'rgb(240, 240, 240)';
+            }
+        });
+
+        $('.datePicker').datepicker({
+            format: "yyyy-mm-dd",
+            language: "ko",
+            viewMode: "years",
+            minViewMode: "years",
+            autoclose: true
+        });
+    </script>
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+</body>
+
+</html>

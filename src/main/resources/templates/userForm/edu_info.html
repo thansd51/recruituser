@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<style>
+
+</style>
+
+<body>
+    <!-- 공통 Nav -->
+    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+    <!-- content -->
+    <div class="container my-5">
+        <div class="row p-5">
+            <div class="col text-left">
+                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+            </div>
+            <div class="row-sm-12 mt-3">
+                <div class="col-sm mx-3 mb-5">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user_info">기본정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/edu_info">학력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/career_info">경력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cert_info">외국어/자격사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/act_info">활동사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/survey_info">자기소개</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/app_post">지원서 제출</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 학력사항 탭-->
+                <div class="tab-content mx-5 my-4" id="myTabContent">
+                    <!-- 고등학교 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&#42;
+                                    </span>고등학교</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <table class="table mb-5">
+                            <tbody>
+                                <tr>
+                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        </span>학교명</th>
+                                    <td class="table-light" colspan="1">
+                                        <div class="row">
+                                            <div class="col-sm-9 pe-0">
+                                                <input type="text" class="form-control" id="high_name" value="" readonly
+                                                    style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                            </div>
+                                            <div class="col-sm-auto">
+                                                <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                                    data-bs-target="#searchHighModal">검색</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- 검색 모달 -->
+                                        <div class="modal fade" id="searchHighModal" tabindex="-1"
+                                            aria-labelledby="searchHighModal" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="searchHighModal">학교 검색</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-10 pe-0">
+                                                                <input type="text" class="form-control"
+                                                                    id="searchHighName" placeholder="학교명을 입력하세요"
+                                                                    onkeyup="if (event.key === 'Enter') enterkeySearch()">
+                                                            </div>
+                                                            <div class="col-sm-auto">
+                                                                <button type="button" class="btn btn-dark"
+                                                                    onclick="enterkeySearch()">검색</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="searchBox mx-3 mb-3 text-center">
+                                                        <div class="row mx-3 my-2 text-start">
+                                                            <b id="searchResult" class="p-0">
+                                                            </b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 검색 모달 -->
+                                    </td>
+                                    <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        </span>소재지</th>
+                                    <td class="table-light style_width" colspan="1">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" id="mil_exemption"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        </span>계열구분</th>
+                                    <td class="table-light" colspan="1">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>선택</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        </span>재학기간</th>
+                                    <td class="table-light" colspan="1">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" aria-label="mil_start_date"
+                                                        id="mil_start_date" placeholder="예) 2000.03">
+                                                    <span class="input-group-text">~</span>
+                                                    <input type="text" class="form-control" aria-label="mil_end_date"
+                                                        id="mil_end_date" placeholder="예) 2003.02">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        </span>졸업구분</th>
+                                    <td class="table-light" colspan="1">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>선택</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        </span>최종학력여부</th>
+                                    <td class="table-light" colspan="1">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>선택</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 고등학교 end-->
+                    <!-- 대학교 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&nbsp;
+                                    </span>대학교</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <!-- 추가 테이블 -->
+                        <div class="addTable">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>학력</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>학교명</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-9 pe-0">
+                                                    <input type="text" class="form-control" id="mil_exemption" value=""
+                                                        readonly
+                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                                </div>
+                                                <div class="col-sm-auto">
+                                                    <button type="button" class="btn btn-dark">검색</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>소재지</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>주야구분</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>전공계열</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>재학기간</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_start_date" id="mil_start_date"
+                                                            placeholder="예) 2000.03">
+                                                        <span class="input-group-text">~</span>
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            placeholder="예) 2003.02">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>주전공</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>취득학점/만점</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_start_date" id="mil_start_date"
+                                                            placeholder="예) 3.0">
+                                                        <span class="input-group-text">/</span>
+                                                        <input type="text" class="form-control"
+                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            placeholder="예) 4.5">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>복수전공</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>부전공</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>졸업구분</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>최종학력여부</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected disabled hidden>선택</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 초기화/삭제 -->
+                            <div class="row justify-content-sm-end">
+                                <div class="col-sm-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">초기화</button>
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 초기화/삭제 end -->
+                            <hr>
+                        </div>
+                        <!-- 추가 테이블 end-->
+                        <div id="boxWrap">
+                        </div>
+                        <!-- 추가 버튼 -->
+                        <div class="row-sm-12">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-dark" style="width: 100%;"
+                                    id="addbtn_univ">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 대학교 end -->
+                    <!-- 학력사항 탭 end-->
+                </div>
+            </div>
+            <!-- 버튼 -->
+            <div class="col mb-5 text-center">
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onclick="location.href='/user_info'">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onClick="location.href='/career_info'">다음</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        /* 추가 기능 */
+        $(function () {
+            // var i = 1; // 변수설정은 함수의 바깥에 설정!
+            var wrap = $('.addTable').wrapAll("<div/>");
+            var tmpl = wrap.parent().html();
+            $("#addbtn_univ").click(function () {
+                $("#boxWrap").append(tmpl);
+                // i++; // 함수 내 하단에 증가문 설정
+            });
+        });
+
+
+        /* 검색 기능 */
+        // function enterkeySearch() {
+        //     // 배열 생성
+        //     var wordsArray = ["apple", "banana", "orange", "grape", "kiwi", "melon", '동평중', '개성고', '경원고', '개성고', '동성고', '개금고', '가나', '동성고33', '동성고233', '동성고3', '동성고4', '동성고5'];
+
+        //     wordsArray.sort();
+
+        //     // 검색할 문자열
+        //     var searchStr = document.getElementById('searchHighName').value;
+
+        //     // 배열에서 부분 문자열이 포함된 단어 검색
+        //     var foundWords = wordsArray.filter(function (word) {
+        //         return word.includes(searchStr);
+        //     });
+
+        //     // 결과를 HTML에 표시
+        //     var resultDiv = document.getElementById('searchResult');
+        //     resultDiv.innerHTML = ''; // 결과를 초기화
+
+        //     if (foundWords.length > 0) {
+        //         // 각 결과를 하나씩 표시
+        //         foundWords.forEach(function (word) {
+        //             var p = document.createElement('p');
+        //             p.textContent = word;
+        //             resultDiv.appendChild(p);
+        //         });
+        //     } else {
+        //         // 결과가 없는 경우
+        //         var p = document.createElement('p');
+        //         p.textContent = "조회된 결과가 없습니다.";
+        //         resultDiv.appendChild(p);
+        //     }
+        // }
+
+
+
+        // #searchHighModal 버튼 클릭 시 초기화 작업 수행
+        document.getElementById('searchHighModal').addEventListener('click', function () {
+            // 모달이 열릴 때 초기화 작업 수행
+            document.getElementById('searchResult').innerHTML = '';
+            document.getElementById('searchHighName').innerHTML = '';
+        });
+
+
+        function enterkeySearch() {
+            // 배열 생성
+            var wordsArray = ["apple", "banana", "orange", "grape", "kiwi", "melon", '개성고', '경원고', '개성고', '동성고', '개금고', '동성고1', '동성고2', '동성고3', '동성고3', '동성고', '동성고', '동성고', '동성고', '동성고'];
+
+            // 검색할 문자열
+            var searchStr = document.getElementById('searchHighName').value;
+
+            // 배열에서 부분 문자열이 포함된 단어 검색
+            var foundWords = wordsArray.filter(function (word) {
+                return word.includes(searchStr);
+            });
+
+            // 결과를 HTML에 표시
+            var resultDiv = document.getElementById('searchResult');
+            resultDiv.innerHTML = ''; // 결과를 초기화
+
+            if (foundWords.length > 0) {
+                // 각 결과를 하나씩 표시
+                foundWords.forEach(function (word) {
+                    var p = document.createElement('p');
+                    p.textContent = word;
+                    p.classList.add('searchResultItem'); // 클래스 추가
+                    p.addEventListener('click', function () {
+                        applyValue(word);
+                    });
+                    resultDiv.appendChild(p);
+                });
+            } else {
+                // 결과가 없는 경우
+                var p = document.createElement('p');
+                p.textContent = "조회된 결과가 없습니다.";
+                resultDiv.appendChild(p);
+            }
+        }
+
+        // 클릭된 검색 결과를 .high_name에 적용하는 함수
+        function applyValue(value) {
+            document.getElementById('high_name').value = value;
+            // 여기에서 원하는 추가 동작을 수행할 수 있습니다.
+            // 예를 들어, 모달을 닫거나 특정 이벤트를 호출할 수 있습니다.
+            $('#searchHighModal').modal('hide');
+        }
+    </script>
+
+
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+</body>
+
+</html>

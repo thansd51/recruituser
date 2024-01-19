@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<style>
+
+</style>
+
+<body>
+    <!-- 공통 Nav -->
+    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+    <!-- content -->
+    <div class="container my-5">
+        <div class="row p-5">
+            <div class="col text-left">
+                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+            </div>
+            <div class="row-sm-12 mt-3">
+                <div class="col-sm mx-3 mb-5">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/user_info">기본정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/edu_info">학력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/career_info">경력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/cert_info">외국어/자격사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/act_info">활동사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/survey_info">자기소개</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/app_post">지원서 제출</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 외국어/자격사항 탭-->
+                <div class="tab-content mx-5 my-4" id="myTabContent">
+                    <!-- 자격증 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&nbsp;
+                                    </span>자격증</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <!-- 추가 테이블 -->
+                        <div class="addTableCert">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>자격종류</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>등록번호</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>발급기관</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>취득일자</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" aria-label="mil_end_date"
+                                                        id="mil_end_date" placeholder="예) 2000.01.01">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 초기화/삭제 -->
+                            <div class="row justify-content-sm-end">
+                                <div class="col-sm-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">초기화</button>
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 초기화/삭제 end -->
+                            <hr>
+                        </div>
+                        <!-- 추가 테이블 end-->
+                        <div id="certWrap"></div>
+                        <!-- 추가 버튼 -->
+                        <div class="row mb-5">
+                            <div class="col">
+                                <button type="button" id="addbtn_cert" class="btn btn-dark"
+                                    style="width: 100%;">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 자격증 end -->
+                    <!-- 외국어 활용능력 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&nbsp;
+                                    </span>외국어 활용능력</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <!-- 추가 테이블 -->
+                        <div class="addTableLang">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>언어</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-6 pe-1">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6 ps-1">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="기타 선택 시">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>수준</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>수준</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 초기화/삭제 -->
+                            <div class="row justify-content-sm-end">
+                                <div class="col-sm-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">초기화</button>
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 초기화/삭제 end -->
+                            <hr>
+                        </div>
+                        <!-- 추가 테이블 end-->
+                        <div id="langWrap"></div>
+                        <!-- 추가 버튼 -->
+                        <div class="row mb-5">
+                            <div class="col">
+                                <button type="button" id="addbtn_lang" class="btn btn-dark"
+                                    style="width: 100%;">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 외국어 활용능력 end -->
+
+                    <!-- IT활용능력 -->
+                    <div class="row-sm-12 mx-2 table_margin">
+                        <div class="row mx-2">
+                            <div class="col-sm-6 p-0">
+                                <h4 class="subtitle mb-1"><span class="marking">&nbsp;
+                                    </span>IT 활용능력</h4>
+                            </div>
+                            <div class="col-sm-6 text-end p-0">
+                                <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
+                            </div>
+                        </div>
+                        <!-- 추가 테이블 -->
+                        <div class="addTableIt">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>IT활용종류</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-6 pe-1">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6 ps-1">
+                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                        placeholder="기타 선택 시">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>수준</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>선택</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 초기화/삭제 -->
+                            <div class="row justify-content-sm-end">
+                                <div class="col-sm-auto">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">초기화</button>
+                                        <button type="button" class="btn btn-outline-primary btncolor"
+                                            id="btncolor">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 초기화/삭제 end -->
+                            <hr>
+                        </div>
+                        <!-- 추가 테이블 end-->
+                        <div id="itWrap"></div>
+                        <!-- 추가 버튼 -->
+                        <div class="row mb-5">
+                            <div class="col">
+                                <button type="button" id="addbtn_it" class="btn btn-dark" style="width: 100%;">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- IT활용능력 end -->
+                    <!-- 학력사항 탭 end-->
+                </div>
+            </div>
+            <!-- 버튼 -->
+            <div class="col mb-5 text-center">
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onclick="location.href='/career_info'">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onClick="location.href='/act_info'">다음</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+
+            var wrap = $('.addTableCert').wrapAll("<div/>");
+            var tmpl = wrap.parent().html();
+            $("#addbtn_cert").click(function () {
+                $("#certWrap").append(tmpl);
+            });
+
+            var wrap2 = $('.addTableLang').wrapAll("<div/>");
+            var tmpl2 = wrap2.parent().html();
+            $("#addbtn_lang").click(function () {
+                $("#langWrap").append(tmpl2);
+            });
+
+            var wrap3 = $('.addTableIt').wrapAll("<div/>");
+            var tmpl3 = wrap3.parent().html();
+            $("#addbtn_it").click(function () {
+                $("#itWrap").append(tmpl3);
+            });
+        });
+    </script>
+
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+</body>
+
+</html>
