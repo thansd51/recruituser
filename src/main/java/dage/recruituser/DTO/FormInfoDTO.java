@@ -4,9 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 @Data
-public class BoardDTO {
+public class UserInfoDTO {
 
-    private int app_no;
+    private Long app_no;
     private String app_title;
     private Date app_start_date;
     private Date app_end_date;

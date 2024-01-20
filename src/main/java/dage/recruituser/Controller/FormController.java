@@ -1,20 +1,13 @@
 package dage.recruituser.Controller;
 
-import dage.recruituser.DTO.BoardDTO;
 import dage.recruituser.Services.BoardService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-
 @Controller
-public class IndexController {
+public class AppBoardController {
 
     @Autowired
     BoardService boardService;
@@ -27,12 +20,12 @@ public class IndexController {
 //        return "userForm/app_form";
 //    }
 
-    @GetMapping("/app_form")
-    public String app_form(Model model) {
-        String app_title = "한희건";
-        model.addAttribute("app_title", app_title);
-        return "userForm/app_form";
-    }
+//    @GetMapping("/app_form")
+//    public String app_form(Model model) {
+//        String app_title = "한희건";
+//        model.addAttribute("app_title", app_title);
+//        return "userForm/app_form";
+//    }
 
 //    @GetMapping("/app_board/{app_no}")
 //    public String appBoard(@PathVariable int app_no, Model model, HttpSession session){

@@ -1,4 +1,4 @@
-package dage.recruituser.Controller;
+package dage.recruituser.api;
 
 import dage.recruituser.DTO.CommCodeDTO;
 import dage.recruituser.Services.CommCodeService;
