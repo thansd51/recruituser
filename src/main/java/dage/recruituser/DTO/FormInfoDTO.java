@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.util.Date;
 @Data
-public class UserInfoDTO {
+public class FormInfoDTO {
 
     private Long app_no;
     private String app_title;

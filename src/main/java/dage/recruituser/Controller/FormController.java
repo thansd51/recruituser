@@ -1,16 +1,22 @@
 package dage.recruituser.Controller;
 
-import dage.recruituser.Services.BoardService;
+import dage.recruituser.DTO.UserDTO;
+import dage.recruituser.Services.FormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
-public class AppBoardController {
+public class FormController {
 
     @Autowired
-    BoardService boardService;
+    FormService boardService;
+
+    @Autowired
+    FormService formService;
 
 //    @GetMapping("/app_form/{user_name}")
 //    public String app_form(Model model, @PathVariable("user_name") String user_name, HttpServletRequest request) {
@@ -35,7 +41,17 @@ public class AppBoardController {
 
 
     @GetMapping("/user_info")
-    public String user_info() {
+    public String user_info(Model model, String user_name, Date user_birth) {
+        UserDTO userDTO = formService.userInfoMapper(user_name, user_birth);
+        String userName = userDTO.getUserName();
+        Date userBirth = userDTO.getUserBirth();
+
+        System.out.println(userName);
+        System.out.println(userBirth);
+
+        model.addAttribute("user_name", userName);
+        model.addAttribute("user_birth", userBirth);
+
         return "userForm/user_info";
     }
 
