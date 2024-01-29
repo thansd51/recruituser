@@ -9,14 +9,13 @@
 
 <!-- content -->
 <div class="container my-5">
-    <form>
-        <div class="row p-5">
-            <div class="col">
-                <h4 class="headline">개인정보 제공 및 활용 동의서</h4>
-            </div>
-            <div class="row-sm-12">
+    <div class="row p-5">
+        <div class="col">
+            <h4 class="headline">개인정보 제공 및 활용 동의서</h4>
+        </div>
+        <div class="row-sm-12">
+            <form name="appFormInsert" id="appFormInsert">
                 <ul class="list-group list-group-flush">
-
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-6">
@@ -24,15 +23,14 @@
                             </div>
                             <div class="col-6 text-end">
                                 <a class="map" href="#chk01" data-bs-toggle="modal">약관보기</a>
-                                <label>
-                                    <input type="radio" name="agree_1" id="agree_1" value="Y">
-                                    <label for='terms1'> 동의 </label>
+                                <label id="agreeCheck01">
+                                    <input type="radio" name="user_agree_1" id="agree_1" value="T">
+                                    <label for='user_agree_1'> 동의 </label>
                                     </input>&nbsp
-                                    <input type="radio" name="agree_11" id="agree_1N" value="N" checked="checked">
-                                    <label for='terms1N'> 미동의 </label>
+                                    <input type="radio" name="user_agree_1" id="agree_1N" value="F" checked="checked">
+                                    <label for='user_agree_1'> 미동의 </label>
                                     </input>
                                 </label>
-                                <input type="hidden" name="viewterms1" id="viewterms1" value="" />
                             </div>
                         </div>
                         <!-- Modal -->
@@ -63,15 +61,14 @@
                             </div>
                             <div class="col-6 text-end">
                                 <a class="map" href="#chk02" data-bs-toggle="modal">약관보기</a>
-                                <label>
-                                    <input type="radio" name="agree_2" id="agree_2" value="Y">
-                                    <label for='terms2'> 동의 </label>
+                                <label id="agreeCheck02">
+                                    <input type="radio" name="user_agree_2" id="agree_2" value="T">
+                                    <label for='user_agree_2'> 동의 </label>
                                     </input>&nbsp
-                                    <input type="radio" name="agree_2" id="agree_2" value="N" checked="checked">
-                                    <label for='terms2N'> 미동의 </label>
+                                    <input type="radio" name="user_agree_2" id="agree_2N" value="F" checked="checked">
+                                    <label for='user_agree_2'> 미동의 </label>
                                     </input>
                                 </label>
-                                <input type="hidden" name="viewterms2" id="viewterms2" value="" />
                             </div>
                         </div>
                         <!-- Modal -->
@@ -102,15 +99,14 @@
                             </div>
                             <div class="col-6 text-end">
                                 <a class="map" href="#chk03" data-bs-toggle="modal">약관보기</a>
-                                <label>
-                                    <input type="radio" name="agree_3" id="agree_3" value="Y">
-                                    <label for='terms3'> 동의 </label>
+                                <label id="agreeCheck03">
+                                    <input type="radio" name="user_agree_3" id="agree_3" value="T">
+                                    <label for='user_agree_3'> 동의 </label>
                                     </input>&nbsp
-                                    <input type="radio" name="agree_3" id="agree_3" value="N" checked="checked">
-                                    <label for='terms3N'> 미동의 </label>
+                                    <input type="radio" name="user_agree_3" id="agree_3N" value="F" checked="checked">
+                                    <label for='user_agree_3'> 미동의 </label>
                                     </input>
                                 </label>
-                                <input type="hidden" name="viewterms3" id="viewterms3" value="" />
                             </div>
                         </div>
                         <!-- Modal -->
@@ -141,15 +137,14 @@
                             </div>
                             <div class="col-6 text-end">
                                 <a class="map" href="#chk04" data-bs-toggle="modal">약관보기</a>
-                                <label>
-                                    <input type="radio" name="agree_4" id="agree_4" value="Y">
-                                    <label for='terms4'> 동의 </label>
+                                <label id="agreeCheck04">
+                                    <input type="radio" name="user_agree_4" id="agree_4" value="T">
+                                    <label for='user_agree_4'> 동의 </label>
                                     </input>&nbsp
-                                    <input type="radio" name="agree_4" id="agree_4" value="N" checked="checked">
-                                    <label for='terms4N'> 미동의 </label>
+                                    <input type="radio" name="user_agree_4" id="agree_4N" value="F" checked="checked">
+                                    <label for='user_agree_4'> 미동의 </label>
                                     </input>
                                 </label>
-                                <input type="hidden" name="viewterms4" id="viewterms4" value="" />
                             </div>
                         </div>
                         <!-- Modal -->
@@ -180,15 +175,14 @@
                             </div>
                             <div class="col-6 text-end">
                                 <a class="map" href="#chk05" data-bs-toggle="modal">약관보기</a>
-                                <label>
-                                    <input type="radio" name="terms5" id="terms5" value="Y">
-                                    <label for='terms5'> 동의 </label>
+                                <label id="agreeCheck05">
+                                    <input type="radio" name="user_agree_5" id="agree_5" value="T">
+                                    <label for='user_agree_5'> 동의 </label>
                                     </input>&nbsp
-                                    <input type="radio" name="terms5" id="terms5N" value="N" checked="checked">
-                                    <label for='terms5N'> 미동의 </label>
+                                    <input type="radio" name="user_agree_5" id="agree_5N" value="F" checked="checked">
+                                    <label for='user_agree_5'> 미동의 </label>
                                     </input>
                                 </label>
-                                <input type="hidden" name="viewterms5" id="viewterms5" value="" />
                             </div>
                         </div>
                         <!-- Modal -->
@@ -213,15 +207,14 @@
                         </div>
                     </li>
                 </ul>
-
                 <table class="table">
                     <tbody>
                         <tr>
                             <th class="table-light" id="colname" scope="row" style="width: 150px;">채용공고</th>
                             <td class="table-light" colspan="3">
                                 <div class="row">
-                                    <div class="col-sm-4" >
-                                        <span th:text="${user_name}" style="font-weight: bold;">
+                                    <div class="col-sm-4">
+                                        <span class="ps-2" th:text="${appBoard.appTitle}" style="font-weight: bold;">
                                     </div>
                                 </div>
                             </td>
@@ -236,11 +229,11 @@
                                             <span class="input-group-text">@</span>
                                             <input type="text" class="form-control" aria-label="email_domain"
                                                 id="email_domain" readonly>
+                                            <input type="hidden" id="user_email" name="user_email">
                                         </div>
                                     </div>
                                     <div class="col-sm-3 ps-1">
-                                        <select class="form-select" aria-label="emailSelection" id="emailSelection"
-                                            name="emailSelection">
+                                        <select class="form-select" aria-label="emailSelection" id="emailSelection">
                                             <option selected="selected">선택</option>
                                             <option value="typing">직접입력</option>
                                         </select>
@@ -273,7 +266,8 @@
                             <td class="table-light" colspan="3">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="user_password">
+                                        <input type="password" class="form-control" id="user_password"
+                                            name="user_password">
                                     </div>
                                 </div>
                             </td>
@@ -283,7 +277,8 @@
                             <td class="table-light" colspan="3">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="user_password2">
+                                        <input type="password" class="form-control" id="user_password2"
+                                            name="user_password2">
                                     </div>
                                 </div>
                             </td>
@@ -293,7 +288,7 @@
                             <td class="table-light" colspan="3">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="user_name">
+                                        <input type="text" class="form-control" id="user_name" name="user_name">
                                     </div>
                                 </div>
                             </td>
@@ -303,23 +298,21 @@
                             <td class="table-light" colspan="3">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control datePicker" id="user_birth" value="">
+                                        <input type="text" class="form-control datePicker" id="user_birth"
+                                            name="user_birth">
                                     </div>
                                 </div>
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
-            </div>
-            <div class="col m-5 text-center">
-                <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="btn">취소</button>
-                <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="btn"
-                    onClick="location.href='user_info'">지원서
-                    작성</button>
-            </div>
+            </form>
         </div>
-    </form>
+        <div class="col m-5 text-center">
+            <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="btn">취소</button>
+            <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="next_btn">지원서 작성</button>
+        </div>
+    </div>
 </div>
 
 <!-- 공통 스크립트-->
@@ -328,33 +321,62 @@
 <script>
     selectOpt("emailSelection", "EMAIL_DMN");
 
-    // function applyEmailDomain() {
-    //     var emailIdInput = document.getElementById('email_id');
-    //     var emailDomainInput = document.getElementById('email_domain');
+    var appFormInsert = $('#appFormInsert').serialize();
+    console.log(appFormInsert);
 
-    //     // email_id와 email_domain 값을 조합하여 email_domain에 적용
-    //     emailDomainInput.value = emailIdInput.value;
+    var emailIdInput = $('#email_id').val();
+    var emailDomainInput = $('#email_domain').val();
+    console.log(emailIdInput + emailDomainInput);
+    var email_val = emailIdInput + "@" + emailDomainInput;
 
-    //     console.log(emailDomainInput.value);
-    // }
-
-    // $('.datePicker').datepicker({
-    //     format: "yyyy-mm-dd",
-    //     language: "ko",
-    //     // viewMode: "years",
-    //     // minViewMode: "years",
-    //     autoclose: true
-    // });
+    var email = $('#user_email').val(email_val);
 
     $('.datePicker').datepicker({
         format: "yyyy-mm-dd",
-        language: "ko",
+        language: "kr",
         // viewMode: "years",
         // minViewMode: "years",
         autoclose: true
     });
 </script>
 
+<script th:inline="javascript">
+    
+    $("#next_btn").on("click", function (e) {
+        /*<![CDATA[*/
+        var appNo = [[${appBoard.appNo}]];
+ 
+        
+
+        var emailIdInput = $('#email_id').val();
+        var emailDomainInput = $('#email_domain').val();
+
+        var email_val = emailIdInput + "@" + emailDomainInput;
+
+        var email = $('#user_email').val(email_val);
+
+        var appFormInsert = $("#appFormInsert").serialize();
+
+        console.log("app_no=" + appNo + "&" + appFormInsert);
+        
+        //1. controller-> save -> return url
+        //2. rest controller-> save -> return "url"value -> location.href
+        $.ajax({
+            method: "POST",
+            url: "/appForm?app_no=" + appNo + "&" + appFormInsert
+        })
+            .done(function () {
+                // location.href = '/cert_info';
+                console.log("app_no=" + appNo + "&" + appFormInsert);
+
+            });
+
+        
+            
+
+    });
+    /*]]>*/
+</script>
 </body>
 
 </html>

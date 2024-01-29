@@ -57,132 +57,150 @@
                                 <p class="mb-1"><span class="marking">&#42; </span>필수입력항목</p>
                             </div>
                         </div>
-                        <table class="table mb-5">
-                            <tbody>
-                                <tr>
-                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
-                                        </span>학교명</th>
-                                    <td class="table-light" colspan="1">
-                                        <div class="row">
-                                            <div class="col-sm-9 pe-0">
-                                                <input type="text" class="form-control" id="high_name" value="" readonly
-                                                    style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                        <form id="eduHighForm" name="eduHighForm">
+                            <table class="table mb-5">
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>학교명</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-9 pe-0">
+                                                    <input type="text" class="form-control" id="high_name" name="high_name"
+                                                        th:value="${eduHighInfo.highName}" readonly
+                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                                </div>
+                                                <div class="col-sm-auto">
+                                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                                        data-bs-target="#searchHighModal">검색</button>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-auto">
-                                                <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                                    data-bs-target="#searchHighModal">검색</button>
-                                            </div>
-                                        </div>
-
-                                        <!-- 검색 모달 -->
-                                        <div class="modal fade" id="searchHighModal" tabindex="-1"
-                                            aria-labelledby="searchHighModal" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="searchHighModal">학교 검색</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-10 pe-0">
-                                                                <input type="text" class="form-control"
-                                                                    id="searchHighName" placeholder="학교명을 입력하세요"
-                                                                    onkeyup="if (event.key === 'Enter') enterkeySearch()">
-                                                            </div>
-                                                            <div class="col-sm-auto">
-                                                                <button type="button" class="btn btn-dark"
-                                                                    onclick="enterkeySearch()">검색</button>
+                                            <!-- 검색 모달 -->
+                                            <div class="modal fade" id="searchHighModal" tabindex="-1"
+                                                aria-labelledby="searchHighModal" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="searchHighModal">학교 검색</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-10 pe-0">
+                                                                    <input type="text" class="form-control"
+                                                                        id="searchHighName" placeholder="학교명을 입력하세요"
+                                                                        onkeyup="if (event.key === 'Enter') enterkeySearch()">
+                                                                </div>
+                                                                <div class="col-sm-auto">
+                                                                    <button type="button" class="btn btn-dark"
+                                                                        onclick="enterkeySearch()">검색</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="searchBox mx-3 mb-3 text-center">
-                                                        <div class="row mx-3 my-2 text-start">
-                                                            <b id="searchResult" class="p-0">
-                                                            </b>
+                                                        <div class="searchBox mx-3 mb-3 text-center">
+                                                            <div class="row mx-3 my-2 text-start">
+                                                                <b id="searchResult" class="p-0">
+                                                                </b>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- 검색 모달 -->
-                                    </td>
-                                    <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                        </span>소재지</th>
-                                    <td class="table-light style_width" colspan="1">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" class="form-control" id="mil_exemption"
-                                                    placeholder="">
-                                            </div>
-                                        </div>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
-                                        </span>계열구분</th>
-                                    <td class="table-light" colspan="1">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected>선택</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
-                                        </span>재학기간</th>
-                                    <td class="table-light" colspan="1">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" aria-label="mil_start_date"
-                                                        id="mil_start_date" placeholder="예) 2000.03">
-                                                    <span class="input-group-text">~</span>
-                                                    <input type="text" class="form-control" aria-label="mil_end_date"
-                                                        id="mil_end_date" placeholder="예) 2003.02">
+                                            <!-- 검색 모달 -->
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                            </span>소재지</th>
+                                        <td class="table-light style_width" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="high_loc" name="high_loc"
+                                                        th:value="${eduHighInfo.highLoc}">
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
-                                        </span>졸업구분</th>
-                                    <td class="table-light" colspan="1">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected>선택</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>계열구분</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="high_ser" id="high_ser"
+                                                        name="high_ser">
+                                                        <option th:if="${eduHighInfo.highSer==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${eduHighInfo.highSer==null}" selected
+                                                            th:value="${eduHighInfo.highSer}"
+                                                            th:text="${eduHighInfo.highSer}">
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
-                                        </span>최종학력여부</th>
-                                    <td class="table-light" colspan="1">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected>선택</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>재학기간</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group dateMonth">
+                                                        <input type="text" class="form-control"
+                                                            aria-label="high_start_date" id="high_start_date"
+                                                            name="high_start_date"
+                                                            th:value="${eduHighInfo.highStartDate}">
+                                                        <span class="input-group-text">~</span>
+                                                        <input type="text" class="form-control"
+                                                            aria-label="high_end_date" id="high_end_date"
+                                                            name="high_end_date" th:value="${eduHighInfo.highEndDate}">
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>졸업구분</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="high_grd" id="high_grd"
+                                                        name="high_grd">
+                                                        <option th:if="${eduHighInfo.highGrd==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${eduHighInfo.highGrd==null}" selected
+                                                            th:value="${eduHighInfo.highGrd}"
+                                                            th:text="${eduHighInfo.highGrd}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                            </span>최종학력여부</th>
+                                        <td class="table-light" colspan="1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-select" aria-label="high_fn" name="high_fn"
+                                                        id="high_fn">
+                                                        <option th:if="${eduHighInfo.highFn==null}" selected disabled
+                                                            hidden>선택</option>
+                                                        <option th:if="${eduHighInfo.highFn=='T'}" selected
+                                                            th:value="${eduHighInfo.highFn}">해당</option>
+                                                        <option th:if="${eduHighInfo.highFn=='F'}" selected
+                                                            th:value="${eduHighInfo.highFn}">비해당</option>
+                                                        <option value="T">해당</option>
+                                                        <option value="F">비해당</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                     <!-- 고등학교 end-->
                     <!-- 대학교 -->
@@ -206,8 +224,9 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
+                                                    <select class="form-select" aria-label="univEduSelection"
+                                                        id="univEduSelection">
+                                                        <option selected disabled hidden>선택</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -217,7 +236,7 @@
                                         <td class="table-light style_width" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-9 pe-0">
-                                                    <input type="text" class="form-control" id="mil_exemption" value=""
+                                                    <input type="text" class="form-control" id="univ_name" value=""
                                                         readonly
                                                         style="background-color: rgb(240, 240, 240); pointer-events: none;">
                                                 </div>
@@ -233,7 +252,7 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_exemption"
+                                                    <input type="text" class="form-control" id="univ_loc"
                                                         placeholder="">
 
                                                 </div>
@@ -244,7 +263,7 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" aria-label="univDn" id="univDn">
                                                         <option selected>선택</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -260,11 +279,9 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
+                                                    <select class="form-select" aria-label="univSerSelection"
+                                                        id="univSerSelection">
+                                                        <option selected disabled hidden>선택</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -276,15 +293,13 @@
                                                 <div class="col-sm-12">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control"
-                                                            aria-label="mil_start_date" id="mil_start_date"
+                                                            aria-label="univ_start_date" id="univ_start_date"
                                                             placeholder="예) 2000.03">
                                                         <span class="input-group-text">~</span>
                                                         <input type="text" class="form-control"
-                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            aria-label="univ_end_date" id="univ_end_date"
                                                             placeholder="예) 2003.02">
                                                     </div>
-
-
                                                 </div>
                                             </div>
                                         </td>
@@ -295,7 +310,8 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" aria-label="univClsSelection"
+                                                        id="univClsSelection">
                                                         <option selected>선택</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -310,12 +326,11 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            aria-label="mil_start_date" id="mil_start_date"
-                                                            placeholder="예) 3.0">
+                                                        <input type="text" class="form-control" aria-label="univ_crd"
+                                                            id="univ_crd" placeholder="예) 3.0">
                                                         <span class="input-group-text">/</span>
                                                         <input type="text" class="form-control"
-                                                            aria-label="mil_end_date" id="mil_end_date"
+                                                            aria-label="univ_crd_max" id="univ_crd_max"
                                                             placeholder="예) 4.5">
                                                     </div>
                                                 </div>
@@ -328,7 +343,8 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" aria-label="univClsMulSelection"
+                                                        id="univClsMulSelection">
                                                         <option selected>선택</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -342,7 +358,8 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" aria-label="univClsSubSelection"
+                                                        id="univClsSubSelection">
                                                         <option selected>선택</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -358,11 +375,9 @@
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
+                                                    <select class="form-select" aria-label="grdtnSelection"
+                                                        id="grdtnSelection">
+                                                        <option selected disabled hidden>선택</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -372,7 +387,8 @@
                                         <td class="table-light style_width" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" aria-label="univFnSelection"
+                                                        id="univFnSelection">
                                                         <option selected disabled hidden>선택</option>
                                                     </select>
                                                 </div>
@@ -413,9 +429,8 @@
             <!-- 버튼 -->
             <div class="col mb-5 text-center">
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onclick="location.href='/user_info'">이전</button>
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onClick="location.href='/career_info'">다음</button>
+                    onclick="location.href='/user_info?USER_NO=2'">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
             </div>
         </div>
     </div>
@@ -423,6 +438,13 @@
 
 
     <script>
+        $(function () {
+            selectOpt("high_ser", "HIGH_SER");
+            selectOpt("high_grd", "GRDTN_CLS");
+            selectOpt("univEduSelection", "UNIV_EDU");
+            selectOpt("univSerSelection", "UNIV_SER");
+        });
+
         /* 추가 기능 */
         $(function () {
             // var i = 1; // 변수설정은 함수의 바깥에 설정!
@@ -522,7 +544,27 @@
             $('#searchHighModal').modal('hide');
         }
     </script>
+    <script th:inline="javascript">
 
+        $("#next_btn").on("click", function (e) {
+            /*<![CDATA[*/
+            var userNo = [[${ eduHighInfo.userNo }]];
+            var eduHighForm = $("#eduHighForm").serialize();
+
+            console.log(eduHighForm);
+            // console.log("user_no=" + userNo + userInfoForm + "&" + personalInfoForm);
+            //1. controller-> save -> return url
+            //2. rest controller-> save -> return "url"value -> location.href
+            $.ajax({
+                method: "POST",
+                url: "/highInfo?user_no=" + userNo + "&" + eduHighForm
+            })
+                .done(function (msg) {
+                    alert("Data Saved: " + msg);
+                });
+        });
+        /*]]>*/
+    </script>
 
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>

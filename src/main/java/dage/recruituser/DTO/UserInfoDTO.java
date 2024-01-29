@@ -1,12 +1,13 @@
 package dage.recruituser.DTO;
 
 import lombok.Data;
+import java.sql.Date;
 
-import java.util.Date;
 
 @Data
-public class UserDTO {
+public class UserInfoDTO {
     private Long userNo;
+    private Long appNo;
     private String userEmail;
     private String userPassword;
     private String userName;
@@ -16,4 +17,27 @@ public class UserDTO {
     private String userAgree3;
     private String userAgree4;
     private String userAgree5;
+    private Date requestDate;
+    private String userGender;
+    private String userNation;
+    private Long userZip;
+    private String userAddr;
+    private String userAddrDtl;
+    private String userCp;
+    private String userTel;
+    private String userProfile;
+
+    private String milServiceStatus;
+    private String milType;
+    private String milTypeDtl;
+    private String milDischarge;
+    private String milExemption;
+    private String milStartDate;
+    private String milEndDate;
+    private String vtrServiceStatus;
+    private String vtrRelation;
+    private String vtrNumber;
+    private String disServiceStatus;
+    private String disClass;
+    private String disRate;
 }

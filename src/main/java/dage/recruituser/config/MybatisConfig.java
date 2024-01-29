@@ -19,7 +19,7 @@ public class MybatisConfig {
     public DataSource dataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mysql://210.206.179.191:3306/recruit?useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Seoul");
+        dataSourceBuilder.url("jdbc:mysql://210.206.179.191:3306/recruit?useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=UTC");
         dataSourceBuilder.username("root");
         dataSourceBuilder.password("dage5500");
 

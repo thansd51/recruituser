@@ -7,42 +7,42 @@
 <body>
     <!-- 공통 Nav -->
     <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
-
     <!-- content -->
     <div class="container my-5">
-        <form>
-            <div class="row p-5">
-                <div class="col text-left">
-                    <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+        <div class="row p-5">
+            <div class="col text-left">
+                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+            </div>
+            <div class="row-sm-12 mt-3">
+                <div class="col-sm mx-3 mb-5">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/user_info">기본정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/edu_info">학력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/career_info">경력사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cert_info">외국어/자격사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/act_info">활동사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/survey_info">자기소개</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/app_post">지원서 제출</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="row-sm-12 mt-3">
-                    <div class="col-sm mx-3 mb-5">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/user_info">기본정보</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/edu_info">학력사항</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/career_info">경력사항</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/cert_info">외국어/자격사항</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/act_info">활동사항</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/survey_info">자기소개</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/app_post">지원서 제출</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- 기본정보 탭-->
-                    <div class="tab-content mx-5 my-4" id="myTabContent">
+                <!-- 기본정보 탭-->
+                <div class="tab-content mx-5 my-4" id="myTabContent">
+                    <!-- USER_INFO form -->
+                    <form name="userInfoForm" id="userInfoForm">
                         <!-- 지원정보 -->
                         <div class="row-sm-12 mx-2 table_margin">
                             <div class="row mx-2">
@@ -57,24 +57,25 @@
                             <table class="table mb-5">
                                 <tbody>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>지원직무
                                         </th>
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col">
-                                                    <span class="ms-3" style="font-weight: bold; font-size: 16px;">토목시공</span>
+                                                    <span class="ms-3"
+                                                        style="font-weight: bold; font-size: 16px;">토목시공</span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>입사가능시기
                                         </th>
                                         <td class="table-light" rowspan="1">
                                             <div class="row-sm-3">
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control datePicker" id="request_date"
-                                                        value="">
+                                                <div class="col">
+                                                    <input type="text" class="form-control date" name="request_date"
+                                                        id="request_date" th:value="${userInfo.requestDate}">
                                                 </div>
                                             </div>
                                         </td>
@@ -107,53 +108,65 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>성명
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <span th:text="${user_name}" class="ms-3" style="font-weight: bold;"></span>
+                                                <span th:text="${userInfo.userName}" class="ms-3"
+                                                    style="font-weight: bold;"></span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>생년월일
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <span th:text="${user_birth}" class="ms-3" style="font-weight: bold;"></span>
+                                                <span th:text="${userInfo.userBirth}" class="ms-3"
+                                                    style="font-weight: bold;"></span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>성별
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender" id="male"
-                                                        value="M">
-                                                    <label class="form-check-label" for="male">남성</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                        id="female" value="F">
-                                                    <label class="form-check-label" for="female">여성</label>
-                                                </div>
+                                                <label id="gender">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="user_gender"
+                                                            id="male" value="M"
+                                                            th:checked="${userInfo.userGender=='M'}">
+                                                        <label class="form-check-label" for="male">남성</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="user_gender"
+                                                            id="female" value="F"
+                                                            th:checked="${userInfo.userGender=='F'}">
+                                                        <label class="form-check-label" for="female">여성</label>
+                                                    </div>
+                                                </label>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>국적
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <select class="form-select" aria-label="nationSelection"
-                                                    name="nationSelection" id="nationSelection">
-                                                    <option selected disabled hidden>선택</option>
+                                                <select class="form-select" aria-label="user_nation" name="user_nation"
+                                                    id="user_nation">
+                                                    <option th:if="${userInfo.userNation==null}" selected disabled
+                                                        hidden>선택
+                                                    </option>
+                                                    <option th:unless="${userInfo.userNation==null}" selected
+                                                        th:value="${userInfo.userNation}"
+                                                        th:text="${userInfo.userNation}">
+                                                    </option>
                                                 </select>
                                             </div>
                                         </td>
@@ -176,14 +189,16 @@
                             <table class="table mb-5">
                                 <tbody>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>주소지
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="row mb-1">
                                                 <div class="col-sm-2 pe-1">
-                                                    <input type="text" class="form-control" id="user_zip" readonly
-                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                                    <input type="text" class="form-control" name="user_zip"
+                                                        id="user_zip" readonly
+                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;"
+                                                        th:value="${userInfo.userZip}">
                                                 </div>
                                                 <div class="col-sm-3 ps-1">
                                                     <button type="button" class="btn btn-dark"
@@ -193,26 +208,29 @@
                                             </div>
                                             <div class="row mt-1">
                                                 <div class="col-sm-7 pe-1">
-                                                    <input type="text" class="form-control" id="user_address" readonly
-                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;">
+                                                    <input type="text" class="form-control" name="user_address"
+                                                        id="user_address" readonly
+                                                        style="background-color: rgb(240, 240, 240); pointer-events: none;"
+                                                        th:value="${userInfo.userAddr}">
                                                 </div>
                                                 <div class="col-sm-5 ps-1">
-                                                    <input type="text" class="form-control" id="user_address_dtl"
-                                                        placeholder="상세 주소">
+                                                    <input type="text" class="form-control" name="user_address_dtl"
+                                                        id="user_address_dtl" placeholder="상세 주소"
+                                                        th:value="${userInfo.userAddrDtl}">
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>휴대전화
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="user_cp" maxlength="13"
-                                                        placeholder="예) 010-1234-5678"
-                                                        oninput="formatPhoneNumber('user_cp')">
+                                                    <input type="text" class="form-control" name="user_cp" id="user_cp"
+                                                        maxlength="13" oninput="formatPhoneNumber('user_cp')"
+                                                        th:value="${userInfo.userCp}">
                                                 </div>
                                                 <div class="hypen col-sm-3">
                                                     * 하이픈(-) 제외
@@ -221,15 +239,16 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>비상연락처
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="user_tel" maxlength="13"
-                                                        placeholder="예) 010-1234-5678"
-                                                        oninput="formatPhoneNumber('user_tel')">
+                                                    <input type="text" class="form-control" name="user_tel"
+                                                        id="user_tel" maxlength="13"
+                                                        oninput="formatPhoneNumber('user_tel')"
+                                                        th:value="${userInfo.userTel}">
                                                 </div>
                                                 <div class="hypen col-sm-3">
                                                     * 하이픈(-) 제외
@@ -240,12 +259,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- 연락사항 end-->
-                        <!-- 병역사항 -->
+                    </form>
+                    <!-- 연락사항 end-->
+                    <!-- 병역사항 -->
+                    <form name="personalInfoForm" id="personalInfoForm">
                         <div class="row-sm-12 mx-2 table_margin">
                             <div class="row mx-2">
                                 <div class="col-sm-6 p-0">
-                                    <h4 class="subtitle  mb-1"><span class="marking">&#42;
+                                    <h4 class="subtitle mb-1"><span class="marking">&#42;
                                         </span>병역사항</h4>
                                 </div>
                                 <div class="col-sm-6 text-end p-0">
@@ -255,35 +276,50 @@
                             <table class="table mb-5">
                                 <tbody>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>병역여부
                                         </th>
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="milSrvcSelection"
-                                                        name="milSrvcSelection" id="milSrvcSelection">
-                                                        <option selected disabled hidden>선택</option>
-
+                                                    <select class="form-select" aria-label="mil_srvc" name="mil_srvc"
+                                                        id="mil_srvc">
+                                                        <option th:if="${userInfo.milServiceStatus==null}" selected
+                                                            disabled hidden>선택</option>
+                                                        <option th:unless="${userInfo.milServiceStatus==null}" selected
+                                                            value="${userInfo.milServiceStatus}"
+                                                            th:text="${userInfo.milServiceStatus}"></option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>구분
                                         </th>
                                         <td class="table-light style_width" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-6 pe-1">
-                                                    <select class="form-select" aria-label="milTypeSelection"
-                                                        name="milTypeSelection" id="milTypeSelection">
-                                                        <option selected disabled hidden>선택</option>
+                                                    <select class="form-select" aria-label="mil_type" name="mil_type"
+                                                        id="mil_type">
+                                                        <option th:if="${userInfo.milType==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${userInfo.milType==null}" selected
+                                                            th:value="${userInfo.milType}"
+                                                            th:text="${userInfo.milType}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-6 ps-1">
-                                                    <select class="form-select" aria-label="milTypeDtlSelection"
-                                                        name="milTypeDtlSelection" id="milTypeDtlSelection">
-                                                        <option selected disabled hidden>선택</option>
+                                                    <select class="form-select" aria-label="mil_type_dtl"
+                                                        name="mil_type_dtl" id="mil_type_dtl">
+                                                        <option th:if="${userInfo.milTypeDtl==null}" selected disabled
+                                                            hidden>선택
+                                                        </option>
+                                                        <option th:unless="${userInfo.milTypeDtl==null}" selected
+                                                            th:value="${userInfo.milTypeDtl}"
+                                                            th:text="${userInfo.milTypeDtl}">
+                                                        </option>
                                                     </select>
                                                 </div>
 
@@ -292,46 +328,51 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>전역사유
                                         </th>
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="milDschrSelection"
-                                                        name="milDschrSelection" id="milDschrSelection">
-                                                        <option selected disabled hidden>선택</option>
+                                                    <select class="form-select" aria-label="mil_discharge"
+                                                        name="mil_discharge" id="mil_discharge">
+                                                        <option th:if="${userInfo.milDischarge==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${userInfo.milDischarge==null}" selected
+                                                            th:value="${userInfo.milDischarge}"
+                                                            th:text="${userInfo.milDischarge}"></option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>면제사유
                                         </th>
                                         <td class="table-light" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <input type="text" class="form-control" name="mil_exem"
-                                                        id="mil_exem" disabled>
+                                                        id="mil_exem" th:value="${userInfo.milExemption}" disabled>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
+                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>복무기간
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="row">
                                                 <div class="col-sm-5" style="width: 40%;">
-                                                    <div class="input-group">
+                                                    <div class="input-group dateMonth">
                                                         <input type="text" class="form-control"
-                                                            aria-label="mil_start_date" id="mil_start_date"
-                                                            placeholder="예) 2000.01">
+                                                            aria-label="mil_start_date" name="mil_start_date"
+                                                            id="mil_start_date" th:value="${userInfo.milStartDate}">
                                                         <span class="input-group-text">~</span>
                                                         <input type="text" class="form-control"
-                                                            aria-label="mil_end_date" id="mil_end_date"
-                                                            placeholder="예) 2003.01">
+                                                            aria-label="mil_end_date" name="mil_end_date"
+                                                            id="mil_end_date" th:value="${userInfo.milEndDate}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,7 +386,7 @@
                         <div class="row-sm-12 mx-2 table_margin">
                             <div class="row mx-2">
                                 <div class="col-sm-6 p-0">
-                                    <h4 class="subtitle  mb-1"><span class="marking">&#42;
+                                    <h4 class="subtitle mb-1"><span class="marking">&#42;
                                         </span>신상정보</h4>
                                 </div>
                                 <div class="col-sm-6 text-end p-0">
@@ -355,7 +396,7 @@
                             <table class="table mb-5">
                                 <tbody>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>보훈
                                         </th>
                                         <td class="table-light" colspan="3">
@@ -365,22 +406,32 @@
                                                     </span>보훈여부
                                                 </div>
                                                 <div class="col-sm-auto ps-1 pe-0">
-                                                    <select class="form-select" aria-label="vtrSrvcSelection"
-                                                        id="vtrSrvcSelection">
-                                                        <option selected disabled hidden>선택</option>
-                                                        <option value="Y">해당</option>
-                                                        <option value="N">비해당</option>
+
+                                                    <select class="form-select" aria-label="vtr_srvc" name="vtr_srvc"
+                                                        id="vtr_srvc">
+                                                        <option th:if="${userInfo.vtrServiceStatus==null}" selected
+                                                            disabled hidden>선택</option>
+                                                        <option th:if="${userInfo.vtrServiceStatus=='T'}" selected
+                                                            th:value="${userInfo.vtrServiceStatus}">해당</option>
+                                                        <option th:if="${userInfo.vtrServiceStatus=='F'}" selected
+                                                            th:value="${userInfo.vtrServiceStatus}">비해당</option>
+                                                        <option value="T">해당</option>
+                                                        <option value="F">비해당</option>
                                                     </select>
                                                 </div>
-
                                                 <div class="col-sm-auto pe-0">
                                                     <span class="marking">&nbsp;
                                                     </span>보훈관계
                                                 </div>
-                                                <div class="col-sm-auto ps-1 pe-0">
-                                                    <select class="form-select" aria-label="vtrRltSelection"
-                                                        id="vtrRltSelection">
-                                                        <option selected disabled hidden>선택</option>
+                                                <div class="col-sm-2 ps-1 pe-0">
+                                                    <select class="form-select" aria-label="vtr_relation"
+                                                        name="vtr_relation" id="vtr_relation">
+                                                        <option th:if="${userInfo.vtrRelation==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${userInfo.vtrRelation==null}" selected
+                                                            th:value="${userInfo.vtrRelation}"
+                                                            th:text="${userInfo.vtrRelation}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-auto pe-0">
@@ -389,13 +440,13 @@
                                                 </div>
                                                 <div class="col-sm-3 ps-1 pe-0">
                                                     <input type="text" class="form-control" aria-label="vtr_num"
-                                                        id="vtr_num">
+                                                        name="vtr_num" id="vtr_num" th:value="${userInfo.vtrNumber}">
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&#42;
+                                        <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>장애
                                         </th>
                                         <td class="table-light" colspan="3">
@@ -405,11 +456,16 @@
                                                     </span>장애여부
                                                 </div>
                                                 <div class="col-sm-auto ps-1 pe-0">
-                                                    <select class="form-select" aria-label="disSrvcSelection"
-                                                        id="disSrvcSelection">
-                                                        <option selected disabled hidden>선택</option>
-                                                        <option value="Y">해당</option>
-                                                        <option value="N">비해당</option>
+                                                    <select class="form-select" aria-label="dis_srvc" name="dis_srvc"
+                                                        id="dis_srvc">
+                                                        <option th:if="${userInfo.disServiceStatus==null}" selected
+                                                            disabled hidden>선택</option>
+                                                        <option th:if="${userInfo.disServiceStatus=='T'}" selected
+                                                            th:value="${userInfo.disServiceStatus}">해당</option>
+                                                        <option th:if="${userInfo.disServiceStatus=='F'}" selected
+                                                            th:value="${userInfo.disServiceStatus}">비해당</option>
+                                                        <option value="T">해당</option>
+                                                        <option value="F">비해당</option>
                                                     </select>
                                                 </div>
 
@@ -417,10 +473,16 @@
                                                     <span class="marking">&nbsp;
                                                     </span>장애구분
                                                 </div>
-                                                <div class="col-sm-auto ps-1 pe-0">
-                                                    <select class="form-select" aria-label="disClsSelection"
-                                                        id="disClsSelection">
-                                                        <option selected disabled hidden>선택</option>
+                                                <div class="col-sm-2 ps-1 pe-0">
+                                                    <select class="form-select" aria-label="dis_class" name="dis_class"
+                                                        id="dis_class">
+                                                        <option th:if="${userInfo.disClass==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${userInfo.disClass==null}" selected
+                                                            th:value="${userInfo.disClass}"
+                                                            th:text="${userInfo.disClass}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-auto pe-0">
@@ -428,9 +490,15 @@
                                                     </span>장애등급
                                                 </div>
                                                 <div class="col-sm-3 ps-1 pe-0">
-                                                    <select class="form-select" aria-label="disRateSelection"
-                                                        id="disRateSelection">
-                                                        <option selected disabled hidden>선택</option>
+                                                    <select class="form-select" aria-label="dis_rate" name="dis_rate"
+                                                        id="dis_rate">
+                                                        <option th:if="${userInfo.disRate==null}" selected disabled
+                                                            hidden>
+                                                            선택</option>
+                                                        <option th:unless="${userInfo.disRate==null}" selected
+                                                            th:value="${userInfo.disRate}"
+                                                            th:text="${userInfo.disRate}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -441,34 +509,31 @@
                         </div>
                         <!-- 신상정보 end-->
                         <!-- 기본정보 탭 end-->
-                    </div>
+                    </form>
                 </div>
-                <!-- 버튼 -->
-                <div class="col mb-5 text-center">
-                    <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                        onclick="location.href='/app_form'">이전
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                        onClick="location.href='/edu_info'">다음
-                    </button>
-                </div>
-        </form>
-    </div>
+            </div>
+            <!-- 버튼 -->
+            <div class="col mb-5 text-center">
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
+                    onclick="location.href='/app_form'">이전
+                </button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         $(function () {
 
-            selectOpt("suptypeSelection", "SUP_TYPE");
-            selectOpt("subjobSelection", "SUP_JOB");
-            selectOpt("milSrvcSelection", "MIL_SRVC");
-            selectOpt("milTypeSelection", "MIL_TYPE");
-            selectOpt("milTypeDtlSelection", "MIL_TYPE_DTL");
-            selectOpt("milDschrSelection", "MIL_DSCHR");
-            selectOpt("vtrRltSelection", "VTR_RLT");
-            selectOpt("disClsSelection", "DIS_CLS");
-            selectOpt("disRateSelection", "DIS_RATE");
+            selectOpt("mil_srvc", "MIL_SRVC");
+            selectOpt("mil_type", "MIL_TYPE");
+            selectOpt("mil_type_dtl", "MIL_TYPE_DTL");
+            selectOpt("mil_discharge", "MIL_DSCHR");
+            selectOpt("vtr_relation", "VTR_RLT");
+            selectOpt("dis_class", "DIS_CLS");
+            selectOpt("dis_rate", "DIS_RATE");
 
 
             /* 처음 이미지 가져오기 */
@@ -559,29 +624,30 @@
                 }
             }).open();
         }
+    </script>
 
-        document.getElementById('milSrvcSelection').addEventListener('change', function () {
-            var milSelection = this.value;
-            var milExemInput = document.getElementById('mil_exem');
 
-            if (milSelection === 'D05') {
-                // "면제"가 선택되었을 때 입력 가능하도록 설정하고 배경색 해제
-                milExemInput.removeAttribute('readonly');
-                milExemInput.style.backgroundColor = '';
-            } else {
-                // 다른 옵션이 선택되었을 때 입력 불가능하도록 설정하고 배경색 적용
-                milExemInput.setAttribute('readonly', true);
-                milExemInput.style.backgroundColor = 'rgb(240, 240, 240)';
-            }
+    <script th:inline="javascript">
+
+        $("#next_btn").on("click", function (e) {
+            /*<![CDATA[*/
+            var userNo = [[${ userInfo.userNo }]];
+            var userInfoForm = $("#userInfoForm").serialize();
+            var personalInfoForm = $("#personalInfoForm").serialize();
+
+            console.log(userInfoForm);
+            // console.log("user_no=" + userNo + userInfoForm + "&" + personalInfoForm);
+            //1. controller-> save -> return url
+            //2. rest controller-> save -> return "url"value -> location.href
+            $.ajax({
+                method: "POST",
+                url: "/userInfo?user_no=" + userNo + "&" + userInfoForm + "&" + personalInfoForm
+            })
+                .done(function (msg) {
+                    alert("Data Saved: " + msg);
+                });
         });
-
-        $('.datePicker').datepicker({
-            format: "yyyy-mm-dd",
-            language: "ko",
-            viewMode: "years",
-            minViewMode: "years",
-            autoclose: true
-        });
+        /*]]>*/
     </script>
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>

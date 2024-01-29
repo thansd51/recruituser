@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dage.recruituser.DAO.CommCodeDAO">
     <select id="selectCommCodeList" resultType="dage.recruituser.DTO.CommCodeDTO">
-        SELECT dtl_code AS id, dtl_name AS TEXT FROM COMM_CODE A
+        SELECT dtl_name AS id, dtl_name AS TEXT
+        FROM COMM_CODE A
         LEFT JOIN COMM_CODE_DTL B
         ON A.GRP_ID = B.GRP_ID
         WHERE A.GRP_NAME = #{GRP_NAME}

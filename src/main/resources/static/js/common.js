@@ -30,8 +30,8 @@ function selectOpt(ele, vGrpName) {
                 }
 
             } 
-            else if(ele == "milSrvcSelection"){
-                if(selVal == "D05"){
+            else if(ele == "mil_srvc"){
+                if(selVal == "미필"){
                     $("#mil_exem").prop("disabled", false);
                 }
                 else{
@@ -46,4 +46,18 @@ function selectOpt(ele, vGrpName) {
     });
 }
 
-// document.querySelector("body > div.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top").element.style.color = "red";
+
+$('.date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "kr",
+    autoclose: true
+});
+
+$('.dateMonth input').each(function () {
+    $(this).datepicker({
+        format: 'yyyy-mm',
+        language: "kr",
+        minViewMode: "months",
+        autoclose: true
+    })
+});

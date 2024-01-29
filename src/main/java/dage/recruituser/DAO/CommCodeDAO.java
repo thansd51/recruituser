@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CommCodeDAO {
-    public List<CommCodeDTO> selectCommCodeList(@Param("GRP_NAME") String GRP_NAME);
+     List<CommCodeDTO> selectCommCodeList(@Param("GRP_NAME") String GRP_NAME);
 }

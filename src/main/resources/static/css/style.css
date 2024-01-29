@@ -20,10 +20,15 @@ body {
 
 /* 날짜 입력 */
 #request_date,
-#user_birth_auth,
 #user_birth,
 #mil_start_date,
 #mil_end_date,
+#high_start_date,
+#high_end_date,
+#univ_start_date,
+#univ_end_date,
+#univ_crd,
+#univ_crd_max,
 .cert_acquire_date {
   text-align: center;
 }
@@ -90,7 +95,7 @@ body {
   border-bottom: #000000 1px solid;
 }
 
-#colname {
+th.table-light {
   background-color: rgb(230, 230, 230);
   font-size: 16px;
   height: 60px;
@@ -99,7 +104,6 @@ body {
   vertical-align: middle;
   font-family: Arial, Helvetica, sans-serif;
   padding: 20px;
-
 }
 
 #idPhoto {
@@ -117,10 +121,14 @@ body {
 }
 
 .table-light {
+  background-color: rgb(230, 230, 230);
   font-size: 16px;
+  height: 60px;
+  width: 160px;
   display: table-cell;
   vertical-align: middle;
   font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
 }
 
 .ref {
@@ -255,9 +263,9 @@ label,
   background-color: #e9e9e9;
 }
 
-.datepicker datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top {
+/* .datepicker datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top {
   top: 30px;
-}
+} */
 
 /* select2 */
 .select2-container--default .select2-selection--single {
