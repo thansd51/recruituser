@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dage.recruituser.DAO.FormDAO">
-    <select id="userInfoMapper" resultType="dage.recruituser.DTO.UserDTO">
+<mapper namespace="dage.recruituser.DAO.UserInfoDAO">
+    <select id="userInfoMapper" resultType="dage.recruituser.DTO.UserInfoDTO">
         SELECT
-            USER_NAME,
-            USER_BIRTH
+            A.USER_NO,
+            A.APP_NO,
+            A.USER_EMAIL,
+            A.USER_PASSWORD,
+            A.USER_NAME,
+            A.USER_BIRTH,
+            A.USER_AGREE_1,
+            A.USER_AGREE_2,
+            A.USER_AGREE_3,
+            A.USER_AGREE_4,
+            A.USER_AGREE_5,
+            B.REQUEST_DATE,
+            B.USER_GENDER,
+            B.USER_NATION,
+            B.USER_ZIP,
+            B.USER_ADDR,
+            B.USER_ADDR_DTL,
+            B.USER_CP,
+            B.USER_TEL,
+            B.USER_PROFILE
         FROM
-            APP_USER
+            APP_USER A
+        LEFT JOIN
+            USER_INFO B
+        ON
+            A.USER_NO = B.USER_NO
         WHERE
-            USER_NO = 2
+            A.USER_NO = #{USER_NO}
     </select>
 
 </mapper>
