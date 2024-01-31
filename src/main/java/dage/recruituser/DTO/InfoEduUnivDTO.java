@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class EduUnivDTO {
     private Long userNo;
+    private Long univSeq;
     private String univEdu;
     private String univName;
     private String univLoc;
