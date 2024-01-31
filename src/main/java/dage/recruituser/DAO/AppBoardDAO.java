@@ -1,7 +1,6 @@
 package dage.recruituser.DAO;
 
 import dage.recruituser.DTO.AppBoardDTO;
-import dage.recruituser.DTO.UserInfoDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

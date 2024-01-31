@@ -2,12 +2,10 @@ package dage.recruituser.DTO;
 
 import lombok.Data;
 
-import java.sql.Date;
-
 
 @Data
-public class EduHighDTO {
-    private Long userNo;
+public class InfoEduHighDTO {
+    private Long formNo;
     private String highName;
     private String highLoc;
     private String highSer;

@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dage.recruituser.DAO.FormDAO">
-
-    <select id="userInfo" resultType="dage.recruituser.DTO.UserInfoDTO">
+    <select id="infoUserMapper" resultType="dage.recruituser.DTO.InfoUserDTO">
         SELECT
-        A.USER_NO,
-        A.APP_NO,
-        A.USER_EMAIL,
-        A.USER_PASSWORD,
-        A.USER_NAME,
-        A.USER_BIRTH,
-        A.USER_AGREE_1,
-        A.USER_AGREE_2,
-        A.USER_AGREE_3,
-        A.USER_AGREE_4,
-        A.USER_AGREE_5,
-        B.REQUEST_DATE,
-        B.USER_GENDER,
-        B.USER_NATION,
-        B.USER_ZIP,
-        B.USER_ADDR,
-        B.USER_ADDR_DTL,
-        B.USER_CP,
-        B.USER_TEL,
-        B.USER_PROFILE,
-        C.MIL_SRVC as milServiceStatus,
-        C.MIL_TYPE,
-        C.MIL_TYPE_DTL,
-        C.MIL_DSCHR as milDischarge,
-        C.MIL_EXEM as milExemption,
-        C.MIL_START_DATE,
-        C.MIL_END_DATE,
-        C.VTR_SRVC as vtrServiceStatus,
-        C.VTR_RLT as vtrRelation,
-        C.VTR_NUM as vtrNumber,
-        C.DIS_SRVC as disServiceStatus,
-        C.DIS_CLS as disClass,
-        C.DIS_RATE
-        FROM APP_USER A
-        LEFT JOIN USER_INFO B
-        ON A.USER_NO = B.USER_NO
-        LEFT JOIN PSNL_INFO C
-        ON B.USER_NO = C.USER_NO
-        WHERE A.USER_NO = #{USER_NO}
+            A.FORM_NO,
+            A.USER_NAME,
+            A.USER_BIRTH,
+            B.REQUEST_DATE,
+            B.USER_GENDER,
+            B.USER_NATION,
+            B.USER_ZIP,
+            B.USER_ADDR,
+            B.USER_ADDR_DTL,
+            B.USER_CP,
+            B.USER_TEL,
+            B.USER_PROFILE
+        FROM
+            APP_USER A
+        LEFT JOIN
+            USER_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="infoPersonMapper" resultType="dage.recruituser.DTO.InfoPersonDTO">
+        SELECT
+            A.FORM_NO,
+            B.MIL_SRVC as milServiceStatus,
+            B.MIL_TYPE,
+            B.MIL_TYPE_DTL,
+            B.MIL_DSCHR as milDischarge,
+            B.MIL_EXEM as milExemption,
+            B.MIL_START_DATE,
+            B.MIL_END_DATE,
+            B.VTR_SRVC as vtrServiceStatus,
+            B.VTR_RLT as vtrRelation,
+            B.VTR_NUM as vtrNumber,
+            B.DIS_SRVC as disServiceStatus,
+            B.DIS_CLS as disClass,
+            B.DIS_RATE
+        FROM
+            APP_USER A
+        LEFT JOIN
+            PSNL_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
     </select>
 
-    <select id="eduHighSelect" resultType="dage.recruituser.DTO.EduHighDTO">
+    <select id="eduHighMapper" resultType="dage.recruituser.DTO.InfoEduHighDTO">
         SELECT
-            A.USER_NO,
+            A.FORM_NO,
             B.HIGH_NAME,
             B.HIGH_LOC,
             B.HIGH_SER,
@@ -60,14 +65,15 @@
         LEFT JOIN
             EDU_HIGH_INFO B
         ON
-            A.USER_NO = B.USER_NO
+            A.FORM_NO = B.FORM_NO
         WHERE
-            A.USER_NO = #{USER_NO};
+            A.FORM_NO = #{FORM_NO}
     </select>
 
-    <select id="eduUnivSelect" resultType="dage.recruituser.DTO.EduUnivDTO">
+    <select id="eduUnivMapper" resultType="dage.recruituser.DTO.InfoEduUnivDTO">
         SELECT
-            A.USER_NO,
+            A.FORM_NO,
+            B.UNIV_SEQ,
             B.UNIV_EDU,
             B.UNIV_NAME,
             B.UNIV_LOC,
@@ -87,118 +93,163 @@
         LEFT JOIN
             EDU_UNIV_INFO B
         ON
-            A.USER_NO = B.USER_NO
+            A.FORM_NO = B.FORM_NO
         WHERE
-            A.USER_NO = #{USER_NO};
+            A.FORM_NO = #{FORM_NO};
     </select>
 
 
-    <insert id="insertAppForm" parameterType="hashmap" useGeneratedKeys="true" keyColumn="USER_NO" keyProperty="user_no">
+    <insert id="appUserRegMapper" parameterType="hashmap" useGeneratedKeys="true" keyColumn="FORM_NO" keyProperty="form_no">
         INSERT INTO APP_USER (
-        APP_NO,
-        USER_EMAIL,
-        USER_PASSWORD,
-        USER_NAME,
-        USER_BIRTH,
-        USER_AGREE_1,
-        USER_AGREE_2,
-        USER_AGREE_3,
-        USER_AGREE_4,
-        USER_AGREE_5
+            APP_NO,
+            USER_EMAIL,
+            USER_PASSWORD,
+            USER_NAME,
+            USER_BIRTH,
+            USER_AGREE_1,
+            USER_AGREE_2,
+            USER_AGREE_3,
+            USER_AGREE_4,
+            USER_AGREE_5
         ) VALUES (
-        #{app_no},
-        #{user_email},
-        #{user_password},
-        #{user_name},
-        #{user_birth},
-        #{user_agree_1},
-        #{user_agree_2},
-        #{user_agree_3},
-        #{user_agree_4},
-        #{user_agree_5}
+            #{app_no},
+            #{user_email},
+            #{user_password},
+            #{user_name},
+            #{user_birth},
+            #{user_agree_1},
+            #{user_agree_2},
+            #{user_agree_3},
+            #{user_agree_4},
+            #{user_agree_5}
         )
     </insert>
 
     <insert id="insertUserInfo" parameterType="hashmap">
         INSERT INTO USER_INFO (
-        USER_NO,
-        REQUEST_DATE,
-        USER_GENDER,
-        USER_NATION,
-        USER_ZIP,
-        USER_ADDR,
-        USER_ADDR_DTL,
-        USER_CP,
-        USER_TEL,
-        USER_PROFILE
+            FORM_NO,
+            REQUEST_DATE,
+            USER_GENDER,
+            USER_NATION,
+            USER_ZIP,
+            USER_ADDR,
+            USER_ADDR_DTL,
+            USER_CP,
+            USER_TEL,
+            USER_PROFILE
         ) VALUES (
-        #{user_no},
-        #{request_date},
-        #{user_gender},
-        #{user_nation},
-        #{user_zip},
-        #{user_address},
-        #{user_address_dtl},
-        #{user_cp},
-        #{user_tel},
-        #{user_profile}
+            #{form_no},
+            #{request_date},
+            #{user_gender},
+            #{user_nation},
+            #{user_zip},
+            #{user_address},
+            #{user_address_dtl},
+            #{user_cp},
+            #{user_tel},
+            #{user_profile}
         )
     </insert>
 
     <insert id="insertPersonalInfo" parameterType="hashmap">
         INSERT INTO PSNL_INFO (
-        USER_NO,
-        MIL_SRVC,
-        MIL_TYPE,
-        MIL_TYPE_DTL,
-        MIL_DSCHR,
-        MIL_EXEM,
-        MIL_START_DATE,
-        MIL_END_DATE,
-        VTR_SRVC,
-        VTR_RLT,
-        VTR_NUM,
-        DIS_SRVC,
-        DIS_CLS,
-        DIS_RATE
+            FORM_NO,
+            MIL_SRVC,
+            MIL_TYPE,
+            MIL_TYPE_DTL,
+            MIL_DSCHR,
+            MIL_EXEM,
+            MIL_START_DATE,
+            MIL_END_DATE,
+            VTR_SRVC,
+            VTR_RLT,
+            VTR_NUM,
+            DIS_SRVC,
+            DIS_CLS,
+            DIS_RATE
         ) VALUES (
-        #{user_no},
-        #{mil_srvc},
-        #{mil_type},
-        #{mil_type_dtl},
-        #{mil_discharge},
-        #{mil_exem},
-        #{mil_start_date},
-        #{mil_end_date},
-        #{vtr_srvc},
-        #{vtr_relation},
-        #{vtr_num},
-        #{dis_srvc},
-        #{dis_class},
-        #{dis_rate}
+            #{form_no},
+            #{mil_srvc},
+            #{mil_type},
+            #{mil_type_dtl},
+            #{mil_discharge},
+            #{mil_exem},
+            #{mil_start_date},
+            #{mil_end_date},
+            #{vtr_srvc},
+            #{vtr_relation},
+            #{vtr_num},
+            #{dis_srvc},
+            #{dis_class},
+            #{dis_rate}
         )
     </insert>
 
     <insert id="insertEduHigh" parameterType="hashmap">
         INSERT INTO EDU_HIGH_INFO (
-        USER_NO,
-        HIGH_NAME,
-        HIGH_LOC,
-        HIGH_SER,
-        HIGH_GRDTN_CLS,
-        HIGH_START_DATE,
-        HIGH_END_DATE,
-        HIGH_FN
+            FORM_NO,
+            HIGH_NAME,
+            HIGH_LOC,
+            HIGH_SER,
+            HIGH_GRDTN_CLS,
+            HIGH_START_DATE,
+            HIGH_END_DATE,
+            HIGH_FN
         ) VALUES (
-        #{user_no},
-        #{high_name},
-        #{high_loc},
-        #{high_ser},
-        #{high_grd},
-        #{high_start_date},
-        #{high_end_date},
-        #{high_fn}
+            #{form_no},
+            #{high_name},
+            #{high_loc},
+            #{high_ser},
+            #{high_grd},
+            #{high_start_date},
+            #{high_end_date},
+            #{high_fn}
         )
     </insert>
+    <insert id="insertEduUniv" parameterType="hashmap">
+        INSERT INTO EDU_UNIV_INFO (
+            FORM_NO,
+            UNIV_SEQ,
+            UNIV_EDU,
+            UNIV_NAME,
+            UNIV_LOC,
+            UNIV_GRDTN_CLS,
+            UNIV_START_DATE,
+            UNIV_END_DATE,
+            UNIV_DN,
+            UNIV_SER,
+            UNIV_CLS,
+            UNIV_CLS_MUL,
+            UNIV_CLS_SUB,
+            UNIV_CRD,
+            UNIV_CRD_MAX,
+            UNIV_FN
+        ) VALUES (
+            #{form_no},
+            #{univ_seq},
+            #{univ_name},
+            #{univ_loc},
+            #{univ_ser},
+            #{univ_grd},
+            #{univ_start_date},
+            #{univ_end_date},
+            #{univ_dn},
+            #{univ_ser},
+            #{univ_cls},
+            #{univ_cls_mul},
+            #{univ_cls_sub},
+            #{univ_crd},
+            #{univ_crd_max},
+            #{univ_fn}
+        )
+    </insert>
+
+<!--    <insert id="insertEduUniv" useGeneratedKeys="true"-->
+<!--            keyProperty="id">-->
+<!--        insert into Author (username, password, email, bio) values-->
+<!--        <foreach item="InfoEduUniv" collection="list" separator=",">-->
+<!--            (#{item.username}, #{item.password}, #{item.email}, #{item.bio})-->
+<!--        </foreach>-->
+<!--    </insert>-->
 
 </mapper>

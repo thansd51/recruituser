@@ -14,7 +14,7 @@
             <h4 class="headline">개인정보 제공 및 활용 동의서</h4>
         </div>
         <div class="row-sm-12">
-            <form name="appFormInsert" id="appFormInsert">
+            <form name="appUserRegister" id="appUserRegister">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="row">
@@ -309,7 +309,7 @@
             </form>
         </div>
         <div class="col m-5 text-center">
-            <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="btn">취소</button>
+            <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="prev_btn">취소</button>
             <button type="button" class="btn btn-secondary btn-lg mx-2 btn" id="next_btn">지원서 작성</button>
         </div>
     </div>
@@ -321,8 +321,8 @@
 <script>
     selectOpt("emailSelection", "EMAIL_DMN");
 
-    var appFormInsert = $('#appFormInsert').serialize();
-    console.log(appFormInsert);
+    var appUserRegister = $('#appUserRegister').serialize();
+    console.log(appUserRegister);
 
     var emailIdInput = $('#email_id').val();
     var emailDomainInput = $('#email_domain').val();
@@ -338,42 +338,41 @@
         // minViewMode: "years",
         autoclose: true
     });
+
+
+
+    $("#prev_btn").on("click", function (e) {
+        location.href = "/backpage";
+    });
 </script>
 
 <script th:inline="javascript">
-    
+
     $("#next_btn").on("click", function (e) {
         /*<![CDATA[*/
-        var appNo = [[${appBoard.appNo}]];
- 
-        
+        var appNo = [[${ appBoard.appNo }]];
 
         var emailIdInput = $('#email_id').val();
         var emailDomainInput = $('#email_domain').val();
 
         var email_val = emailIdInput + "@" + emailDomainInput;
-
         var email = $('#user_email').val(email_val);
+        var appUserRegister = $("#appUserRegister").serialize();
 
-        var appFormInsert = $("#appFormInsert").serialize();
-
-        console.log("app_no=" + appNo + "&" + appFormInsert);
-        
-        //1. controller-> save -> return url
         //2. rest controller-> save -> return "url"value -> location.href
         $.ajax({
             method: "POST",
-            url: "/appForm?app_no=" + appNo + "&" + appFormInsert
+            url: "/appUser?app_no=" + appNo + "&" + appUserRegister
         })
-            .done(function () {
-                // location.href = '/cert_info';
-                console.log("app_no=" + appNo + "&" + appFormInsert);
+            .done(function (data) {
 
+                console.log(data);
+                location.href = "/user_info?form_no=" + data;
+            })
+            .fail(function (data, textStatus, errorThrown) {
+                alert("해당 공고에 등록된 이메일이 있습니다.")
+                callback(data);
             });
-
-        
-            
-
     });
     /*]]>*/
 </script>

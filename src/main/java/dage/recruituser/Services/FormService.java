@@ -1,19 +1,13 @@
 package dage.recruituser.Services;
 
 import dage.recruituser.DAO.FormDAO;
-import dage.recruituser.DTO.AppBoardDTO;
-import dage.recruituser.DTO.EduHighDTO;
-import dage.recruituser.DTO.EduUnivDTO;
-import dage.recruituser.DTO.UserInfoDTO;
+import dage.recruituser.DTO.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class FormService {
@@ -22,35 +16,42 @@ public class FormService {
     FormDAO formDAO;
 
     /* 기본사항 조회 */
-    public UserInfoDTO userInfo(@Param("USER_NO") long user_no) {
-
-        System.out.println(formDAO.userInfo(user_no));
-        return formDAO.userInfo(user_no);
+    public InfoUserDTO userInfo(@Param("FORM_NO") long form_no) {
+        return formDAO.infoUserMapper(form_no);
     }
 
-    public EduHighDTO eduHigh(@Param("USER_NO") long user_no) {
-
-        System.out.println(formDAO.eduHighSelect(user_no));
-        return formDAO.eduHighSelect(user_no);
+    public InfoPersonDTO personInfo(@Param("FORM_NO") long form_no) {
+        return formDAO.infoPersonMapper(form_no);
     }
 
-    public EduUnivDTO eduUniv(@Param("USER_NO") long user_no) {
+    /* 학력사항 조회 */
+    public InfoEduHighDTO eduHighInfo(@Param("FORM_NO") long form_no) {
 
-        System.out.println(formDAO.eduUnivSelect(user_no));
-        return formDAO.eduUnivSelect(user_no);
+        return formDAO.eduHighMapper(form_no);
     }
 
+    public List<InfoEduUnivDTO> eduUnivInfo(@Param("FORM_NO") long form_no) {
 
-    public void insertAppForm(HashMap<String, String> map){
-        formDAO.insertAppForm(map);
+        return formDAO.eduUnivMapper(form_no);
     }
+
+    /* 지원서 등록 */
+    public void appUserRegister(HashMap<String, String> map){
+        formDAO.appUserRegMapper(map);
+    }
+    /* 기본사항 저장 */
     public void insertUserInfo(HashMap<String, String> map){
         formDAO.insertUserInfo(map);
     }
     public void insertPersonalInfo(HashMap<String, String> map){
         formDAO.insertPersonalInfo(map);
     }
+
+    /* 학력사항 저장 */
     public void insertEduHigh(HashMap<String, String> map){
         formDAO.insertEduHigh(map);
+    }
+    public void insertEduUniv(HashMap<String, String> map){
+        formDAO.insertEduUniv(map);
     }
 }

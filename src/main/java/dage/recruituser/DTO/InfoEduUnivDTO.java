@@ -4,8 +4,8 @@ import lombok.Data;
 
 
 @Data
-public class EduUnivDTO {
-    private Long userNo;
+public class InfoEduUnivDTO {
+    private Long formNo;
     private Long univSeq;
     private String univEdu;
     private String univName;

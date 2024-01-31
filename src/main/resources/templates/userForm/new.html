@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form and Model Creation</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var formCounter = 1; // Counter for unique form IDs
+
+            $('#createFormButton').click(function () {
+                // Create form
+                var form = $('<form>').attr('id', 'myForm' + formCounter)
+                    .attr('name', 'myForm' + formCounter);
+
+                var input = $('<input>').attr({
+                    'type': 'text',
+                    'name': 'username',
+                    'id': 'username'
+                });
+
+                var input2 = $('<input>').attr({
+                    'type': 'text',
+                    'name': 'username2',
+                    'id': 'username2'
+                });
+
+                var submitButton = $('<button>').attr({
+                    'type': 'button'
+                }).text('Submit').click(function () {
+                    // Handle form submission (you can send data to the server here)
+                    alert('Form submitted!');
+                });
+
+                form.append(input, input2, submitButton);
+
+                // Append form to the container
+                $('#formContainer').append(form);
+
+                // Create model
+                // var model = $('<div>').text('Model ' + formCounter + ' created!');
+
+                // Append model to the container
+                // $('#modelContainer').append(model);
+
+                formCounter++; // Increment the counter for the next form
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button id="createFormButton">Create Form and Model</button>
+    <div id="formContainer"></div>
+    <div id="modelContainer"></div>
+</body>
+
+</html>
+
+<script>
+    $(function () {
+        var formCounter = 1; // Counter for unique form IDs
+
+        $('#addbtn_univ').click(function () {
+            // Clone the template
+            var tmplClone = $('.addTable').clone().removeClass('addTable');
+
+            // Create form
+            var form = $('<form>').attr({
+                'id': 'eduUnivForm' + formCounter,
+                'name': 'eduUnivForm' + formCounter
+            });
+
+            // Append cloned template to the form
+            form.append(tmplClone);
+
+            // Append form to the container
+            $('#boxWrap').append(form);
+
+            formCounter++; // Increment the counter for the next form
+        });
+    });
+</script>
+
+<body>
+    <button id="addbtn_univ">Add University</button>
+    <div id="boxWrap"></div>
+
+    <!-- Your template -->
+    <table class="addTable">
+        <!-- Add your template structure here -->
+        <tr>
+            <td>Template Content</td>
+        </tr>
+        <tr>
+            <td><input type="text" name="exampleInput" placeholder="Example Input"></td>
+        </tr>
+        <tr>
+            <td>
+                <select name="exampleSelect">
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <!-- Add more options if needed -->
+                </select>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
+
+
+
+<span class="select2 select2-container select2-container--default select2-container--below select2-container--focus"
+    dir="ltr" data-select2-id="select2-data-15-rf17" style="width: 253.969px;"><span class="selection"><span
+            class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true"
+            aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-univ_edu-container"
+            aria-controls="select2-univ_edu-container"><span class="select2-selection__rendered"
+                id="select2-univ_edu-container" role="textbox" aria-readonly="true" title="
+    선택">
+                선택</span><span class="select2-selection__arrow" role="presentation"><b
+                    role="presentation"></b></span></span></span><span class="dropdown-wrapper"
+        aria-hidden="true"></span></span>
+
+<span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-15-rf17"
+    style="width: 253.969px;"><span class="selection"><span class="select2-selection select2-selection--single"
+            role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false"
+            aria-labelledby="select2-univ_edu-container" aria-controls="select2-univ_edu-container"><span
+                class="select2-selection__rendered" id="select2-univ_edu-container" role="textbox" aria-readonly="true"
+                title="
+            선택">
+                선택</span><span class="select2-selection__arrow" role="presentation"><b
+                    role="presentation"></b></span></span></span><span class="dropdown-wrapper"
+        aria-hidden="true"></span></span>

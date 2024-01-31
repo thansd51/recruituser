@@ -42,7 +42,7 @@
                 <!-- 기본정보 탭-->
                 <div class="tab-content mx-5 my-4" id="myTabContent">
                     <!-- USER_INFO form -->
-                    <form name="userInfoForm" id="userInfoForm">
+                    <form name="infoUserForm" id="infoUserForm">
                         <!-- 지원정보 -->
                         <div class="row-sm-12 mx-2 table_margin">
                             <div class="row mx-2">
@@ -75,7 +75,7 @@
                                             <div class="row-sm-3">
                                                 <div class="col">
                                                     <input type="text" class="form-control date" name="request_date"
-                                                        id="request_date" th:value="${userInfo.requestDate}">
+                                                        id="request_date" th:value="${infoUser.requestDate}">
                                                 </div>
                                             </div>
                                         </td>
@@ -113,7 +113,7 @@
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <span th:text="${userInfo.userName}" class="ms-3"
+                                                <span th:text="${infoUser.userName}" class="ms-3"
                                                     style="font-weight: bold;"></span>
                                             </div>
                                         </td>
@@ -124,7 +124,7 @@
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <span th:text="${userInfo.userBirth}" class="ms-3"
+                                                <span th:text="${infoUser.userBirth}" class="ms-3"
                                                     style="font-weight: bold;"></span>
                                             </div>
                                         </td>
@@ -139,13 +139,13 @@
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="user_gender"
                                                             id="male" value="M"
-                                                            th:checked="${userInfo.userGender=='M'}">
+                                                            th:checked="${infoUser.userGender=='M'}">
                                                         <label class="form-check-label" for="male">남성</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="user_gender"
                                                             id="female" value="F"
-                                                            th:checked="${userInfo.userGender=='F'}">
+                                                            th:checked="${infoUser.userGender=='F'}">
                                                         <label class="form-check-label" for="female">여성</label>
                                                     </div>
                                                 </label>
@@ -160,12 +160,12 @@
                                             <div class="col-sm-5">
                                                 <select class="form-select" aria-label="user_nation" name="user_nation"
                                                     id="user_nation">
-                                                    <option th:if="${userInfo.userNation==null}" selected disabled
+                                                    <option th:if="${infoUser.userNation==null}" selected disabled
                                                         hidden>선택
                                                     </option>
-                                                    <option th:unless="${userInfo.userNation==null}" selected
-                                                        th:value="${userInfo.userNation}"
-                                                        th:text="${userInfo.userNation}">
+                                                    <option th:unless="${infoUser.userNation==null}" selected
+                                                        th:value="${infoUser.userNation}"
+                                                        th:text="${infoUser.userNation}">
                                                     </option>
                                                 </select>
                                             </div>
@@ -198,7 +198,7 @@
                                                     <input type="text" class="form-control" name="user_zip"
                                                         id="user_zip" readonly
                                                         style="background-color: rgb(240, 240, 240); pointer-events: none;"
-                                                        th:value="${userInfo.userZip}">
+                                                        th:value="${infoUser.userZip}">
                                                 </div>
                                                 <div class="col-sm-3 ps-1">
                                                     <button type="button" class="btn btn-dark"
@@ -211,12 +211,12 @@
                                                     <input type="text" class="form-control" name="user_address"
                                                         id="user_address" readonly
                                                         style="background-color: rgb(240, 240, 240); pointer-events: none;"
-                                                        th:value="${userInfo.userAddr}">
+                                                        th:value="${infoUser.userAddr}">
                                                 </div>
                                                 <div class="col-sm-5 ps-1">
                                                     <input type="text" class="form-control" name="user_address_dtl"
                                                         id="user_address_dtl" placeholder="상세 주소"
-                                                        th:value="${userInfo.userAddrDtl}">
+                                                        th:value="${infoUser.userAddrDtl}">
                                                 </div>
                                             </div>
                                         </td>
@@ -230,7 +230,7 @@
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control" name="user_cp" id="user_cp"
                                                         maxlength="13" oninput="formatPhoneNumber('user_cp')"
-                                                        th:value="${userInfo.userCp}">
+                                                        th:value="${infoUser.userCp}">
                                                 </div>
                                                 <div class="hypen col-sm-3">
                                                     * 하이픈(-) 제외
@@ -248,7 +248,7 @@
                                                     <input type="text" class="form-control" name="user_tel"
                                                         id="user_tel" maxlength="13"
                                                         oninput="formatPhoneNumber('user_tel')"
-                                                        th:value="${userInfo.userTel}">
+                                                        th:value="${infoUser.userTel}">
                                                 </div>
                                                 <div class="hypen col-sm-3">
                                                     * 하이픈(-) 제외
@@ -262,7 +262,7 @@
                     </form>
                     <!-- 연락사항 end-->
                     <!-- 병역사항 -->
-                    <form name="personalInfoForm" id="personalInfoForm">
+                    <form name="infoPersonForm" id="infoPersonForm">
                         <div class="row-sm-12 mx-2 table_margin">
                             <div class="row mx-2">
                                 <div class="col-sm-6 p-0">
@@ -284,11 +284,11 @@
                                                 <div class="col-sm-12">
                                                     <select class="form-select" aria-label="mil_srvc" name="mil_srvc"
                                                         id="mil_srvc">
-                                                        <option th:if="${userInfo.milServiceStatus==null}" selected
+                                                        <option th:if="${infoPerson.milServiceStatus==null}" selected
                                                             disabled hidden>선택</option>
-                                                        <option th:unless="${userInfo.milServiceStatus==null}" selected
-                                                            value="${userInfo.milServiceStatus}"
-                                                            th:text="${userInfo.milServiceStatus}"></option>
+                                                        <option th:unless="${infoPerson.milServiceStatus==null}"
+                                                            selected th:value="${infoPerson.milServiceStatus}"
+                                                            th:text="${infoPerson.milServiceStatus}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -301,24 +301,24 @@
                                                 <div class="col-sm-6 pe-1">
                                                     <select class="form-select" aria-label="mil_type" name="mil_type"
                                                         id="mil_type">
-                                                        <option th:if="${userInfo.milType==null}" selected disabled
+                                                        <option th:if="${infoPerson.milType==null}" selected disabled
                                                             hidden>
                                                             선택</option>
-                                                        <option th:unless="${userInfo.milType==null}" selected
-                                                            th:value="${userInfo.milType}"
-                                                            th:text="${userInfo.milType}">
+                                                        <option th:unless="${infoPerson.milType==null}" selected
+                                                            th:value="${infoPerson.milType}"
+                                                            th:text="${infoPerson.milType}">
                                                         </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-6 ps-1">
                                                     <select class="form-select" aria-label="mil_type_dtl"
                                                         name="mil_type_dtl" id="mil_type_dtl">
-                                                        <option th:if="${userInfo.milTypeDtl==null}" selected disabled
+                                                        <option th:if="${infoPerson.milTypeDtl==null}" selected disabled
                                                             hidden>선택
                                                         </option>
-                                                        <option th:unless="${userInfo.milTypeDtl==null}" selected
-                                                            th:value="${userInfo.milTypeDtl}"
-                                                            th:text="${userInfo.milTypeDtl}">
+                                                        <option th:unless="${infoPerson.milTypeDtl==null}" selected
+                                                            th:value="${infoPerson.milTypeDtl}"
+                                                            th:text="${infoPerson.milTypeDtl}">
                                                         </option>
                                                     </select>
                                                 </div>
@@ -336,12 +336,12 @@
                                                 <div class="col-sm-12">
                                                     <select class="form-select" aria-label="mil_discharge"
                                                         name="mil_discharge" id="mil_discharge">
-                                                        <option th:if="${userInfo.milDischarge==null}" selected disabled
-                                                            hidden>
+                                                        <option th:if="${infoPerson.milDischarge==null}" selected
+                                                            disabled hidden>
                                                             선택</option>
-                                                        <option th:unless="${userInfo.milDischarge==null}" selected
-                                                            th:value="${userInfo.milDischarge}"
-                                                            th:text="${userInfo.milDischarge}"></option>
+                                                        <option th:unless="${infoPerson.milDischarge==null}" selected
+                                                            th:value="${infoPerson.milDischarge}"
+                                                            th:text="${infoPerson.milDischarge}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -353,7 +353,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <input type="text" class="form-control" name="mil_exem"
-                                                        id="mil_exem" th:value="${userInfo.milExemption}" disabled>
+                                                        id="mil_exem" th:value="${infoPerson.milExemption}" disabled>
                                                 </div>
                                             </div>
                                         </td>
@@ -368,11 +368,11 @@
                                                     <div class="input-group dateMonth">
                                                         <input type="text" class="form-control"
                                                             aria-label="mil_start_date" name="mil_start_date"
-                                                            id="mil_start_date" th:value="${userInfo.milStartDate}">
+                                                            id="mil_start_date" th:value="${infoPerson.milStartDate}">
                                                         <span class="input-group-text">~</span>
                                                         <input type="text" class="form-control"
                                                             aria-label="mil_end_date" name="mil_end_date"
-                                                            id="mil_end_date" th:value="${userInfo.milEndDate}">
+                                                            id="mil_end_date" th:value="${infoPerson.milEndDate}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -406,16 +406,18 @@
                                                     </span>보훈여부
                                                 </div>
                                                 <div class="col-sm-auto ps-1 pe-0">
-
                                                     <select class="form-select" aria-label="vtr_srvc" name="vtr_srvc"
                                                         id="vtr_srvc">
-                                                        <option th:if="${userInfo.vtrServiceStatus==null}" selected
+                                                        <option th:if="${infoPerson.vtrServiceStatus==null}" selected
                                                             disabled hidden>선택</option>
-                                                        <option th:if="${userInfo.vtrServiceStatus=='T'}" selected
-                                                            th:value="${userInfo.vtrServiceStatus}">해당</option>
-                                                        <option th:if="${userInfo.vtrServiceStatus=='F'}" selected
-                                                            th:value="${userInfo.vtrServiceStatus}">비해당</option>
+
+                                                        <option th:if="${infoPerson.vtrServiceStatus=='T'}" selected
+                                                            th:value="${infoPerson.vtrServiceStatus}">해당</option>
+
+                                                        <option th:if="${infoPerson.vtrServiceStatus=='F'}" selected
+                                                            th:value="${infoPerson.vtrServiceStatus}">비해당</option>
                                                         <option value="T">해당</option>
+
                                                         <option value="F">비해당</option>
                                                     </select>
                                                 </div>
@@ -426,12 +428,12 @@
                                                 <div class="col-sm-2 ps-1 pe-0">
                                                     <select class="form-select" aria-label="vtr_relation"
                                                         name="vtr_relation" id="vtr_relation">
-                                                        <option th:if="${userInfo.vtrRelation==null}" selected disabled
-                                                            hidden>
+                                                        <option th:if="${infoPerson.vtrRelation==null}" selected
+                                                            disabled hidden>
                                                             선택</option>
-                                                        <option th:unless="${userInfo.vtrRelation==null}" selected
-                                                            th:value="${userInfo.vtrRelation}"
-                                                            th:text="${userInfo.vtrRelation}"></option>
+                                                        <option th:unless="${infoPerson.vtrRelation==null}" selected
+                                                            th:value="${infoPerson.vtrRelation}"
+                                                            th:text="${infoPerson.vtrRelation}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-auto pe-0">
@@ -440,7 +442,7 @@
                                                 </div>
                                                 <div class="col-sm-3 ps-1 pe-0">
                                                     <input type="text" class="form-control" aria-label="vtr_num"
-                                                        name="vtr_num" id="vtr_num" th:value="${userInfo.vtrNumber}">
+                                                        name="vtr_num" id="vtr_num" th:value="${infoPerson.vtrNumber}">
                                                 </div>
                                             </div>
                                         </td>
@@ -458,12 +460,12 @@
                                                 <div class="col-sm-auto ps-1 pe-0">
                                                     <select class="form-select" aria-label="dis_srvc" name="dis_srvc"
                                                         id="dis_srvc">
-                                                        <option th:if="${userInfo.disServiceStatus==null}" selected
+                                                        <option th:if="${infoPerson.disServiceStatus==null}" selected
                                                             disabled hidden>선택</option>
-                                                        <option th:if="${userInfo.disServiceStatus=='T'}" selected
-                                                            th:value="${userInfo.disServiceStatus}">해당</option>
-                                                        <option th:if="${userInfo.disServiceStatus=='F'}" selected
-                                                            th:value="${userInfo.disServiceStatus}">비해당</option>
+                                                        <option th:if="${infoPerson.disServiceStatus=='T'}" selected
+                                                            th:value="${infoPerson.disServiceStatus}">해당</option>
+                                                        <option th:if="${infoPerson.disServiceStatus=='F'}" selected
+                                                            th:value="${infoPerson.disServiceStatus}">비해당</option>
                                                         <option value="T">해당</option>
                                                         <option value="F">비해당</option>
                                                     </select>
@@ -476,12 +478,12 @@
                                                 <div class="col-sm-2 ps-1 pe-0">
                                                     <select class="form-select" aria-label="dis_class" name="dis_class"
                                                         id="dis_class">
-                                                        <option th:if="${userInfo.disClass==null}" selected disabled
+                                                        <option th:if="${infoPerson.disClass==null}" selected disabled
                                                             hidden>
                                                             선택</option>
-                                                        <option th:unless="${userInfo.disClass==null}" selected
-                                                            th:value="${userInfo.disClass}"
-                                                            th:text="${userInfo.disClass}">
+                                                        <option th:unless="${infoPerson.disClass==null}" selected
+                                                            th:value="${infoPerson.disClass}"
+                                                            th:text="${infoPerson.disClass}">
                                                         </option>
                                                     </select>
                                                 </div>
@@ -492,12 +494,12 @@
                                                 <div class="col-sm-3 ps-1 pe-0">
                                                     <select class="form-select" aria-label="dis_rate" name="dis_rate"
                                                         id="dis_rate">
-                                                        <option th:if="${userInfo.disRate==null}" selected disabled
+                                                        <option th:if="${infoPerson.disRate==null}" selected disabled
                                                             hidden>
                                                             선택</option>
-                                                        <option th:unless="${userInfo.disRate==null}" selected
-                                                            th:value="${userInfo.disRate}"
-                                                            th:text="${userInfo.disRate}">
+                                                        <option th:unless="${infoPerson.disRate==null}" selected
+                                                            th:value="${infoPerson.disRate}"
+                                                            th:text="${infoPerson.disRate}">
                                                         </option>
                                                     </select>
                                                 </div>
@@ -631,20 +633,24 @@
 
         $("#next_btn").on("click", function (e) {
             /*<![CDATA[*/
-            var userNo = [[${ userInfo.userNo }]];
-            var userInfoForm = $("#userInfoForm").serialize();
-            var personalInfoForm = $("#personalInfoForm").serialize();
+            var formNo = [[${ infoUser.formNo }]];
+            var infoUserForm = $("#infoUserForm").serialize();
+            var infoPersonForm = $("#infoPersonForm").serialize();
 
-            console.log(userInfoForm);
-            // console.log("user_no=" + userNo + userInfoForm + "&" + personalInfoForm);
+            console.log(infoUserForm);
+            console.log("form_no=" + formNo + infoUserForm + "&" + infoPersonForm);
             //1. controller-> save -> return url
             //2. rest controller-> save -> return "url"value -> location.href
             $.ajax({
                 method: "POST",
-                url: "/userInfo?user_no=" + userNo + "&" + userInfoForm + "&" + personalInfoForm
+                url: "/infoUser?form_no=" + formNo + "&" + infoUserForm + "&" + infoPersonForm
             })
                 .done(function (msg) {
-                    alert("Data Saved: " + msg);
+                    location.href = "/edu_info?form_no=" + data;
+                })
+                .fail(function (data, textStatus, errorThrown) {
+                    alert("실패")
+                    callback(data);
                 });
         });
         /*]]>*/

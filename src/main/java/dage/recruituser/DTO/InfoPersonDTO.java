@@ -6,17 +6,19 @@ import java.sql.Date;
 
 
 @Data
-public class InfoUserDTO {
+public class InfoPersonDTO {
     private Long formNo;
-    private String userName;
-    private Date userBirth;
-    private Date requestDate;
-    private String userGender;
-    private String userNation;
-    private String userZip;
-    private String userAddr;
-    private String userAddrDtl;
-    private String userCp;
-    private String userTel;
-    private String userProfile;
+    private String milServiceStatus;
+    private String milType;
+    private String milTypeDtl;
+    private String milDischarge;
+    private String milExemption;
+    private String milStartDate;
+    private String milEndDate;
+    private String vtrServiceStatus;
+    private String vtrRelation;
+    private String vtrNumber;
+    private String disServiceStatus;
+    private String disClass;
+    private String disRate;
 }

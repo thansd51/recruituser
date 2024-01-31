@@ -5,9 +5,9 @@ import java.sql.Date;
 
 
 @Data
-public class UserInfoDTO {
-    private Long formNo;
-    private Long appNo;
+public class UserDTO {
+    private long formNo;
+    private long appNo;
     private String userEmail;
     private String userPassword;
     private String userName;

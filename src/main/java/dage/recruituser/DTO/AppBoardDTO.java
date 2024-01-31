@@ -7,11 +7,11 @@ import java.util.Date;
 
 @Data
 public class AppBoardDTO {
-    private Long appNo;
+    private long appNo;
     private String appTitle;
     private String appTitleSub;
-    private Long appYear;
-    private Long appDegree;
+    private long appYear;
+    private long appDegree;
     private String appJob;
     private Date appStartDate;
     private Date appEndDate;
