@@ -58,98 +58,103 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <div class="addTableAct">
-                            <table class="table mb-3">
-                                <tbody>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>활동명</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>기간</th>
-                                        <td class="table-light style_width" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            aria-label="mil_start_date" id="mil_start_date"
-                                                            placeholder="예) 2000.01">
-                                                        <span class="input-group-text">~</span>
-                                                        <input type="text" class="form-control"
-                                                            aria-label="mil_end_date" id="mil_end_date"
-                                                            placeholder="예) 2003.01">
+                        <form name="infoActForm" id="infoActForm">
+                            <div class="addTableAct">
+                                <table class="table mb-3">
+                                    <tbody>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>활동명</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="act_name"
+                                                            name="act_name" th:value="${actInfo.actName}">
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>분야</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>기간</th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="input-group dateMonth">
+                                                            <input type="text" class="form-control"
+                                                                aria-label="mil_start_date" id="act_start_date"
+                                                                name="act_start_date"
+                                                                th:value="${actInfo.actStartDate}">
+                                                            <span class="input-group-text">~</span>
+                                                            <input type="text" class="form-control"
+                                                                aria-label="mil_end_date" id="act_end_date"
+                                                                name="act_end_date" th:value="${actInfo.actEndDate}">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>주관기관</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" aria-label="mil_exemption"
-                                                        id="mil_exemption" placeholder="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>분야</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <select class="form-select" id="act_fd" name="act_fd">
+                                                            <option th:if="${actInfo.ActFd==null}" selected disabled
+                                                                hidden>
+                                                                선택</option>
+                                                            <option th:unless="${actInfo.ActFd==null}" selected
+                                                                th:value="${actInfo.ActFd}" th:text="${actInfo.ActFd}">
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>활동내용</th>
-                                        <td class="table-light" colspan="3">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" aria-label="mil_exemption"
-                                                        id="mil_exemption" placeholder="">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>주관기관</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" name="act_conduct"
+                                                            id="act_conduct" th:value="${actInfo.actConduct}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- 초기화/삭제 -->
-                            <div class="row justify-content-sm-end">
-                                <div class="col-sm-auto">
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">초기화</button>
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">삭제</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>활동내용</th>
+                                            <td class="table-light" colspan="3">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" name="act_content"
+                                                            id="act_content" th:value="${actInfo.actContent}">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- 초기화/삭제 -->
+                                <div class="row justify-content-sm-end">
+                                    <div class="col-sm-auto">
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="btncolor">초기화</button>
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="btncolor">삭제</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- 초기화/삭제 end -->
+                                <hr>
                             </div>
-                            <!-- 초기화/삭제 end -->
-                            <hr>
-                        </div>
-                        <!-- 추가 테이블 end-->
+                            <!-- 추가 테이블 end-->
+                        </form>
                         <div id="actWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
                             <div class="col">
-                                <button type="button" id="addbtn_act" class="btn btn-dark" style="width: 100%;">추가</button>
+                                <button type="button" id="addbtn_act" class="btn btn-dark"
+                                    style="width: 100%;">추가</button>
                             </div>
                         </div>
                     </div>
@@ -166,75 +171,78 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <div class="addTableAwd">
-                            <table class="table mb-3">
-                                <tbody>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>수상명</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="">
+                        <form name="infoAwdForm" id="infoAwdForm">
+                            <div class="addTableAwd">
+                                <table class="table mb-3">
+                                    <tbody>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>수상명</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" name="awd_name"
+                                                            id="awd_name" th:value="${awdInfo.awdName}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>수상일</th>
-                                        <td class="table-light style_width" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_end_date"
-                                                        placeholder="예) 2001.01.01">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>수상일</th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control date" name="awd_date"
+                                                            id="awd_date" th:value="${awdInfo.awdDate}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>수상기관</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" aria-label="mil_end_date"
-                                                        id="mil_end_date" placeholder="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>수상기관</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" name="awd_conduct"
+                                                            id="awd_conduct" th:value="${awdInfo.awdConduct}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>수상내역</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" aria-label="mil_end_date"
-                                                        id="mil_exemption" placeholder="">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>수상내역</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" name="awd_content"
+                                                            id="awd_content" th:value="${awdInfo.awdContent}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- 초기화/삭제 -->
-                            <div class="row justify-content-sm-end">
-                                <div class="col-sm-auto">
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">초기화</button>
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">삭제</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- 초기화/삭제 -->
+                                <div class="row justify-content-sm-end">
+                                    <div class="col-sm-auto">
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="resetBtn">초기화</button>
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="deleteBtn">삭제</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- 초기화/삭제 end -->
+                                <hr>
                             </div>
-                            <!-- 초기화/삭제 end -->
-                            <hr>
-                        </div>
-                        <!-- 추가 테이블 end-->
+                            <!-- 추가 테이블 end-->
+                        </form>
                         <div id="awdWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
                             <div class="col">
-                                <button type="button" id="addbtn_awd" class="btn btn-dark" style="width: 100%;">추가</button>
+                                <button type="button" id="addbtn_awd" class="btn btn-dark"
+                                    style="width: 100%;">추가</button>
                             </div>
                         </div>
                     </div>
@@ -244,15 +252,17 @@
             </div>
             <!-- 버튼 -->
             <div class="col mb-5 text-center">
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onclick="location.href='/cert_info'">이전</button>
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onClick="location.href='/survey_info'">다음</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
             </div>
         </div>
     </div>
 
     <script>
+        $(function () {
+            selectOpt("act_fd", "ACT_FD");
+        });
+
         $(function () {
 
             var wrap = $('.addTableAct').wrapAll("<div/>");
@@ -268,6 +278,31 @@
             });
 
         });
+    </script>
+    <script th:inline="javascript">
+        $("#next_btn").on("click", function (e) {
+            /*<![CDATA[*/
+            var formNo = [[${ actInfo.formNo }]];
+            var infoActForm = $("#infoActForm").serialize();
+            var infoAwdForm = $("#infoAwdForm").serialize();
+
+            console.log(formNo + "&" + infoActForm + "&" + infoAwdForm);
+
+            //1. controller-> save -> return url
+            //2. rest controller-> save -> return "url"value -> location.href
+            $.ajax({
+                method: "POST",
+                url: "/infoAct?form_no=" + formNo + "&" + infoActForm + "&" + infoAwdForm
+            })
+                .done(function (msg) {
+                    alert("suc");
+                })
+                .fail(function (data, textStatus, errorThrown) {
+                    alert("실패")
+                    callback(data);
+                });
+        });
+        /*]]>*/
     </script>
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>

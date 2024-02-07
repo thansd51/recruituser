@@ -29,7 +29,14 @@ body {
 #univ_end_date,
 #univ_crd,
 #univ_crd_max,
-.cert_acquire_date {
+#co_start_date,
+#co_end_date,
+#proj_start_date,
+#proj_end_date,
+#cert_date,
+#act_start_date,
+#act_end_date,
+#awd_date {
   text-align: center;
 }
 
@@ -71,7 +78,7 @@ body {
   color: #646464;
 }
 
-#btn {
+#next_btn, #prev_btn {
   width: 150px;
   height: 50px;
   border: 1px solid;
@@ -148,19 +155,19 @@ th.table-light {
   width: 35%;
 }
 
-#btncolor {
+#resetBtn, #deleteBtn {
   border: 1px solid #000000;
   background-color: #ffffff;
   color: #000000;
 }
 
-#btncolor:hover {
+#resetBtn:hover, #deleteBtn:hover {
   border: 1px solid #000000;
   background-color: #000000;
   color: #ffffff;
 }
 
-#btncolor:active {
+#resetBtn:active, #deleteBtn:active {
   border: 1px solid #414141;
   background-color: #414141;
   color: #ffffff;

@@ -214,8 +214,9 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="eduUnivForm1" id="eduUnivForm1">
-                            <div class="addTable" th:each="eduUnivDTO : ${eduUnivInfo}">
+                        <form name="eduUnivForm" id="eduUnivForm">
+                            <div class="addTable">
+                                <input type="hidden" value="1" name="univ_seq">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
@@ -226,12 +227,12 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-select" aria-label="univ_edu" id="univ_edu"
                                                             name="univ_edu">
-                                                            <option th:if="${eduUnivDTO.univEdu==null}" selected
+                                                            <option th:if="${eduUnivInfo.univEdu==null}" selected
                                                                 disabled hidden>
                                                                 선택</option>
-                                                            <option th:unless="${eduUnivDTO.univEdu==null}" selected
-                                                                th:value="${eduUnivDTO.univEdu}"
-                                                                th:text="${eduUnivDTO.univEdu}">
+                                                            <option th:unless="${eduUnivInfo.univEdu==null}" selected
+                                                                th:value="${eduUnivInfo.univEdu}"
+                                                                th:text="${eduUnivInfo.univEdu}">
                                                             </option>
                                                         </select>
                                                     </div>
@@ -259,7 +260,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" id="univ_loc"
-                                                            name="univ_loc">
+                                                            name="univ_loc" th:value="${eduUnivInfo.univLoc}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -268,14 +269,14 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <select class="form-select" aria-label="univ_dn" name="univ_dn"
+                                                        <select class="form-select" name="univ_dn"
                                                             id="univ_dn">
-                                                            <option th:if="${eduUnivDTO.univDn==null}" selected disabled
+                                                            <option th:if="${eduUnivInfo.univDn==null}" selected disabled
                                                                 hidden>선택</option>
-                                                            <option th:if="${eduUnivDTO.univDn=='D'}" selected
-                                                                th:value="${eduUnivDTO.univDn}">주간</option>
-                                                            <option th:if="${eduUnivDTO.univDn=='N'}" selected
-                                                                th:value="${eduUnivDTO.univDn}">야간</option>
+                                                            <option th:if="${eduUnivInfo.univDn=='D'}" selected
+                                                                th:value="${eduUnivInfo.univDn}">주간</option>
+                                                            <option th:if="${eduUnivInfo.univDn=='N'}" selected
+                                                                th:value="${eduUnivInfo.univDn}">야간</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -287,14 +288,14 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <select class="form-select" aria-label="univ_ser" id="univ_ser"
+                                                        <select class="form-select" id="univ_ser"
                                                             name="univ_ser">
-                                                            <option th:if="${eduUnivDTO.univSer==null}" selected
+                                                            <option th:if="${eduUnivInfo.univSer==null}" selected
                                                                 disabled hidden>
                                                                 선택</option>
-                                                            <option th:unless="${eduUnivDTO.univSer==null}" selected
-                                                                th:value="${eduUnivDTO.univSer}"
-                                                                th:text="${eduUnivDTO.univSer}">
+                                                            <option th:unless="${eduUnivInfo.univSer==null}" selected
+                                                                th:value="${eduUnivInfo.univSer}"
+                                                                th:text="${eduUnivInfo.univSer}">
                                                             </option>
                                                         </select>
                                                     </div>
@@ -306,15 +307,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="input-group dateMonth">
-                                                            <input type="text" class="form-control"
-                                                                aria-label="univ_start_date" id="univ_start_date"
+                                                            <input type="text" class="form-control" id="univ_start_date"
                                                                 name="univ_start_date"
-                                                                th:value="${eduUnivDTO.univStartDate}">
+                                                                th:value="${eduUnivInfo.univStartDate}">
                                                             <span class="input-group-text">~</span>
-                                                            <input type="text" class="form-control"
-                                                                aria-label="univ_end_date" id="univ_end_date"
+                                                            <input type="text" class="form-control" id="univ_end_date"
                                                                 name="univ_end_date"
-                                                                th:value="${eduUnivDTO.univEndDate}">
+                                                                th:value="${eduUnivInfo.univEndDate}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -328,12 +327,12 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-select" aria-label="univ_cls" id="univ_cls"
                                                             name="univ_cls">
-                                                            <option th:if="${eduUnivDTO.univCls==null}" selected
+                                                            <option th:if="${eduUnivInfo.univCls==null}" selected
                                                                 disabled hidden>
                                                                 선택</option>
-                                                            <option th:unless="${eduUnivDTO.univCls==null}" selected
-                                                                th:value="${eduUnivDTO.univCls}"
-                                                                th:text="${eduUnivDTO.univCls}">
+                                                            <option th:unless="${eduUnivInfo.univCls==null}" selected
+                                                                th:value="${eduUnivInfo.univCls}"
+                                                                th:text="${eduUnivInfo.univCls}">
                                                             </option>
                                                         </select>
                                                     </div>
@@ -347,11 +346,11 @@
                                                         <div class="input-group">
                                                             <input type="text" class="form-control"
                                                                 aria-label="univ_crd" id="univ_crd" name="univ_crd"
-                                                                th:value="${eduUnivDTO.univCrd}" placeholder="예) 3.0">
+                                                                th:value="${eduUnivInfo.univCrd}" placeholder="예) 3.0">
                                                             <span class="input-group-text">/</span>
                                                             <input type="text" class="form-control"
                                                                 aria-label="univ_crd_max" id="univ_crd_max"
-                                                                name="univ_crd_max" th:value="${eduUnivDTO.univCrdMax}"
+                                                                name="univ_crd_max" th:value="${eduUnivInfo.univCrdMax}"
                                                                 placeholder="예) 4.5">
                                                         </div>
                                                     </div>
@@ -367,12 +366,12 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-select" aria-label="univ_cls_mul"
                                                             id="univ_cls_mul" name="univ_cls_mul">
-                                                            <option th:if="${eduUnivDTO.univClsMul==null}" selected
+                                                            <option th:if="${eduUnivInfo.univClsMul==null}" selected
                                                                 disabled hidden>
                                                                 선택</option>
-                                                            <option th:unless="${eduUnivDTO.univClsMul==null}" selected
-                                                                th:value="${eduUnivDTO.univClsMul}"
-                                                                th:text="${eduUnivDTO.univClsMul}">
+                                                            <option th:unless="${eduUnivInfo.univClsMul==null}" selected
+                                                                th:value="${eduUnivInfo.univClsMul}"
+                                                                th:text="${eduUnivInfo.univClsMul}">
                                                             </option>
                                                         </select>
                                                     </div>
@@ -386,12 +385,12 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-select" aria-label="univ_cls_sub"
                                                             id="univ_cls_sub" name="univ_cls_sub">
-                                                            <option th:if="${eduUnivDTO.univClsSub==null}" selected
+                                                            <option th:if="${eduUnivInfo.univClsSub==null}" selected
                                                                 disabled hidden>
                                                                 선택</option>
-                                                            <option th:unless="${eduUnivDTO.univClsSub==null}" selected
-                                                                th:value="${eduUnivDTO.univClsSub}"
-                                                                th:text="${eduUnivDTO.univClsSub}">
+                                                            <option th:unless="${eduUnivInfo.univClsSub==null}" selected
+                                                                th:value="${eduUnivInfo.univClsSub}"
+                                                                th:text="${eduUnivInfo.univClsSub}">
                                                             </option>
                                                         </select>
                                                     </div>
@@ -406,12 +405,12 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-select" aria-label="univ_grd" id="univ_grd"
                                                             name="univ_grd">
-                                                            <option th:if="${eduUnivDTO.univGrd==null}" selected
+                                                            <option th:if="${eduUnivInfo.univGrd==null}" selected
                                                                 disabled hidden>
                                                                 선택</option>
-                                                            <option th:unless="${eduUnivDTO.univGrd==null}" selected
-                                                                th:value="${eduUnivDTO.univGrd}"
-                                                                th:text="${eduUnivDTO.univGrd}">
+                                                            <option th:unless="${eduUnivInfo.univGrd==null}" selected
+                                                                th:value="${eduUnivInfo.univGrd}"
+                                                                th:text="${eduUnivInfo.univGrd}">
                                                             </option>
                                                         </select>
                                                     </div>
@@ -424,12 +423,12 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-select" aria-label="univ_fn" name="univ_fn"
                                                             id="univ_fn">
-                                                            <option th:if="${eduUnivDTO.univFn==null}" selected disabled
+                                                            <option th:if="${eduUnivInfo.univFn==null}" selected disabled
                                                                 hidden>선택</option>
-                                                            <option th:if="${eduUnivDTO.univFn=='T'}" selected
-                                                                th:value="${eduUnivDTO.univFn}">해당</option>
-                                                            <option th:if="${eduUnivDTO.univFn=='F'}" selected
-                                                                th:value="${eduUnivDTO.univFn}">비해당</option>
+                                                            <option th:if="${eduUnivInfo.univFn=='T'}" selected
+                                                                th:value="${eduUnivInfo.univFn}">해당</option>
+                                                            <option th:if="${eduUnivInfo.univFn=='F'}" selected
+                                                                th:value="${eduUnivInfo.univFn}">비해당</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -442,9 +441,9 @@
                                     <div class="col-sm-auto">
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="btncolor">초기화</button>
+                                                id="resetBtn">초기화</button>
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="btncolor">삭제</button>
+                                                id="deleteBtn">삭제</button>
                                         </div>
                                     </div>
                                 </div>
@@ -627,14 +626,14 @@
             /*<![CDATA[*/
             var formNo = [[${ eduHighInfo.formNo }]];
             var eduHighForm = $("#eduHighForm").serialize();
+            var eduUnivForm = $("#eduUnivForm").serialize();
 
-            console.log(eduHighForm);
-            // console.log("user_no=" + userNo + userInfoForm + "&" + personalInfoForm);
+            console.log(formNo + "&" + eduHighForm + "&" + eduUnivForm);
             //1. controller-> save -> return url
             //2. rest controller-> save -> return "url"value -> location.href
             $.ajax({
                 method: "POST",
-                url: "/infoEdu?form_no=" + formNo + "&" + eduHighForm
+                url: "/infoEdu?form_no=" + formNo + "&" + eduHighForm + "&" + eduUnivForm
             })
                 .done(function (msg) {
                     alert("Data Saved: " + msg);

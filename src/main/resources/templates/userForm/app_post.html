@@ -84,9 +84,33 @@
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
                     onclick="location.href='/survey_info'">이전</button>
             </div>
+            <span th:text="${form_no}"></span>
         </div>
     </div>
 
+    <script th:inline="javascript">
+        $("#app_delete").on("click", function (e) {
+            /*<![CDATA[*/
+            var form_no = [[${ form_no }]];
+          
+            console.log(form_no);
+
+            //1. controller-> save -> return url
+            //2. rest controller-> save -> return "url"value -> location.href
+            $.ajax({
+                method: "POST",
+                url: "/appPost?form_no=" + form_no
+            })
+                .done(function (msg) {
+                    alert("suc");
+                })
+                .fail(function (data, textStatus, errorThrown) {
+                    alert("실패")
+                    callback(data);
+                });
+        });
+        /*]]>*/
+    </script>
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
 </body>

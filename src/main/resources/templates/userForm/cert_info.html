@@ -58,70 +58,72 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <div class="addTableCert">
-                            <table class="table mb-3">
-                                <tbody>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>자격종류</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="">
+                        <form name="infoCertForm" id="infoCertForm">
+                            <div class="addTableCert">
+                                <table class="table mb-3">
+                                    <tbody>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>자격종류</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="cert_cls"
+                                                            name="cert_cls" th:value="${certInfo.certCls}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>등록번호</th>
-                                        <td class="table-light style_width" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>등록번호</th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="cert_num"
+                                                            name="cert_num" th:value="${certInfo.certNum}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>발급기관</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>발급기관</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="cert_isu"
+                                                            name="cert_isu" th:value="${certInfo.certIsu}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>취득일자</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" aria-label="mil_end_date"
-                                                        id="mil_end_date" placeholder="예) 2000.01.01">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>취득일자</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control date" id="cert_date"
+                                                            name="cert_date" th:value="${certInfo.certDate}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- 초기화/삭제 -->
-                            <div class="row justify-content-sm-end">
-                                <div class="col-sm-auto">
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">초기화</button>
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">삭제</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- 초기화/삭제 -->
+                                <div class="row justify-content-sm-end">
+                                    <div class="col-sm-auto">
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="resetBtn">초기화</button>
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="deleteBtn">삭제</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- 초기화/삭제 end -->
+                                <hr>
                             </div>
-                            <!-- 초기화/삭제 end -->
-                            <hr>
-                        </div>
-                        <!-- 추가 테이블 end-->
+                            <!-- 추가 테이블 end-->
+                        </form>
                         <div id="certWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
@@ -144,60 +146,69 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <div class="addTableLang">
-                            <table class="table mb-3">
-                                <tbody>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>언어</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-6 pe-1">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
+                        <form name="infoLangForm" id="infoLangForm">
+                            <div class="addTableLang">
+                                <table class="table mb-3">
+                                    <tbody>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>언어</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-6 pe-1">
+                                                        <select class="form-select" id="lang_name" name="lang_name">
+                                                            <option th:if="${langInfo.langName==null}" selected disabled
+                                                                hidden>
+                                                                선택</option>
+                                                            <option th:unless="${langInfo.langName==null}" selected
+                                                                th:value="${langInfo.langName}"
+                                                                th:text="${langInfo.langName}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 ps-1">
+                                                        <input type="text" class="form-control" id="lang_name"
+                                                            name="lang_name" placeholder="기타 선택 시"
+                                                            th:value="${langInfo.langName}">
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-6 ps-1">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="기타 선택 시">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>수준</th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <select class="form-select" id="lang_lv" name="lang_lv">
+                                                            <option th:if="${langInfo.langLv==null}" selected disabled
+                                                                hidden>
+                                                                선택</option>
+                                                            <option th:unless="${langInfo.langLv==null}" selected
+                                                                th:value="${langInfo.langLv}"
+                                                                th:text="${langInfo.langLv}">
+                                                            <option value="1">1</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>수준</th>
-                                        <td class="table-light style_width" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>수준</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- 초기화/삭제 -->
-                            <div class="row justify-content-sm-end">
-                                <div class="col-sm-auto">
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">초기화</button>
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">삭제</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- 초기화/삭제 -->
+                                <div class="row justify-content-sm-end">
+                                    <div class="col-sm-auto">
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="resetBtn">초기화</button>
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="deleteBtn">삭제</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- 초기화/삭제 end -->
+                                <hr>
                             </div>
-                            <!-- 초기화/삭제 end -->
-                            <hr>
-                        </div>
-                        <!-- 추가 테이블 end-->
+                            <!-- 추가 테이블 end-->
+                        </form>
                         <div id="langWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
@@ -221,65 +232,72 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <div class="addTableIt">
-                            <table class="table mb-3">
-                                <tbody>
-                                    <tr>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>IT활용종류</th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-6 pe-1">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
+                        <form name="infoOaForm" id="infoOaForm">
+                            <div class="addTableIt">
+                                <table class="table mb-3">
+                                    <tbody>
+                                        <tr>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>IT활용종류</th>
+                                            <td class="table-light" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-6 pe-1">
+                                                        <select class="form-select" id="oa_name" name="oa_name">
+                                                            <option th:if="${oaInfo.oaName==null}" selected disabled
+                                                                hidden>
+                                                                선택</option>
+                                                            <option th:unless="${oaInfo.oaName==null}" selected
+                                                                th:value="${oaInfo.oaName}" th:text="${oaInfo.oaName}">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 ps-1">
+                                                        <input type="text" class="form-control" id="oa_name"
+                                                            name="oa_name" th:value="${oaInfo.oaName}"
+                                                            placeholder="기타 선택 시">
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-6 ps-1">
-                                                    <input type="text" class="form-control" id="mil_exemption"
-                                                        placeholder="기타 선택 시">
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>수준</th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <select class="form-select" id="oa_lv" name="oa_lv">
+                                                            <option th:if="${oaInfo.oaLv==null}" selected disabled
+                                                                hidden>
+                                                                선택</option>
+                                                            <option th:unless="${oaInfo.oaLv==null}" selected
+                                                                th:value="${oaInfo.oaLv}" th:text="${oaInfo.oaLv}">
+                                                            <option value="1">1</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <th class="table-light" id="colname" scope="row"><span class="marking">&nbsp;
-                                            </span>수준</th>
-                                        <td class="table-light style_width" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>선택</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- 초기화/삭제 -->
-                            <div class="row justify-content-sm-end">
-                                <div class="col-sm-auto">
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">초기화</button>
-                                        <button type="button" class="btn btn-outline-primary btncolor"
-                                            id="btncolor">삭제</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- 초기화/삭제 -->
+                                <div class="row justify-content-sm-end">
+                                    <div class="col-sm-auto">
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="resetBtn">초기화</button>
+                                            <button type="button" class="btn btn-outline-primary btncolor"
+                                                id="deleteBtn">삭제</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- 초기화/삭제 end -->
+                                <hr>
                             </div>
-                            <!-- 초기화/삭제 end -->
-                            <hr>
-                        </div>
-                        <!-- 추가 테이블 end-->
+                            <!-- 추가 테이블 end-->
+                        </form>
                         <div id="itWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
                             <div class="col">
-                                <button type="button" id="addbtn_it" class="btn btn-dark" style="width: 100%;">추가</button>
+                                <button type="button" id="addbtn_it" class="btn btn-dark"
+                                    style="width: 100%;">추가</button>
                             </div>
                         </div>
                     </div>
@@ -289,15 +307,18 @@
             </div>
             <!-- 버튼 -->
             <div class="col mb-5 text-center">
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onclick="location.href='/career_info'">이전</button>
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onClick="location.href='/act_info'">다음</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
             </div>
         </div>
     </div>
 
     <script>
+        $(function () {
+            selectOpt("lang_name", "FOR_LANG");
+            selectOpt("oa_name", "OA_APP");
+        });
+
         $(function () {
 
             var wrap = $('.addTableCert').wrapAll("<div/>");
@@ -318,6 +339,32 @@
                 $("#itWrap").append(tmpl3);
             });
         });
+    </script>
+    <script th:inline="javascript">
+        $("#next_btn").on("click", function (e) {
+            /*<![CDATA[*/
+            var formNo = [[${ certInfo.formNo }]];
+            var infoCertForm = $("#infoCertForm").serialize();
+            var infoLangForm = $("#infoLangForm").serialize();
+            var infoOaForm = $("#infoOaForm").serialize();
+
+            console.log(formNo + "&" + infoCertForm + "&" + infoLangForm + "&" + infoOaForm);
+
+            //1. controller-> save -> return url
+            //2. rest controller-> save -> return "url"value -> location.href
+            $.ajax({
+                method: "POST",
+                url: "/infoCert?form_no=" + formNo + "&" + infoCertForm + "&" + infoLangForm + "&" + infoOaForm
+            })
+                .done(function (msg) {
+                    location.href = "/edu_info?form_no=" + data;
+                })
+                .fail(function (data, textStatus, errorThrown) {
+                    alert("실패")
+                    callback(data);
+                });
+        });
+        /*]]>*/
     </script>
 
     <!-- 공통 스크립트-->

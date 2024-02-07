@@ -49,7 +49,6 @@
         WHERE
             A.FORM_NO = #{FORM_NO}
     </select>
-
     <select id="eduHighMapper" resultType="dage.recruituser.DTO.InfoEduHighDTO">
         SELECT
             A.FORM_NO,
@@ -69,7 +68,6 @@
         WHERE
             A.FORM_NO = #{FORM_NO}
     </select>
-
     <select id="eduUnivMapper" resultType="dage.recruituser.DTO.InfoEduUnivDTO">
         SELECT
             A.FORM_NO,
@@ -96,6 +94,148 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO};
+    </select>
+    <select id="careerMapper" resultType="dage.recruituser.DTO.InfoCareerDTO">
+        SELECT
+            A.FORM_NO,
+            B.CO_NAME,
+            B.CO_START_DATE,
+            B.CO_END_DATE,
+            B.CO_LOC,
+            B.CO_CLS,
+            B.CO_FORM_EMP,
+            B.CO_SALARY,
+            B.CO_DEPT,
+            B.CO_RANK,
+            B.CO_WORK,
+            B.CO_RETIRE
+        FROM
+            APP_USER A
+        LEFT JOIN
+            CAREER_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="projectMapper" resultType="dage.recruituser.DTO.InfoProjectDTO">
+        SELECT
+            A.FORM_NO,
+            B.PROJ_NAME,
+            B.PROJ_START_DATE,
+            B.PROJ_END_DATE,
+            B.PROJ_ORDER,
+            B.PROJ_LOC,
+            B.PROJ_WORK
+        FROM
+            APP_USER A
+        LEFT JOIN
+            PROJ_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="certMapper" resultType="dage.recruituser.DTO.InfoCertDTO">
+        SELECT
+            A.FORM_NO,
+            B.CERT_CLS,
+            B.CERT_NUM,
+            B.CERT_ISU,
+            B.CERT_DATE
+        FROM
+            APP_USER A
+        LEFT JOIN
+            CERT_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="langMapper" resultType="dage.recruituser.DTO.InfoLangDTO">
+        SELECT
+            A.FORM_NO,
+            B.LANG_NAME,
+            B.LANG_LV
+        FROM
+            APP_USER A
+        LEFT JOIN
+            LANG_INFO  B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="OaMapper" resultType="dage.recruituser.DTO.InfoOaDTO">
+        SELECT
+            A.FORM_NO,
+            B.OA_NAME,
+            B.OA_LV
+        FROM
+            APP_USER A
+        LEFT JOIN
+            OA_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="actMapper" resultType="dage.recruituser.DTO.InfoActDTO">
+        SELECT
+            A.FORM_NO,
+            B.ACT_NAME,
+            B.ACT_START_DATE,
+            B.ACT_END_DATE,
+            B.ACT_FD,
+            B.ACT_CONDUCT,
+            B.ACT_CONTENT
+        FROM
+            APP_USER A
+        LEFT JOIN
+            ACT_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="awdMapper" resultType="dage.recruituser.DTO.InfoAwdDTO">
+        SELECT
+            A.FORM_NO,
+            B.AWD_NAME,
+            B.AWD_DATE,
+            B.AWD_CONDUCT,
+            B.AWD_CONTENT
+        FROM
+            APP_USER A
+        LEFT JOIN
+            AWD_INFO B
+        ON
+            A.FORM_NO = B.FORM_NO
+        WHERE
+            A.FORM_NO = #{FORM_NO}
+    </select>
+    <select id="survMapper" resultType="dage.recruituser.DTO.InfoSurvDTO">
+        SELECT
+            A.FORM_NO,
+            B.APP_NO,
+            B.QUEST_NO,
+            B.QUEST_CONTENT as question,
+            C.ANSWER_CONTENT as answer
+        FROM
+            APP_USER A
+        LEFT JOIN
+            SURV_QUEST B
+        ON
+            A.APP_NO = B.APP_NO
+        LEFT JOIN
+            SURV_ANSWER C
+        ON
+            A.FORM_NO = C.FORM_NO AND
+            B.QUEST_NO = C.QUEST_NO
+        WHERE
+            A.APP_NO = #{APP_NO} AND
+            A.FORM_NO = #{FORM_NO}
+        ORDER BY B.QUEST_SEQ
     </select>
 
 
@@ -124,7 +264,6 @@
             #{user_agree_5}
         )
     </insert>
-
     <insert id="insertUserInfo" parameterType="hashmap">
         INSERT INTO USER_INFO (
             FORM_NO,
@@ -150,7 +289,6 @@
             #{user_profile}
         )
     </insert>
-
     <insert id="insertPersonalInfo" parameterType="hashmap">
         INSERT INTO PSNL_INFO (
             FORM_NO,
@@ -184,7 +322,6 @@
             #{dis_rate}
         )
     </insert>
-
     <insert id="insertEduHigh" parameterType="hashmap">
         INSERT INTO EDU_HIGH_INFO (
             FORM_NO,
@@ -227,9 +364,9 @@
         ) VALUES (
             #{form_no},
             #{univ_seq},
+            #{univ_edu},
             #{univ_name},
             #{univ_loc},
-            #{univ_ser},
             #{univ_grd},
             #{univ_start_date},
             #{univ_end_date},
@@ -243,13 +380,158 @@
             #{univ_fn}
         )
     </insert>
+    <insert id="insertCareer" parameterType="hashmap">
+        INSERT INTO CAREER_INFO (
+            FORM_NO,
+            CO_NAME,
+            CO_START_DATE,
+            CO_END_DATE,
+            CO_LOC,
+            CO_CLS,
+            CO_FORM_EMP,
+            CO_SALARY,
+            CO_DEPT,
+            CO_RANK,
+            CO_WORK,
+            CO_RETIRE
+        ) VALUES (
+            #{form_no},
+            #{co_name},
+            #{co_start_date},
+            #{co_end_date},
+            #{co_loc},
+            #{co_cls},
+            #{co_form_emp},
+            #{co_salary},
+            #{co_dept},
+            #{co_rank},
+            #{co_work},
+            #{co_retire}
+        )
+    </insert>
+    <insert id="insertProject" parameterType="hashmap">
+        INSERT INTO PROJ_INFO (
+            FORM_NO,
+            PROJ_NAME,
+            PROJ_START_DATE,
+            PROJ_END_DATE,
+            PROJ_ORDER,
+            PROJ_LOC,
+            PROJ_WORK
+        ) VALUES (
+            #{form_no},
+            #{proj_name},
+            #{proj_start_date},
+            #{proj_end_date},
+            #{proj_order},
+            #{proj_loc},
+            #{proj_work}
+        )
+    </insert>
+    <insert id="insertCert" parameterType="hashmap">
+        INSERT INTO CERT_INFO (
+            FORM_NO,
+            CERT_CLS,
+            CERT_NUM,
+            CERT_ISU,
+            CERT_DATE
+        ) VALUES (
+            #{form_no},
+            #{cert_cls},
+            #{cert_num},
+            #{cert_isu},
+            #{cert_date}
+        )
+    </insert>
+    <insert id="insertLang" parameterType="hashmap">
+        INSERT INTO LANG_INFO (
+            FORM_NO,
+            LANG_NAME,
+            LANG_LV
+        ) VALUES (
+            #{form_no},
+            #{lang_name},
+            #{lang_lv}
+        )
+    </insert>
+    <insert id="insertOA" parameterType="hashmap">
+        INSERT INTO OA_INFO (
+            FORM_NO,
+            OA_NAME,
+            OA_LV
+        ) VALUES (
+            #{form_no},
+            #{oa_name},
+            #{oa_lv}
+        )
+    </insert>
+    <insert id="insertAct" parameterType="hashmap">
+        INSERT INTO ACT_INFO (
+            FORM_NO,
+            ACT_NAME,
+            ACT_START_DATE,
+            ACT_END_DATE,
+            ACT_FD,
+            ACT_CONDUCT,
+            ACT_CONTENT
+        ) VALUES (
+            #{form_no},
+            #{act_name},
+            #{act_start_date},
+            #{act_end_date},
+            #{act_fd},
+            #{act_conduct},
+            #{act_content}
+        )
+    </insert>
+    <insert id="insertAwd" parameterType="hashmap">
+        INSERT INTO AWD_INFO (
+            FORM_NO,
+            AWD_NAME,
+            AWD_DATE,
+            AWD_CONDUCT,
+            AWD_CONTENT
+        ) VALUES (
+            #{form_no},
+            #{awd_name},
+            #{awd_date},
+            #{awd_conduct},
+            #{awd_content}
+        )
+    </insert>
+    <insert id="insertSurv" parameterType="hashmap">
+        INSERT INTO SURV_ANSWER (
+            QUEST_NO,
+            FORM_NO,
+            ANSWER_CONTENT
+        ) VALUES (
+            #{quest_no},
+            #{form_no},
+            #{surv_answer}
+        )
+    </insert>
 
-<!--    <insert id="insertEduUniv" useGeneratedKeys="true"-->
-<!--            keyProperty="id">-->
-<!--        insert into Author (username, password, email, bio) values-->
-<!--        <foreach item="InfoEduUniv" collection="list" separator=",">-->
-<!--            (#{item.username}, #{item.password}, #{item.email}, #{item.bio})-->
-<!--        </foreach>-->
-<!--    </insert>-->
+    <delete id="deleteUserForm">
+        SET FOREIGN_KEY_CHECKS=0;
+
+        DELETE
+            A, B, C, D, E, F, G, H, I, J ,K, L, M
+        FROM APP_USER A
+            LEFT JOIN USER_INFO B ON A.FORM_NO = B.FORM_NO
+            LEFT JOIN PSNL_INFO C ON A.FORM_NO = C.FORM_NO
+            LEFT JOIN EDU_HIGH_INFO D ON A.FORM_NO = D.FORM_NO
+            LEFT JOIN EDU_UNIV_INFO E ON A.FORM_NO = E.FORM_NO
+            LEFT JOIN CAREER_INFO F ON A.FORM_NO = F.FORM_NO
+            LEFT JOIN PROJ_INFO G ON A.FORM_NO = G.FORM_NO
+            LEFT JOIN CERT_INFO H ON A.FORM_NO = H.FORM_NO
+            LEFT JOIN LANG_INFO I ON A.FORM_NO = I.FORM_NO
+            LEFT JOIN OA_INFO J ON A.FORM_NO = J.FORM_NO
+            LEFT JOIN ACT_INFO K ON A.FORM_NO = K.FORM_NO
+            LEFT JOIN AWD_INFO L ON A.FORM_NO = L.FORM_NO
+            LEFT JOIN SURV_ANSWER M ON A.FORM_NO = M.FORM_NO
+        WHERE A.FORM_NO = #{form_no};
+
+        SET FOREIGN_KEY_CHECKS=1;
+    </delete>
 
 </mapper>
