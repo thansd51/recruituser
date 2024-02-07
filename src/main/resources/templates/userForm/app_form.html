@@ -365,8 +365,6 @@
             url: "/appUser?app_no=" + appNo + "&" + appUserRegister
         })
             .done(function (data) {
-
-                console.log(data);
                 location.href = "/user_info?form_no=" + data;
             })
             .fail(function (data, textStatus, errorThrown) {

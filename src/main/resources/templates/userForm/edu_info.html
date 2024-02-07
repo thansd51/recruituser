@@ -635,8 +635,8 @@
                 method: "POST",
                 url: "/infoEdu?form_no=" + formNo + "&" + eduHighForm + "&" + eduUnivForm
             })
-                .done(function (msg) {
-                    alert("Data Saved: " + msg);
+                .done(function (data) {
+                    location.href = "/career_info?form_no=" + data;
                 })
                 .fail(function (data, textStatus, errorThrown) {
                     alert("실패")

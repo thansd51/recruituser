@@ -50,7 +50,7 @@ public class RestAPI {
 
         formService.appUserRegister(AppUser);
 
-        String form_no = String.valueOf(AppUser.get("form_no")) ;
+        String form_no = String.valueOf(AppUser.get("form_no"));
 
         return form_no;
     }
@@ -92,7 +92,7 @@ public class RestAPI {
 
         formService.insertPersonalInfo(infoPerson);
 
-        String form_no = String.valueOf(infoUser.get("form_no")) ;
+        String form_no = String.valueOf(infoUser.get("form_no"));
 
         return form_no;
     }
@@ -134,7 +134,9 @@ public class RestAPI {
 
         formService.insertEduUniv(eduUnivInfo);
 
-        return "userForm/edu_info";
+        String form_no = String.valueOf(eduHighInfo.get("form_no"));
+
+        return form_no;
     }
 
     @RequestMapping("/infoCareer")
@@ -169,7 +171,9 @@ public class RestAPI {
 
         formService.insertProject(projInfo);
 
-        return "userForm/edu_info";
+        String form_no = String.valueOf(careerInfo.get("form_no"));
+
+        return form_no;
     }
 
     @RequestMapping("/infoCert")
@@ -201,7 +205,9 @@ public class RestAPI {
 
         formService.insertOA(OAInfo);
 
-        return "userForm/edu_info";
+        String form_no = String.valueOf(certInfo.get("form_no"));
+
+        return form_no;
     }
 
     @RequestMapping("/infoAct")
@@ -229,7 +235,9 @@ public class RestAPI {
 
         formService.insertAwd(awdInfo);
 
-        return "userForm/edu_info";
+        String form_no = String.valueOf(actInfo.get("form_no"));
+
+        return form_no;
     }
 
     @RequestMapping("/infoSurv")
@@ -244,7 +252,9 @@ public class RestAPI {
 
         formService.insertSurv(survInfo);
 
-        return "userForm/edu_info";
+        String form_no = String.valueOf(survInfo.get("form_no"));
+
+        return form_no;
     }
 
     @RequestMapping("/appPost")
