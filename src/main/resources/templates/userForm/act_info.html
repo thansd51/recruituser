@@ -283,6 +283,8 @@
         $("#next_btn").on("click", function (e) {
             /*<![CDATA[*/
             var formNo = [[${ actInfo.formNo }]];
+            var appNo = [[${ app_no }]];
+
             var infoActForm = $("#infoActForm").serialize();
             var infoAwdForm = $("#infoAwdForm").serialize();
 
@@ -294,8 +296,8 @@
                 method: "POST",
                 url: "/infoAct?form_no=" + formNo + "&" + infoActForm + "&" + infoAwdForm
             })
-                .done(function (msg) {
-                    alert("suc");
+                .done(function (data) {
+                    location.href = "/survey_info?app_no=" + appNo +  "&form_no=" + data;
                 })
                 .fail(function (data, textStatus, errorThrown) {
                     alert("실패")

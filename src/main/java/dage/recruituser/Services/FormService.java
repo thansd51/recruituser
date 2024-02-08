@@ -15,14 +15,28 @@ public class FormService {
     @Autowired
     FormDAO formDAO;
 
-    /* 기본사항 조회 */
+    /* 기본사항 - 조회 */
     public InfoUserDTO userInfo(@Param("FORM_NO") long form_no) {
         return formDAO.infoUserMapper(form_no);
     }
 
-    /* 기본사항 조회 - 신상정보 */
+    /* 기본사항(신상정보) - 조회 */
     public InfoPersonDTO personInfo(@Param("FORM_NO") long form_no) {
         return formDAO.infoPersonMapper(form_no);
+    }
+
+    /* 기본사항 - 저장 */
+    public void insertUserInfo(HashMap<String, String> map){
+        formDAO.insertUserInfo(map);
+    }
+    /* 기본사항(신상정보) - 저장 */
+    public void insertPersonalInfo(HashMap<String, String> map){
+        formDAO.insertPersonalInfo(map);
+    }
+
+    /* 기본사항 - 수정 */
+    public void updateUserInfo(HashMap<String, String> map){
+        formDAO.updateUserInfo(map);
     }
 
     /* 학력사항 조회 - 고등학교 */
@@ -89,13 +103,8 @@ public class FormService {
     public void appUserRegister(HashMap<String, String> map){
         formDAO.appUserRegMapper(map);
     }
-    /* 기본사항 저장 */
-    public void insertUserInfo(HashMap<String, String> map){
-        formDAO.insertUserInfo(map);
-    }
-    public void insertPersonalInfo(HashMap<String, String> map){
-        formDAO.insertPersonalInfo(map);
-    }
+
+
 
     /* 학력사항 - 고등학교 저장 */
     public void insertEduHigh(HashMap<String, String> map){

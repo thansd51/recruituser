@@ -150,8 +150,8 @@
                     method: "POST",
                     url: "/infoSurv?" + formData
                 })
-                    .done(function (msg) {
-                        console.log("suc");
+                    .done(function (data) {
+                        location.href = "/app_post";
                     })
                     .fail(function (data, textStatus, errorThrown) {
                         alert("실패")

@@ -34,7 +34,6 @@ public class RestAPI {
 
     @RequestMapping("/appUser")
     public String appUserRegister(HttpServletRequest request, Model model, HttpSession session) {
-        System.out.println("form_no");
         HashMap<String, String> AppUser = new HashMap<>();
 
         AppUser.put("app_no", request.getParameter("app_no"));
@@ -55,50 +54,94 @@ public class RestAPI {
         return form_no;
     }
 
+//    @RequestMapping("/infoUser")
+//    public String userInfoSave(HttpServletRequest request) {
+//
+//        HashMap<String, String> infoUser = new HashMap<>();
+//
+//        infoUser.put("form_no", request.getParameter("form_no"));
+//        infoUser.put("request_date", request.getParameter("request_date"));
+//        infoUser.put("user_gender", request.getParameter("user_gender"));
+//        infoUser.put("user_nation", request.getParameter("user_nation"));
+//        infoUser.put("user_zip", request.getParameter("user_zip"));
+//        infoUser.put("user_address", request.getParameter("user_address"));
+//        infoUser.put("user_address_dtl", request.getParameter("user_address_dtl"));
+//        infoUser.put("user_cp", request.getParameter("user_cp"));
+//        infoUser.put("user_tel", request.getParameter("user_tel"));
+//        infoUser.put("user_profile", request.getParameter("user_profile"));
+//
+//
+////        formService.insertUserInfo(infoUser);
+////        formService.updateUserInfo(infoUser);
+//
+//
+//
+//        HashMap<String, String> infoPerson = new HashMap<>();
+//
+//        infoPerson.put("form_no", request.getParameter("form_no"));
+//        infoPerson.put("mil_srvc", request.getParameter("mil_srvc"));
+//        infoPerson.put("mil_type", request.getParameter("mil_type"));
+//        infoPerson.put("mil_type_dtl", request.getParameter("mil_type_dtl"));
+//        infoPerson.put("mil_discharge", request.getParameter("mil_discharge"));
+//        infoPerson.put("mil_exem", request.getParameter("mil_exem"));
+//        infoPerson.put("mil_start_date", request.getParameter("mil_start_date"));
+//        infoPerson.put("mil_end_date", request.getParameter("mil_end_date"));
+//        infoPerson.put("vtr_srvc", request.getParameter("vtr_srvc"));
+//        infoPerson.put("vtr_relation", request.getParameter("vtr_relation"));
+//        infoPerson.put("vtr_num", request.getParameter("vtr_num"));
+//        infoPerson.put("dis_srvc", request.getParameter("dis_srvc"));
+//        infoPerson.put("dis_class", request.getParameter("dis_class"));
+//        infoPerson.put("dis_rate", request.getParameter("dis_rate"));
+//
+////        formService.insertPersonalInfo(infoPerson);
+////        formService.updatePersonalInfo(infoPerson);
+//
+//        String form_no = String.valueOf(request.getParameter("form_no"));
+//
+//        return form_no;
+//    }
+
     @RequestMapping("/infoUser")
     public String userInfoSave(HttpServletRequest request) {
+        HashMap<String, String> userInfo = new HashMap<>();
+        userInfo.put("form_no", request.getParameter("form_no"));
+        userInfo.put("request_date", request.getParameter("request_date"));
+        userInfo.put("user_gender", request.getParameter("user_gender"));
+        userInfo.put("user_nation", request.getParameter("user_nation"));
+        userInfo.put("user_zip", request.getParameter("user_zip"));
+        userInfo.put("user_address", request.getParameter("user_address"));
+        userInfo.put("user_address_dtl", request.getParameter("user_address_dtl"));
+        userInfo.put("user_cp", request.getParameter("user_cp"));
+        userInfo.put("user_tel", request.getParameter("user_tel"));
+        userInfo.put("user_profile", request.getParameter("user_profile"));
 
-        HashMap<String, String> infoUser = new HashMap<>();
+        // 데이터가 있는지 확인
+        boolean dataExists = false;
+        for (Map.Entry<String, String> entry : userInfo.entrySet()) {
+            if (entry.getValue() != null && !entry.getValue().isEmpty()) {
+                dataExists = true;
+                break;
+            }
+        }
 
-        infoUser.put("form_no", request.getParameter("form_no"));
-        infoUser.put("request_date", request.getParameter("request_date"));
-        infoUser.put("user_gender", request.getParameter("user_gender"));
-        infoUser.put("user_nation", request.getParameter("user_nation"));
-        infoUser.put("user_zip", request.getParameter("user_zip"));
-        infoUser.put("user_address", request.getParameter("user_address"));
-        infoUser.put("user_address_dtl", request.getParameter("user_address_dtl"));
-        infoUser.put("user_cp", request.getParameter("user_cp"));
-        infoUser.put("user_tel", request.getParameter("user_tel"));
-        infoUser.put("user_profile", request.getParameter("user_profile"));
+        // 데이터가 없으면 insert 쿼리 실행
+        if (!dataExists) {
+            formService.insertUserInfo(userInfo);
+        }
+        // 데이터가 있으면 update 쿼리 실행
+        else {
+            formService.updateUserInfo(userInfo);
+        }
 
-        formService.insertUserInfo(infoUser);
-
-        HashMap<String, String> infoPerson = new HashMap<>();
-
-        infoPerson.put("form_no", request.getParameter("form_no"));
-        infoPerson.put("mil_srvc", request.getParameter("mil_srvc"));
-        infoPerson.put("mil_type", request.getParameter("mil_type"));
-        infoPerson.put("mil_type_dtl", request.getParameter("mil_type_dtl"));
-        infoPerson.put("mil_discharge", request.getParameter("mil_discharge"));
-        infoPerson.put("mil_exem", request.getParameter("mil_exem"));
-        infoPerson.put("mil_start_date", request.getParameter("mil_start_date"));
-        infoPerson.put("mil_end_date", request.getParameter("mil_end_date"));
-        infoPerson.put("vtr_srvc", request.getParameter("vtr_srvc"));
-        infoPerson.put("vtr_relation", request.getParameter("vtr_relation"));
-        infoPerson.put("vtr_num", request.getParameter("vtr_num"));
-        infoPerson.put("dis_srvc", request.getParameter("dis_srvc"));
-        infoPerson.put("dis_class", request.getParameter("dis_class"));
-        infoPerson.put("dis_rate", request.getParameter("dis_rate"));
-
-        formService.insertPersonalInfo(infoPerson);
-
-        String form_no = String.valueOf(infoUser.get("form_no"));
-
-        return form_no;
+        return userInfo.get("form_no");
     }
+
 
     @RequestMapping("/infoEdu")
     public String eduHighSave(HttpServletRequest request) {
+
+        String get_form_no = request.getParameter("form_no");
+        System.out.println(get_form_no);
 
         HashMap<String, String> eduHighInfo = new HashMap<>();
 
@@ -134,7 +177,7 @@ public class RestAPI {
 
         formService.insertEduUniv(eduUnivInfo);
 
-        String form_no = String.valueOf(eduHighInfo.get("form_no"));
+        String form_no = String.valueOf(request.getParameter("form_no"));
 
         return form_no;
     }
@@ -171,7 +214,7 @@ public class RestAPI {
 
         formService.insertProject(projInfo);
 
-        String form_no = String.valueOf(careerInfo.get("form_no"));
+        String form_no = String.valueOf(request.getParameter("form_no"));
 
         return form_no;
     }
@@ -205,7 +248,7 @@ public class RestAPI {
 
         formService.insertOA(OAInfo);
 
-        String form_no = String.valueOf(certInfo.get("form_no"));
+        String form_no = String.valueOf(request.getParameter("form_no"));
 
         return form_no;
     }
@@ -235,7 +278,7 @@ public class RestAPI {
 
         formService.insertAwd(awdInfo);
 
-        String form_no = String.valueOf(actInfo.get("form_no"));
+        String form_no = String.valueOf(request.getParameter("form_no"));
 
         return form_no;
     }
@@ -252,7 +295,7 @@ public class RestAPI {
 
         formService.insertSurv(survInfo);
 
-        String form_no = String.valueOf(survInfo.get("form_no"));
+        String form_no = String.valueOf(request.getParameter("form_no"));
 
         return form_no;
     }

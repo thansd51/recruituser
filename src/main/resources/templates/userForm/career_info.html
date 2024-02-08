@@ -366,8 +366,8 @@
                 method: "POST",
                 url: "/infoCareer?form_no=" + formNo + "&" + infoCareerForm + "&" + infoProjectForm 
             })
-                .done(function (msg) {
-                    alert("Data Saved: " + msg);
+                .done(function (data) {
+                    location.href = "/cert_info?form_no=" + data;
                 })
                 .fail(function (data, textStatus, errorThrown) {
                     alert("실패")

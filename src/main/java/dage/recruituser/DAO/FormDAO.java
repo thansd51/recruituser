@@ -10,10 +10,21 @@ import java.util.List;
 @Repository
 public interface FormDAO {
 
-     /* 기본사항 조회 */
+     /* 기본사항 - 조회 */
      InfoUserDTO infoUserMapper(@Param("FORM_NO") long form_no);
-
      InfoPersonDTO infoPersonMapper(@Param("FORM_NO") long form_no);
+
+     /* 기본사항 - 저장 */
+     void insertUserInfo(HashMap<String, String> map);
+     void insertPersonalInfo(HashMap<String, String> map);
+
+     /* 기본사항 - 수정 */
+     void updateUserInfo(HashMap<String, String> map);
+
+
+
+
+
 
      /* 학력사항 조회 - 고등학교 */
      InfoEduHighDTO eduHighMapper(@Param("FORM_NO") long form_no);
@@ -48,10 +59,6 @@ public interface FormDAO {
 
      /* 지원서 등록 */
      void appUserRegMapper(HashMap<String, String> map);
-
-     /* 기본정보 저장 */
-     void insertUserInfo(HashMap<String, String> map);
-     void insertPersonalInfo(HashMap<String, String> map);
 
      /* 학력사항 - 고등학교 저장 */
      void insertEduHigh(HashMap<String, String> map);

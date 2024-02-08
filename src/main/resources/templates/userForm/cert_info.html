@@ -356,8 +356,8 @@
                 method: "POST",
                 url: "/infoCert?form_no=" + formNo + "&" + infoCertForm + "&" + infoLangForm + "&" + infoOaForm
             })
-                .done(function (msg) {
-                    location.href = "/edu_info?form_no=" + data;
+                .done(function (data) {
+                    location.href = "/act_info?form_no=" + data;
                 })
                 .fail(function (data, textStatus, errorThrown) {
                     alert("실패")

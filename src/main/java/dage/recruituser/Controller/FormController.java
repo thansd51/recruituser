@@ -25,6 +25,8 @@ public class FormController {
 
         AppBoardDTO appBoard = appBoardService.appBoardInfo(app_no);
 
+        session.setAttribute("appBoard", appBoard);
+
         model.addAttribute("appBoard", appBoard);
 
         return "userForm/app_form";
@@ -37,9 +39,12 @@ public class FormController {
         InfoUserDTO infoUser = formService.userInfo(form_no);
         InfoPersonDTO infoPerson = formService.personInfo(form_no);
 
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
+
         session.setAttribute("infoUser", infoUser);
         session.setAttribute("infoPerson", infoPerson);
 
+        model.addAttribute("app_job", appBoard.getAppJob());
         model.addAttribute("infoUser", infoUser);
         model.addAttribute("infoPerson", infoPerson);
 
@@ -96,7 +101,7 @@ public class FormController {
     }
 
     @GetMapping("/act_info")
-    public String act_info(HttpSession session, Model model, @RequestParam("form_no") long form_no, InfoUserDTO infoUser) {
+    public String act_info(HttpSession session, Model model, @RequestParam("form_no") long form_no) {
 
         InfoActDTO actInfo = formService.actInfo(form_no);
         InfoAwdDTO awdInfo = formService.awdInfo(form_no);
@@ -106,6 +111,9 @@ public class FormController {
 
         model.addAttribute("actInfo", actInfo);
         model.addAttribute("awdInfo", awdInfo);
+
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
+        model.addAttribute("app_no", appBoard.getAppNo());
 
         return "userForm/act_info";
     }
@@ -125,9 +133,6 @@ public class FormController {
 
         session.setAttribute("survInfo", survInfo);
         session.setAttribute("formNO", formNO);
-
-        System.out.println(model.addAttribute("survInfo", survInfo));
-
 
         return "userForm/survey_info";
     }

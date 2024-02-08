@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dage.recruituser.DAO.FormDAO">
+
+    <!-- 지원서 작성 -->
+    <insert id="appUserRegMapper" parameterType="hashmap" useGeneratedKeys="true" keyColumn="FORM_NO" keyProperty="form_no">
+        INSERT INTO APP_USER (
+        APP_NO,
+        USER_EMAIL,
+        USER_PASSWORD,
+        USER_NAME,
+        USER_BIRTH,
+        USER_AGREE_1,
+        USER_AGREE_2,
+        USER_AGREE_3,
+        USER_AGREE_4,
+        USER_AGREE_5
+        ) VALUES (
+        #{app_no},
+        #{user_email},
+        #{user_password},
+        #{user_name},
+        #{user_birth},
+        #{user_agree_1},
+        #{user_agree_2},
+        #{user_agree_3},
+        #{user_agree_4},
+        #{user_agree_5}
+        )
+    </insert>
+
+    <!-- 기본정보 조회 -->
     <select id="infoUserMapper" resultType="dage.recruituser.DTO.InfoUserDTO">
         SELECT
             A.FORM_NO,
@@ -49,6 +78,119 @@
         WHERE
             A.FORM_NO = #{FORM_NO}
     </select>
+
+    <!-- 기본정보 저장 -->
+    <insert id="insertUserInfo" parameterType="hashmap">
+        INSERT INTO USER_INFO (
+        FORM_NO,
+        REQUEST_DATE,
+        USER_GENDER,
+        USER_NATION,
+        USER_ZIP,
+        USER_ADDR,
+        USER_ADDR_DTL,
+        USER_CP,
+        USER_TEL,
+        USER_PROFILE
+        ) VALUES (
+        #{form_no},
+        #{request_date},
+        #{user_gender},
+        #{user_nation},
+        #{user_zip},
+        #{user_address},
+        #{user_address_dtl},
+        #{user_cp},
+        #{user_tel},
+        #{user_profile}
+        )
+    </insert>
+    <insert id="insertPersonalInfo" parameterType="hashmap">
+        INSERT INTO PSNL_INFO (
+        FORM_NO,
+        MIL_SRVC,
+        MIL_TYPE,
+        MIL_TYPE_DTL,
+        MIL_DSCHR,
+        MIL_EXEM,
+        MIL_START_DATE,
+        MIL_END_DATE,
+        VTR_SRVC,
+        VTR_RLT,
+        VTR_NUM,
+        DIS_SRVC,
+        DIS_CLS,
+        DIS_RATE
+        ) VALUES (
+        #{form_no},
+        #{mil_srvc},
+        #{mil_type},
+        #{mil_type_dtl},
+        #{mil_discharge},
+        #{mil_exem},
+        #{mil_start_date},
+        #{mil_end_date},
+        #{vtr_srvc},
+        #{vtr_relation},
+        #{vtr_num},
+        #{dis_srvc},
+        #{dis_class},
+        #{dis_rate}
+        )
+    </insert>
+
+    <!-- 기본정보 수정 -->
+    <update id="updateUserInfo" parameterType="hashmap">
+        UPDATE
+            USER_INFO
+        SET
+            REQUEST_DATE = #{request_date},
+            USER_GENDER = #{user_gender},
+            USER_NATION =  #{user_nation},
+            USER_ZIP = #{user_zip},
+            USER_ADDR =  #{user_address},
+            USER_ADDR_DTL = #{user_address_dtl},
+            USER_CP = #{user_cp},
+            USER_TEL = #{user_tel},
+            USER_PROFILE = #{user_profile}
+        WHERE
+            FORM_NO = #{form_no}
+    </update>
+    <update id="updatePersonalInfo" parameterType="hashmap">
+        INSERT INTO PSNL_INFO (
+        FORM_NO,
+        MIL_SRVC,
+        MIL_TYPE,
+        MIL_TYPE_DTL,
+        MIL_DSCHR,
+        MIL_EXEM,
+        MIL_START_DATE,
+        MIL_END_DATE,
+        VTR_SRVC,
+        VTR_RLT,
+        VTR_NUM,
+        DIS_SRVC,
+        DIS_CLS,
+        DIS_RATE
+        ) VALUES (
+        #{form_no},
+        #{mil_srvc},
+        #{mil_type},
+        #{mil_type_dtl},
+        #{mil_discharge},
+        #{mil_exem},
+        #{mil_start_date},
+        #{mil_end_date},
+        #{vtr_srvc},
+        #{vtr_relation},
+        #{vtr_num},
+        #{dis_srvc},
+        #{dis_class},
+        #{dis_rate}
+        )
+    </update>
+
+    <!-- 학력사항 조회 -->
     <select id="eduHighMapper" resultType="dage.recruituser.DTO.InfoEduHighDTO">
         SELECT
             A.FORM_NO,
@@ -95,6 +237,68 @@
         WHERE
             A.FORM_NO = #{FORM_NO};
     </select>
+
+    <!-- 학력사항 저장 -->
+    <insert id="insertEduHigh" parameterType="hashmap">
+        INSERT INTO EDU_HIGH_INFO (
+        FORM_NO,
+        HIGH_NAME,
+        HIGH_LOC,
+        HIGH_SER,
+        HIGH_GRDTN_CLS,
+        HIGH_START_DATE,
+        HIGH_END_DATE,
+        HIGH_FN
+        ) VALUES (
+        #{form_no},
+        #{high_name},
+        #{high_loc},
+        #{high_ser},
+        #{high_grd},
+        #{high_start_date},
+        #{high_end_date},
+        #{high_fn}
+        )
+    </insert>
+    <insert id="insertEduUniv" parameterType="hashmap">
+        INSERT INTO EDU_UNIV_INFO (
+        FORM_NO,
+        UNIV_SEQ,
+        UNIV_EDU,
+        UNIV_NAME,
+        UNIV_LOC,
+        UNIV_GRDTN_CLS,
+        UNIV_START_DATE,
+        UNIV_END_DATE,
+        UNIV_DN,
+        UNIV_SER,
+        UNIV_CLS,
+        UNIV_CLS_MUL,
+        UNIV_CLS_SUB,
+        UNIV_CRD,
+        UNIV_CRD_MAX,
+        UNIV_FN
+        ) VALUES (
+        #{form_no},
+        #{univ_seq},
+        #{univ_edu},
+        #{univ_name},
+        #{univ_loc},
+        #{univ_grd},
+        #{univ_start_date},
+        #{univ_end_date},
+        #{univ_dn},
+        #{univ_ser},
+        #{univ_cls},
+        #{univ_cls_mul},
+        #{univ_cls_sub},
+        #{univ_crd},
+        #{univ_crd_max},
+        #{univ_fn}
+        )
+    </insert>
+
+    <!-- 경력사항 조회 -->
     <select id="careerMapper" resultType="dage.recruituser.DTO.InfoCareerDTO">
         SELECT
             A.FORM_NO,
@@ -136,6 +340,58 @@
         WHERE
             A.FORM_NO = #{FORM_NO}
     </select>
+
+    <!-- 경력사항 저장 -->
+    <insert id="insertCareer" parameterType="hashmap">
+        INSERT INTO CAREER_INFO (
+        FORM_NO,
+        CO_NAME,
+        CO_START_DATE,
+        CO_END_DATE,
+        CO_LOC,
+        CO_CLS,
+        CO_FORM_EMP,
+        CO_SALARY,
+        CO_DEPT,
+        CO_RANK,
+        CO_WORK,
+        CO_RETIRE
+        ) VALUES (
+        #{form_no},
+        #{co_name},
+        #{co_start_date},
+        #{co_end_date},
+        #{co_loc},
+        #{co_cls},
+        #{co_form_emp},
+        #{co_salary},
+        #{co_dept},
+        #{co_rank},
+        #{co_work},
+        #{co_retire}
+        )
+    </insert>
+    <insert id="insertProject" parameterType="hashmap">
+        INSERT INTO PROJ_INFO (
+        FORM_NO,
+        PROJ_NAME,
+        PROJ_START_DATE,
+        PROJ_END_DATE,
+        PROJ_ORDER,
+        PROJ_LOC,
+        PROJ_WORK
+        ) VALUES (
+        #{form_no},
+        #{proj_name},
+        #{proj_start_date},
+        #{proj_end_date},
+        #{proj_order},
+        #{proj_loc},
+        #{proj_work}
+        )
+    </insert>
+
+    <!-- 자격사항 조회 -->
     <select id="certMapper" resultType="dage.recruituser.DTO.InfoCertDTO">
         SELECT
             A.FORM_NO,
@@ -180,6 +436,47 @@
         WHERE
             A.FORM_NO = #{FORM_NO}
     </select>
+
+    <!-- 자격사항 저장 -->
+    <insert id="insertCert" parameterType="hashmap">
+        INSERT INTO CERT_INFO (
+        FORM_NO,
+        CERT_CLS,
+        CERT_NUM,
+        CERT_ISU,
+        CERT_DATE
+        ) VALUES (
+        #{form_no},
+        #{cert_cls},
+        #{cert_num},
+        #{cert_isu},
+        #{cert_date}
+        )
+    </insert>
+    <insert id="insertLang" parameterType="hashmap">
+        INSERT INTO LANG_INFO (
+        FORM_NO,
+        LANG_NAME,
+        LANG_LV
+        ) VALUES (
+        #{form_no},
+        #{lang_name},
+        #{lang_lv}
+        )
+    </insert>
+    <insert id="insertOA" parameterType="hashmap">
+        INSERT INTO OA_INFO (
+        FORM_NO,
+        OA_NAME,
+        OA_LV
+        ) VALUES (
+        #{form_no},
+        #{oa_name},
+        #{oa_lv}
+        )
+    </insert>
+
+    <!-- 활동사항 조회 -->
     <select id="actMapper" resultType="dage.recruituser.DTO.InfoActDTO">
         SELECT
             A.FORM_NO,
@@ -214,6 +511,44 @@
         WHERE
             A.FORM_NO = #{FORM_NO}
     </select>
+
+    <!-- 활동사항 저장 -->
+    <insert id="insertAct" parameterType="hashmap">
+        INSERT INTO ACT_INFO (
+        FORM_NO,
+        ACT_NAME,
+        ACT_START_DATE,
+        ACT_END_DATE,
+        ACT_FD,
+        ACT_CONDUCT,
+        ACT_CONTENT
+        ) VALUES (
+        #{form_no},
+        #{act_name},
+        #{act_start_date},
+        #{act_end_date},
+        #{act_fd},
+        #{act_conduct},
+        #{act_content}
+        )
+    </insert>
+    <insert id="insertAwd" parameterType="hashmap">
+        INSERT INTO AWD_INFO (
+        FORM_NO,
+        AWD_NAME,
+        AWD_DATE,
+        AWD_CONDUCT,
+        AWD_CONTENT
+        ) VALUES (
+        #{form_no},
+        #{awd_name},
+        #{awd_date},
+        #{awd_conduct},
+        #{awd_content}
+        )
+    </insert>
+
+    <!-- 자기소개 조회 -->
     <select id="survMapper" resultType="dage.recruituser.DTO.InfoSurvDTO">
         SELECT
             A.FORM_NO,
@@ -238,279 +573,20 @@
         ORDER BY B.QUEST_SEQ
     </select>
 
-
-    <insert id="appUserRegMapper" parameterType="hashmap" useGeneratedKeys="true" keyColumn="FORM_NO" keyProperty="form_no">
-        INSERT INTO APP_USER (
-            APP_NO,
-            USER_EMAIL,
-            USER_PASSWORD,
-            USER_NAME,
-            USER_BIRTH,
-            USER_AGREE_1,
-            USER_AGREE_2,
-            USER_AGREE_3,
-            USER_AGREE_4,
-            USER_AGREE_5
-        ) VALUES (
-            #{app_no},
-            #{user_email},
-            #{user_password},
-            #{user_name},
-            #{user_birth},
-            #{user_agree_1},
-            #{user_agree_2},
-            #{user_agree_3},
-            #{user_agree_4},
-            #{user_agree_5}
-        )
-    </insert>
-    <insert id="insertUserInfo" parameterType="hashmap">
-        INSERT INTO USER_INFO (
-            FORM_NO,
-            REQUEST_DATE,
-            USER_GENDER,
-            USER_NATION,
-            USER_ZIP,
-            USER_ADDR,
-            USER_ADDR_DTL,
-            USER_CP,
-            USER_TEL,
-            USER_PROFILE
-        ) VALUES (
-            #{form_no},
-            #{request_date},
-            #{user_gender},
-            #{user_nation},
-            #{user_zip},
-            #{user_address},
-            #{user_address_dtl},
-            #{user_cp},
-            #{user_tel},
-            #{user_profile}
-        )
-    </insert>
-    <insert id="insertPersonalInfo" parameterType="hashmap">
-        INSERT INTO PSNL_INFO (
-            FORM_NO,
-            MIL_SRVC,
-            MIL_TYPE,
-            MIL_TYPE_DTL,
-            MIL_DSCHR,
-            MIL_EXEM,
-            MIL_START_DATE,
-            MIL_END_DATE,
-            VTR_SRVC,
-            VTR_RLT,
-            VTR_NUM,
-            DIS_SRVC,
-            DIS_CLS,
-            DIS_RATE
-        ) VALUES (
-            #{form_no},
-            #{mil_srvc},
-            #{mil_type},
-            #{mil_type_dtl},
-            #{mil_discharge},
-            #{mil_exem},
-            #{mil_start_date},
-            #{mil_end_date},
-            #{vtr_srvc},
-            #{vtr_relation},
-            #{vtr_num},
-            #{dis_srvc},
-            #{dis_class},
-            #{dis_rate}
-        )
-    </insert>
-    <insert id="insertEduHigh" parameterType="hashmap">
-        INSERT INTO EDU_HIGH_INFO (
-            FORM_NO,
-            HIGH_NAME,
-            HIGH_LOC,
-            HIGH_SER,
-            HIGH_GRDTN_CLS,
-            HIGH_START_DATE,
-            HIGH_END_DATE,
-            HIGH_FN
-        ) VALUES (
-            #{form_no},
-            #{high_name},
-            #{high_loc},
-            #{high_ser},
-            #{high_grd},
-            #{high_start_date},
-            #{high_end_date},
-            #{high_fn}
-        )
-    </insert>
-    <insert id="insertEduUniv" parameterType="hashmap">
-        INSERT INTO EDU_UNIV_INFO (
-            FORM_NO,
-            UNIV_SEQ,
-            UNIV_EDU,
-            UNIV_NAME,
-            UNIV_LOC,
-            UNIV_GRDTN_CLS,
-            UNIV_START_DATE,
-            UNIV_END_DATE,
-            UNIV_DN,
-            UNIV_SER,
-            UNIV_CLS,
-            UNIV_CLS_MUL,
-            UNIV_CLS_SUB,
-            UNIV_CRD,
-            UNIV_CRD_MAX,
-            UNIV_FN
-        ) VALUES (
-            #{form_no},
-            #{univ_seq},
-            #{univ_edu},
-            #{univ_name},
-            #{univ_loc},
-            #{univ_grd},
-            #{univ_start_date},
-            #{univ_end_date},
-            #{univ_dn},
-            #{univ_ser},
-            #{univ_cls},
-            #{univ_cls_mul},
-            #{univ_cls_sub},
-            #{univ_crd},
-            #{univ_crd_max},
-            #{univ_fn}
-        )
-    </insert>
-    <insert id="insertCareer" parameterType="hashmap">
-        INSERT INTO CAREER_INFO (
-            FORM_NO,
-            CO_NAME,
-            CO_START_DATE,
-            CO_END_DATE,
-            CO_LOC,
-            CO_CLS,
-            CO_FORM_EMP,
-            CO_SALARY,
-            CO_DEPT,
-            CO_RANK,
-            CO_WORK,
-            CO_RETIRE
-        ) VALUES (
-            #{form_no},
-            #{co_name},
-            #{co_start_date},
-            #{co_end_date},
-            #{co_loc},
-            #{co_cls},
-            #{co_form_emp},
-            #{co_salary},
-            #{co_dept},
-            #{co_rank},
-            #{co_work},
-            #{co_retire}
-        )
-    </insert>
-    <insert id="insertProject" parameterType="hashmap">
-        INSERT INTO PROJ_INFO (
-            FORM_NO,
-            PROJ_NAME,
-            PROJ_START_DATE,
-            PROJ_END_DATE,
-            PROJ_ORDER,
-            PROJ_LOC,
-            PROJ_WORK
-        ) VALUES (
-            #{form_no},
-            #{proj_name},
-            #{proj_start_date},
-            #{proj_end_date},
-            #{proj_order},
-            #{proj_loc},
-            #{proj_work}
-        )
-    </insert>
-    <insert id="insertCert" parameterType="hashmap">
-        INSERT INTO CERT_INFO (
-            FORM_NO,
-            CERT_CLS,
-            CERT_NUM,
-            CERT_ISU,
-            CERT_DATE
-        ) VALUES (
-            #{form_no},
-            #{cert_cls},
-            #{cert_num},
-            #{cert_isu},
-            #{cert_date}
-        )
-    </insert>
-    <insert id="insertLang" parameterType="hashmap">
-        INSERT INTO LANG_INFO (
-            FORM_NO,
-            LANG_NAME,
-            LANG_LV
-        ) VALUES (
-            #{form_no},
-            #{lang_name},
-            #{lang_lv}
-        )
-    </insert>
-    <insert id="insertOA" parameterType="hashmap">
-        INSERT INTO OA_INFO (
-            FORM_NO,
-            OA_NAME,
-            OA_LV
-        ) VALUES (
-            #{form_no},
-            #{oa_name},
-            #{oa_lv}
-        )
-    </insert>
-    <insert id="insertAct" parameterType="hashmap">
-        INSERT INTO ACT_INFO (
-            FORM_NO,
-            ACT_NAME,
-            ACT_START_DATE,
-            ACT_END_DATE,
-            ACT_FD,
-            ACT_CONDUCT,
-            ACT_CONTENT
-        ) VALUES (
-            #{form_no},
-            #{act_name},
-            #{act_start_date},
-            #{act_end_date},
-            #{act_fd},
-            #{act_conduct},
-            #{act_content}
-        )
-    </insert>
-    <insert id="insertAwd" parameterType="hashmap">
-        INSERT INTO AWD_INFO (
-            FORM_NO,
-            AWD_NAME,
-            AWD_DATE,
-            AWD_CONDUCT,
-            AWD_CONTENT
-        ) VALUES (
-            #{form_no},
-            #{awd_name},
-            #{awd_date},
-            #{awd_conduct},
-            #{awd_content}
-        )
-    </insert>
+    <!-- 자기소개 저장 -->
     <insert id="insertSurv" parameterType="hashmap">
         INSERT INTO SURV_ANSWER (
-            QUEST_NO,
-            FORM_NO,
-            ANSWER_CONTENT
+        QUEST_NO,
+        FORM_NO,
+        ANSWER_CONTENT
         ) VALUES (
-            #{quest_no},
-            #{form_no},
-            #{surv_answer}
+        #{quest_no},
+        #{form_no},
+        #{surv_answer}
         )
     </insert>
 
+    <!-- 지원서 삭제 -->
     <delete id="deleteUserForm">
         SET FOREIGN_KEY_CHECKS=0;
 
