@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<body>
+    <!-- 공통 사이드 메뉴 -->
+    <th:block th:replace="/fragments/sidebar :: sidebarFragment"></th:block>
+
+    <!-- 공통 상단 메뉴 -->
+    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+    <!-- 머리글 -->
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>진행중인 공고</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 등록버튼 -->
+    <div class="row-12">
+        <div class="col-11"></div>
+        <div class="col-1"><a class="btn btn-info my-2" href="board/modify" role="button">공고 등록</a>
+            <!-- Large modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
+                modal</button>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>
+
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="testBtn" class="btn">모달 테스트</button>
+        <!-- 회원가입 확인 Modal-->
+        <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">모달테스트</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">내용 입력 !!</div>
+                    <div class="modal-footer">
+                        <a class="btn" id="modalY" href="#">예</a>
+                        <button class="btn" type="button" data-dismiss="modal">아니요</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</div>
+
+
+<!-- 공통 스크립트-->
+<th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+<script>
+    $('#myModal').on('hidden.bs.modal', function (e) {
+        // do something...
+    })
+</script>
+
+<script>
+    $('#testBtn').click(function (e) {
+        e.preventDefault();
+        $('#testModal').modal("show");
+    });
+</script>
+</body>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+</head>
+<th:block th:fragment="sidebarFragment">
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div class="navbar-header">
+                </button>
+                <!--메인 버튼-->
+                <a class="navbar-brand"><img src="/images/logo.png" alt="Logo"></a>
+                <!-- <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a> -->
+            </div>
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="/"><i class="menu-icon fa fa-laptop"></i>채용 관리 시스템</a>
+                    </li>
+
+                    <h3 class="menu-title">지원자 모집</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="/recruit_write"><i class="menu-icon fa fa-dashboard"></i>모집 공고 등록</a>
+                        <a href="/info_modify"><i class="menu-icon fa fa-table"></i>채용 정보 설정</a>
+                    </li>
+
+                    <h3 class="menu-title">지원자 관리</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="/content"> <i class="menu-icon fa fa-tasks"></i>지원자 현황</a>
+                        <a href="#"> <i class="menu-icon ti-email"></i>Widgets </a>
+                        <a href="#"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <a href="#"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                    </li>
+                    <h3 class="menu-title">지원자 연락</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#"> <i class="menu-icon fa fa-glass"></i>안내 메일 발송</a>
+                        <a href="#"> <i class="menu-icon fa fa-glass"></i>메일 템플릿 설정</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+</th:block>
+
+</html>

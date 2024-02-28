@@ -64,7 +64,7 @@
                                             <span th:text="${survDto.question}"></span>
                                             <input type="hidden" id="quest_no" name="quest_no"
                                                 th:value="${survDto.questNo}">
-                                            <input type="hidden" id="form_no" name="form_no" th:value="${formNO}">
+                                            <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
                                         </th>
                                     </tr>
                                     <tr>
@@ -97,7 +97,8 @@
             </div>
             <!-- 버튼 -->
             <div class="col mb-5 text-center">
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn"
+                    th:onclick="'location.href=\'/act_info?form_no=' + ${form_no} + '\''">이전</button>
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
             </div>
         </div>
