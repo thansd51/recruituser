@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class InfoActDTO {
     private Long formNo;
+    private String actSeq;
     private String actName;
     private String actStartDate;
     private String actEndDate;

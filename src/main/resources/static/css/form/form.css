@@ -72,17 +72,32 @@ body {
   border-radius: 0;
 }
 
-.form-select{
+.form-select {
   border-radius: 0;
-  font-size: 90%;
   color: #646464;
 }
 
-#next_btn, #prev_btn {
+#next_btn,
+#prev_btn {
   width: 150px;
   height: 50px;
   border: 1px solid;
   border-color: rgba(204, 204, 204, 0.795);
+}
+
+#tempSave_btn {
+  width: 150px;
+  height: 50px;
+  border: 1px solid;
+  border-color: rgba(204, 204, 204, 0.795);
+  background-color: #910000;
+}
+#tempSave_btn:hover {
+  width: 150px;
+  height: 50px;
+  border: 1px solid;
+  border-color: rgba(204, 204, 204, 0.795);
+  background-color: rgb(114, 1, 1);
 }
 
 #regPhoto {
@@ -127,6 +142,12 @@ th.table-light {
   border: 1px solid #b3b3b3;
 }
 
+.high_name.form-control,
+.univ_name.form-control {
+  background-color: rgb(240, 240, 240);
+  pointer-events: none;
+}
+
 .table-light {
   background-color: rgb(230, 230, 230);
   font-size: 16px;
@@ -155,19 +176,37 @@ th.table-light {
   width: 35%;
 }
 
-#resetBtn, #deleteBtn {
+#resetBtn,
+#coResetBtn,
+#projResetBtn,
+#deleteBtn,
+#coDeleteBtn,
+#projDeleteBtn, 
+#addDeleteBtn,
+#addDeleteBtn_co,
+#addDeleteBtn_proj {
   border: 1px solid #000000;
   background-color: #ffffff;
   color: #000000;
 }
 
-#resetBtn:hover, #deleteBtn:hover {
+#resetBtn:hover,
+#deleteBtn:hover,
+#coResetBtn:hover,
+#coDeleteBtn:hover,
+#projResetBtn:hover,
+#projDeleteBtn:hover {
   border: 1px solid #000000;
   background-color: #000000;
   color: #ffffff;
 }
 
-#resetBtn:active, #deleteBtn:active {
+#resetBtn:active,
+#deleteBtn:active,
+#coResetBtn:active,
+#coDeleteBtn:active,
+#projResetBtn:active,
+#projDeleteBtn:active {
   border: 1px solid #414141;
   background-color: #414141;
   color: #ffffff;
@@ -248,18 +287,22 @@ label,
 
 /* 아래의 모든 코드는 영역::코드로 사용 */
 .searchBox::-webkit-scrollbar {
-  width: 10px;  /* 스크롤바의 너비 */
+  width: 10px;
+  /* 스크롤바의 너비 */
 }
 
 .searchBox::-webkit-scrollbar-thumb {
-  height: 30%; /* 스크롤바의 길이 */
-  background: #313131; /* 스크롤바의 색상 */
-  
-  
+  height: 30%;
+  /* 스크롤바의 길이 */
+  background: #313131;
+  /* 스크롤바의 색상 */
+
+
 }
 
 .searchBox::-webkit-scrollbar-track {
-  background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+  background: rgba(33, 122, 244, .1);
+  /*스크롤바 뒷 배경 색상*/
 }
 
 .searchResultItem {
@@ -285,9 +328,9 @@ label,
 }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
-    top: 3px;
-    position: relative;
-    color: #666666;
+  top: 3px;
+  position: relative;
+  color: #666666;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -295,9 +338,16 @@ label,
   top: 6px;
 }
 
-
-.select2-results__options{
+.select2-results__options {
   font-weight: bold;
   color: #666666;
 }
 
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1px solid #999;
+  appearance: none;
+  cursor: pointer;
+}

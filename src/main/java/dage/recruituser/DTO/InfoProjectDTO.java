@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class InfoProjectDTO {
     private Long formNo;
+    private String projSeq;
     private String projName;
     private String projStartDate;
     private String projEndDate;

@@ -9,8 +9,8 @@ import java.sql.Date;
 public class InfoUserDTO {
     private Long formNo;
     private String userName;
-    private Date userBirth;
-    private Date requestDate;
+    private String userBirth;
+    private String requestDate;
     private String userGender;
     private String userNation;
     private String userZip;

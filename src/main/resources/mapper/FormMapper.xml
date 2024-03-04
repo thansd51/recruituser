@@ -1,33 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dage.recruituser.DAO.FormDAO">
-
     <!-- 지원서 작성 -->
     <insert id="appUserRegMapper" parameterType="hashmap" useGeneratedKeys="true" keyColumn="FORM_NO" keyProperty="form_no">
         INSERT INTO APP_USER (
-        APP_NO,
-        USER_EMAIL,
-        USER_PASSWORD,
-        USER_NAME,
-        USER_BIRTH,
-        USER_AGREE_1,
-        USER_AGREE_2,
-        USER_AGREE_3,
-        USER_AGREE_4,
-        USER_AGREE_5
+            APP_NO,
+            USER_EMAIL,
+            USER_PASSWORD,
+            USER_NAME,
+            USER_BIRTH,
+            USER_AGREE_1,
+            USER_AGREE_2,
+            USER_AGREE_3,
+            USER_AGREE_4,
+            USER_AGREE_5
         ) VALUES (
-        #{app_no},
-        #{user_email},
-        #{user_password},
-        #{user_name},
-        #{user_birth},
-        #{user_agree_1},
-        #{user_agree_2},
-        #{user_agree_3},
-        #{user_agree_4},
-        #{user_agree_5}
+            #{app_no},
+            #{user_email},
+            #{user_password},
+            #{user_name},
+            #{user_birth},
+            #{user_agree_1},
+            #{user_agree_2},
+            #{user_agree_3},
+            #{user_agree_4},
+            #{user_agree_5}
         )
     </insert>
+    <!-- 지원자정보 -->
+    <select id="appUser" resultType="dage.recruituser.DTO.UserDTO">
+        SELECT
+            FORM_NO,
+            APP_NO,
+            USER_EMAIL,
+            USER_PASSWORD,
+            USER_NAME,
+            USER_BIRTH
+        FROM
+            APP_USER
+        WHERE
+            FORM_NO = #{form_no}
+    </select>
+
 
     <!-- 기본정보 조회 -->
     <select id="infoUserMapper" resultType="dage.recruituser.DTO.InfoUserDTO">
@@ -80,70 +94,30 @@
     </select>
 
     <!-- 기본정보 저장 -->
-    <insert id="insertUserInfo" parameterType="hashmap">
+    <insert id="saveUserInfo" parameterType="hashmap">
         INSERT INTO USER_INFO (
-        FORM_NO,
-        REQUEST_DATE,
-        USER_GENDER,
-        USER_NATION,
-        USER_ZIP,
-        USER_ADDR,
-        USER_ADDR_DTL,
-        USER_CP,
-        USER_TEL,
-        USER_PROFILE
+            FORM_NO,
+            REQUEST_DATE,
+            USER_GENDER,
+            USER_NATION,
+            USER_ZIP,
+            USER_ADDR,
+            USER_ADDR_DTL,
+            USER_CP,
+            USER_TEL,
+            USER_PROFILE
         ) VALUES (
-        #{form_no},
-        #{request_date},
-        #{user_gender},
-        #{user_nation},
-        #{user_zip},
-        #{user_address},
-        #{user_address_dtl},
-        #{user_cp},
-        #{user_tel},
-        #{user_profile}
-        )
-    </insert>
-    <insert id="insertPersonalInfo" parameterType="hashmap">
-        INSERT INTO PSNL_INFO (
-        FORM_NO,
-        MIL_SRVC,
-        MIL_TYPE,
-        MIL_TYPE_DTL,
-        MIL_DSCHR,
-        MIL_EXEM,
-        MIL_START_DATE,
-        MIL_END_DATE,
-        VTR_SRVC,
-        VTR_RLT,
-        VTR_NUM,
-        DIS_SRVC,
-        DIS_CLS,
-        DIS_RATE
-        ) VALUES (
-        #{form_no},
-        #{mil_srvc},
-        #{mil_type},
-        #{mil_type_dtl},
-        #{mil_discharge},
-        #{mil_exem},
-        #{mil_start_date},
-        #{mil_end_date},
-        #{vtr_srvc},
-        #{vtr_relation},
-        #{vtr_num},
-        #{dis_srvc},
-        #{dis_class},
-        #{dis_rate}
-        )
-    </insert>
-
-    <!-- 기본정보 수정 -->
-    <update id="updateUserInfo" parameterType="hashmap">
-        UPDATE
-            USER_INFO
-        SET
+            #{form_no},
+            #{request_date},
+            #{user_gender},
+            #{user_nation},
+            #{user_zip},
+            #{user_address},
+            #{user_address_dtl},
+            #{user_cp},
+            #{user_tel},
+            #{user_profile}
+        ) ON DUPLICATE KEY UPDATE
             REQUEST_DATE = #{request_date},
             USER_GENDER = #{user_gender},
             USER_NATION =  #{user_nation},
@@ -153,42 +127,53 @@
             USER_CP = #{user_cp},
             USER_TEL = #{user_tel},
             USER_PROFILE = #{user_profile}
-        WHERE
-            FORM_NO = #{form_no}
-    </update>
-    <update id="updatePersonalInfo" parameterType="hashmap">
+    </insert>
+    <insert id="savePersonalInfo" parameterType="hashmap">
         INSERT INTO PSNL_INFO (
-        FORM_NO,
-        MIL_SRVC,
-        MIL_TYPE,
-        MIL_TYPE_DTL,
-        MIL_DSCHR,
-        MIL_EXEM,
-        MIL_START_DATE,
-        MIL_END_DATE,
-        VTR_SRVC,
-        VTR_RLT,
-        VTR_NUM,
-        DIS_SRVC,
-        DIS_CLS,
-        DIS_RATE
+            FORM_NO,
+            MIL_SRVC,
+            MIL_TYPE,
+            MIL_TYPE_DTL,
+            MIL_DSCHR,
+            MIL_EXEM,
+            MIL_START_DATE,
+            MIL_END_DATE,
+            VTR_SRVC,
+            VTR_RLT,
+            VTR_NUM,
+            DIS_SRVC,
+            DIS_CLS,
+            DIS_RATE
         ) VALUES (
-        #{form_no},
-        #{mil_srvc},
-        #{mil_type},
-        #{mil_type_dtl},
-        #{mil_discharge},
-        #{mil_exem},
-        #{mil_start_date},
-        #{mil_end_date},
-        #{vtr_srvc},
-        #{vtr_relation},
-        #{vtr_num},
-        #{dis_srvc},
-        #{dis_class},
-        #{dis_rate}
-        )
-    </update>
+            #{form_no},
+            #{mil_srvc},
+            #{mil_type},
+            #{mil_type_dtl},
+            #{mil_discharge},
+            #{mil_exem},
+            #{mil_start_date},
+            #{mil_end_date},
+            #{vtr_srvc},
+            #{vtr_relation},
+            #{vtr_num},
+            #{dis_srvc},
+            #{dis_class},
+            #{dis_rate}
+        ) ON DUPLICATE KEY UPDATE
+            MIL_SRVC = #{mil_srvc},
+            MIL_TYPE = #{mil_type},
+            MIL_TYPE_DTL = #{mil_type_dtl},
+            MIL_DSCHR = #{mil_discharge},
+            MIL_EXEM = #{mil_exem},
+            MIL_START_DATE = #{mil_start_date},
+            MIL_END_DATE = #{mil_end_date},
+            VTR_SRVC = #{vtr_srvc},
+            VTR_RLT = #{vtr_relation},
+            VTR_NUM = #{vtr_num},
+            DIS_SRVC = #{dis_srvc},
+            DIS_CLS = #{dis_class},
+            DIS_RATE = #{dis_rate}
+    </insert>
 
     <!-- 학력사항 조회 -->
     <select id="eduHighMapper" resultType="dage.recruituser.DTO.InfoEduHighDTO">
@@ -214,9 +199,11 @@
         SELECT
             A.FORM_NO,
             B.UNIV_SEQ,
+            B.UNIV_FN,
             B.UNIV_EDU,
             B.UNIV_NAME,
             B.UNIV_LOC,
+            B.UNIV_BRANCH,
             B.UNIV_GRDTN_CLS as univGrd,
             B.UNIV_START_DATE,
             B.UNIV_END_DATE,
@@ -226,8 +213,7 @@
             B.UNIV_CLS_MUL,
             B.UNIV_CLS_SUB,
             B.UNIV_CRD,
-            B.UNIV_CRD_MAX,
-            B.UNIV_FN
+            B.UNIV_CRD_MAX
         FROM
             APP_USER A
         LEFT JOIN
@@ -235,74 +221,120 @@
         ON
             A.FORM_NO = B.FORM_NO
         WHERE
-            A.FORM_NO = #{FORM_NO};
+            A.FORM_NO = #{FORM_NO}
+        ORDER BY
+            <choose>
+                <when test="orderBy == 'byUnivSeq'">
+                    B.UNIV_SEQ
+                </when>
+                <when test="orderBy == 'byUnivFnFirst'">
+                    CASE
+                        WHEN B.UNIV_FN = 'T' THEN 0
+                        ELSE 1
+                    END,
+                    B.UNIV_SEQ DESC
+                </when>
+            </choose>
     </select>
 
     <!-- 학력사항 저장 -->
-    <insert id="insertEduHigh" parameterType="hashmap">
+    <insert id="saveEduHigh" parameterType="hashmap">
         INSERT INTO EDU_HIGH_INFO (
-        FORM_NO,
-        HIGH_NAME,
-        HIGH_LOC,
-        HIGH_SER,
-        HIGH_GRDTN_CLS,
-        HIGH_START_DATE,
-        HIGH_END_DATE,
-        HIGH_FN
+            FORM_NO,
+            HIGH_NAME,
+            HIGH_LOC,
+            HIGH_SER,
+            HIGH_GRDTN_CLS,
+            HIGH_START_DATE,
+            HIGH_END_DATE,
+            HIGH_FN
         ) VALUES (
-        #{form_no},
-        #{high_name},
-        #{high_loc},
-        #{high_ser},
-        #{high_grd},
-        #{high_start_date},
-        #{high_end_date},
-        #{high_fn}
-        )
+            #{form_no},
+            #{high_name},
+            #{high_loc},
+            #{high_ser},
+            #{high_grd},
+            #{high_start_date},
+            #{high_end_date},
+            #{high_fn}
+        ) ON DUPLICATE KEY UPDATE
+            HIGH_NAME = #{high_name},
+            HIGH_LOC = #{high_loc},
+            HIGH_SER = #{high_ser},
+            HIGH_GRDTN_CLS = #{high_grd},
+            HIGH_START_DATE = #{high_start_date},
+            HIGH_END_DATE = #{high_end_date},
+            HIGH_FN = #{high_fn}
     </insert>
-    <insert id="insertEduUniv" parameterType="hashmap">
+    <insert id="saveEduUniv" parameterType="hashmap">
         INSERT INTO EDU_UNIV_INFO (
-        FORM_NO,
-        UNIV_SEQ,
-        UNIV_EDU,
-        UNIV_NAME,
-        UNIV_LOC,
-        UNIV_GRDTN_CLS,
-        UNIV_START_DATE,
-        UNIV_END_DATE,
-        UNIV_DN,
-        UNIV_SER,
-        UNIV_CLS,
-        UNIV_CLS_MUL,
-        UNIV_CLS_SUB,
-        UNIV_CRD,
-        UNIV_CRD_MAX,
-        UNIV_FN
+            FORM_NO,
+            UNIV_SEQ,
+            UNIV_FN,
+            UNIV_EDU,
+            UNIV_NAME,
+            UNIV_LOC,
+            UNIV_BRANCH,
+            UNIV_GRDTN_CLS,
+            UNIV_START_DATE,
+            UNIV_END_DATE,
+            UNIV_DN,
+            UNIV_SER,
+            UNIV_CLS,
+            UNIV_CLS_MUL,
+            UNIV_CLS_SUB,
+            UNIV_CRD,
+            UNIV_CRD_MAX
         ) VALUES (
-        #{form_no},
-        #{univ_seq},
-        #{univ_edu},
-        #{univ_name},
-        #{univ_loc},
-        #{univ_grd},
-        #{univ_start_date},
-        #{univ_end_date},
-        #{univ_dn},
-        #{univ_ser},
-        #{univ_cls},
-        #{univ_cls_mul},
-        #{univ_cls_sub},
-        #{univ_crd},
-        #{univ_crd_max},
-        #{univ_fn}
-        )
+            #{form_no},
+            #{univ_seq},
+            #{univ_fn},
+            #{univ_edu},
+            #{univ_name},
+            #{univ_loc},
+            #{univ_branch},
+            #{univ_grd},
+            #{univ_start_date},
+            #{univ_end_date},
+            #{univ_dn},
+            #{univ_ser},
+            #{univ_cls},
+            #{univ_cls_mul},
+            #{univ_cls_sub},
+            #{univ_crd},
+            #{univ_crd_max}
+        ) ON DUPLICATE KEY UPDATE
+            UNIV_SEQ = #{univ_seq},
+            UNIV_FN = #{univ_fn},
+            UNIV_EDU = #{univ_edu},
+            UNIV_NAME = #{univ_name},
+            UNIV_LOC = #{univ_loc},
+            UNIV_BRANCH = #{univ_branch},
+            UNIV_GRDTN_CLS = #{univ_grd},
+            UNIV_START_DATE = #{univ_start_date},
+            UNIV_END_DATE = #{univ_end_date},
+            UNIV_DN = #{univ_dn},
+            UNIV_SER = #{univ_ser},
+            UNIV_CLS = #{univ_cls},
+            UNIV_CLS_MUL = #{univ_cls_mul},
+            UNIV_CLS_SUB = #{univ_cls_sub},
+            UNIV_CRD = #{univ_crd},
+            UNIV_CRD_MAX = #{univ_crd_max}
     </insert>
+    <delete id="deleteEduUniv">
+        DELETE FROM
+            EDU_UNIV_INFO
+        WHERE
+            FORM_NO = #{FORM_NO} AND UNIV_SEQ = #{UNIV_SEQ}
+    </delete>
 
     <!-- 경력사항 조회 -->
     <select id="careerMapper" resultType="dage.recruituser.DTO.InfoCareerDTO">
         SELECT
             A.FORM_NO,
+            B.CO_SEQ,
             B.CO_NAME,
+            B.CO_STS,
             B.CO_START_DATE,
             B.CO_END_DATE,
             B.CO_LOC,
@@ -321,10 +353,12 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY CO_SEQ
     </select>
     <select id="projectMapper" resultType="dage.recruituser.DTO.InfoProjectDTO">
         SELECT
             A.FORM_NO,
+            B.PROJ_SEQ,
             B.PROJ_NAME,
             B.PROJ_START_DATE,
             B.PROJ_END_DATE,
@@ -339,62 +373,90 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY PROJ_SEQ
     </select>
 
     <!-- 경력사항 저장 -->
-    <insert id="insertCareer" parameterType="hashmap">
+    <insert id="saveCareer" parameterType="hashmap">
         INSERT INTO CAREER_INFO (
-        FORM_NO,
-        CO_NAME,
-        CO_START_DATE,
-        CO_END_DATE,
-        CO_LOC,
-        CO_CLS,
-        CO_FORM_EMP,
-        CO_SALARY,
-        CO_DEPT,
-        CO_RANK,
-        CO_WORK,
-        CO_RETIRE
+            FORM_NO,
+            CO_SEQ,
+            CO_NAME,
+            CO_STS,
+            CO_START_DATE,
+            CO_END_DATE,
+            CO_LOC,
+            CO_CLS,
+            CO_FORM_EMP,
+            CO_SALARY,
+            CO_DEPT,
+            CO_RANK,
+            CO_WORK,
+            CO_RETIRE
         ) VALUES (
-        #{form_no},
-        #{co_name},
-        #{co_start_date},
-        #{co_end_date},
-        #{co_loc},
-        #{co_cls},
-        #{co_form_emp},
-        #{co_salary},
-        #{co_dept},
-        #{co_rank},
-        #{co_work},
-        #{co_retire}
-        )
+            #{form_no},
+            #{co_seq},
+            #{co_name},
+            #{co_sts},
+            #{co_start_date},
+            #{co_end_date},
+            #{co_loc},
+            #{co_cls},
+            #{co_form_emp},
+            #{co_salary},
+            #{co_dept},
+            #{co_rank},
+            #{co_work},
+            #{co_retire}
+        ) ON DUPLICATE KEY UPDATE
+            CO_SEQ = #{co_seq},
+            CO_NAME = #{co_name},
+            CO_STS = #{co_sts},
+            CO_START_DATE = #{co_start_date},
+            CO_END_DATE = #{co_end_date},
+            CO_LOC = #{co_loc},
+            CO_CLS = #{co_cls},
+            CO_FORM_EMP =  #{co_form_emp},
+            CO_SALARY = #{co_salary},
+            CO_DEPT = #{co_dept},
+            CO_RANK =  #{co_rank},
+            CO_WORK = #{co_work},
+            CO_RETIRE = #{co_retire}
     </insert>
-    <insert id="insertProject" parameterType="hashmap">
+    <insert id="saveProject" parameterType="hashmap">
         INSERT INTO PROJ_INFO (
-        FORM_NO,
-        PROJ_NAME,
-        PROJ_START_DATE,
-        PROJ_END_DATE,
-        PROJ_ORDER,
-        PROJ_LOC,
-        PROJ_WORK
+            FORM_NO,
+            PROJ_SEQ,
+            PROJ_NAME,
+            PROJ_START_DATE,
+            PROJ_END_DATE,
+            PROJ_ORDER,
+            PROJ_LOC,
+            PROJ_WORK
         ) VALUES (
-        #{form_no},
-        #{proj_name},
-        #{proj_start_date},
-        #{proj_end_date},
-        #{proj_order},
-        #{proj_loc},
-        #{proj_work}
-        )
+            #{form_no},
+            #{proj_seq},
+            #{proj_name},
+            #{proj_start_date},
+            #{proj_end_date},
+            #{proj_order},
+            #{proj_loc},
+            #{proj_work}
+        ) ON DUPLICATE KEY UPDATE
+            PROJ_NAME = #{proj_name},
+            PROJ_SEQ = #{proj_seq},
+            PROJ_START_DATE = #{proj_start_date},
+            PROJ_END_DATE = #{proj_end_date},
+            PROJ_ORDER = #{proj_order},
+            PROJ_LOC = #{proj_loc},
+            PROJ_WORK = #{proj_work}
     </insert>
 
     <!-- 자격사항 조회 -->
     <select id="certMapper" resultType="dage.recruituser.DTO.InfoCertDTO">
         SELECT
             A.FORM_NO,
+            B.CERT_SEQ,
             B.CERT_CLS,
             B.CERT_NUM,
             B.CERT_ISU,
@@ -407,10 +469,12 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY CERT_SEQ
     </select>
     <select id="langMapper" resultType="dage.recruituser.DTO.InfoLangDTO">
         SELECT
             A.FORM_NO,
+            B.LANG_SEQ,
             B.LANG_NAME,
             B.LANG_LV
         FROM
@@ -421,10 +485,12 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY LANG_SEQ
     </select>
     <select id="OaMapper" resultType="dage.recruituser.DTO.InfoOaDTO">
         SELECT
             A.FORM_NO,
+            B.OA_SEQ,
             B.OA_NAME,
             B.OA_LV
         FROM
@@ -435,51 +501,70 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY OA_SEQ
     </select>
 
     <!-- 자격사항 저장 -->
-    <insert id="insertCert" parameterType="hashmap">
+    <insert id="saveCert" parameterType="hashmap">
         INSERT INTO CERT_INFO (
-        FORM_NO,
-        CERT_CLS,
-        CERT_NUM,
-        CERT_ISU,
-        CERT_DATE
+            FORM_NO,
+            CERT_SEQ,
+            CERT_CLS,
+            CERT_NUM,
+            CERT_ISU,
+            CERT_DATE
         ) VALUES (
-        #{form_no},
-        #{cert_cls},
-        #{cert_num},
-        #{cert_isu},
-        #{cert_date}
-        )
+            #{form_no},
+            #{cert_seq},
+            #{cert_cls},
+            #{cert_num},
+            #{cert_isu},
+            #{cert_date}
+        ) ON DUPLICATE KEY UPDATE
+            CERT_SEQ = #{cert_seq},
+            CERT_CLS = #{cert_cls},
+            CERT_NUM = #{cert_num},
+            CERT_ISU = #{cert_isu},
+            CERT_DATE = #{cert_date}
     </insert>
-    <insert id="insertLang" parameterType="hashmap">
+    <insert id="saveLang" parameterType="hashmap">
         INSERT INTO LANG_INFO (
-        FORM_NO,
-        LANG_NAME,
-        LANG_LV
+            FORM_NO,
+            LANG_SEQ,
+            LANG_NAME,
+            LANG_LV
         ) VALUES (
-        #{form_no},
-        #{lang_name},
-        #{lang_lv}
-        )
+            #{form_no},
+            #{lang_seq},
+            #{lang_name},
+            #{lang_lv}
+        ) ON DUPLICATE KEY UPDATE
+            LANG_SEQ = #{lang_seq},
+            LANG_NAME = #{lang_name},
+            LANG_LV = #{lang_lv}
     </insert>
-    <insert id="insertOA" parameterType="hashmap">
+    <insert id="saveOA" parameterType="hashmap">
         INSERT INTO OA_INFO (
-        FORM_NO,
-        OA_NAME,
-        OA_LV
+            FORM_NO,
+            OA_SEQ,
+            OA_NAME,
+            OA_LV
         ) VALUES (
-        #{form_no},
-        #{oa_name},
-        #{oa_lv}
-        )
+            #{form_no},
+            #{oa_seq},
+            #{oa_name},
+            #{oa_lv}
+        ) ON DUPLICATE KEY UPDATE
+            OA_SEQ = #{oa_seq},
+            OA_NAME = #{oa_name},
+            OA_LV = #{oa_lv}
     </insert>
 
     <!-- 활동사항 조회 -->
     <select id="actMapper" resultType="dage.recruituser.DTO.InfoActDTO">
         SELECT
             A.FORM_NO,
+            B.ACT_SEQ,
             B.ACT_NAME,
             B.ACT_START_DATE,
             B.ACT_END_DATE,
@@ -494,10 +579,12 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY ACT_SEQ
     </select>
     <select id="awdMapper" resultType="dage.recruituser.DTO.InfoAwdDTO">
         SELECT
             A.FORM_NO,
+            B.AWD_SEQ,
             B.AWD_NAME,
             B.AWD_DATE,
             B.AWD_CONDUCT,
@@ -510,42 +597,59 @@
             A.FORM_NO = B.FORM_NO
         WHERE
             A.FORM_NO = #{FORM_NO}
+        ORDER BY AWD_SEQ
     </select>
 
     <!-- 활동사항 저장 -->
-    <insert id="insertAct" parameterType="hashmap">
+    <insert id="saveAct" parameterType="hashmap">
         INSERT INTO ACT_INFO (
-        FORM_NO,
-        ACT_NAME,
-        ACT_START_DATE,
-        ACT_END_DATE,
-        ACT_FD,
-        ACT_CONDUCT,
-        ACT_CONTENT
+            FORM_NO,
+            ACT_SEQ,
+            ACT_NAME,
+            ACT_START_DATE,
+            ACT_END_DATE,
+            ACT_FD,
+            ACT_CONDUCT,
+            ACT_CONTENT
         ) VALUES (
-        #{form_no},
-        #{act_name},
-        #{act_start_date},
-        #{act_end_date},
-        #{act_fd},
-        #{act_conduct},
-        #{act_content}
-        )
+            #{form_no},
+            #{act_seq},
+            #{act_name},
+            #{act_start_date},
+            #{act_end_date},
+            #{act_fd},
+            #{act_conduct},
+            #{act_content}
+        ) ON DUPLICATE KEY UPDATE
+            ACT_SEQ = #{act_seq},
+            ACT_NAME = #{act_name},
+            ACT_START_DATE = #{act_start_date},
+            ACT_END_DATE = #{act_end_date},
+            ACT_FD = #{act_fd},
+            ACT_CONDUCT = #{act_conduct},
+            ACT_CONTENT = #{act_content}
     </insert>
-    <insert id="insertAwd" parameterType="hashmap">
+    <insert id="saveAwd" parameterType="hashmap">
         INSERT INTO AWD_INFO (
-        FORM_NO,
-        AWD_NAME,
-        AWD_DATE,
-        AWD_CONDUCT,
-        AWD_CONTENT
+            FORM_NO,
+            AWD_SEQ,
+            AWD_NAME,
+            AWD_DATE,
+            AWD_CONDUCT,
+            AWD_CONTENT
         ) VALUES (
-        #{form_no},
-        #{awd_name},
-        #{awd_date},
-        #{awd_conduct},
-        #{awd_content}
-        )
+            #{form_no},
+            #{awd_seq},
+            #{awd_name},
+            #{awd_date},
+            #{awd_conduct},
+            #{awd_content}
+        ) ON DUPLICATE KEY UPDATE
+            AWD_SEQ = #{awd_seq},
+            AWD_NAME = #{awd_name},
+            AWD_DATE = #{awd_date},
+            AWD_CONDUCT = #{awd_conduct},
+            AWD_CONTENT = #{awd_content}
     </insert>
 
     <!-- 자기소개 조회 -->
@@ -558,8 +662,19 @@
             C.ANSWER_CONTENT as answer
         FROM
             APP_USER A
-        LEFT JOIN
-            SURV_QUEST B
+        LEFT JOIN (
+                SELECT
+                    A.QUEST_NO,
+                    A.APP_NO,
+                    B.QUEST_CONTENT,
+                    A.QUEST_SEQ
+                FROM
+                    SURV_QUEST A
+                LEFT JOIN
+                    REG_QUEST B
+                ON
+                    A.REG_QUEST_NO = B.REG_QUEST_NO
+                ) B
         ON
             A.APP_NO = B.APP_NO
         LEFT JOIN
@@ -574,17 +689,157 @@
     </select>
 
     <!-- 자기소개 저장 -->
-    <insert id="insertSurv" parameterType="hashmap">
+    <insert id="saveSurv" parameterType="hashmap">
         INSERT INTO SURV_ANSWER (
-        QUEST_NO,
-        FORM_NO,
-        ANSWER_CONTENT
+            QUEST_NO,
+            FORM_NO,
+            ANSWER_CONTENT
         ) VALUES (
-        #{quest_no},
-        #{form_no},
-        #{surv_answer}
-        )
+            #{quest_no},
+            #{form_no},
+            #{surv_answer}
+        ) ON DUPLICATE KEY UPDATE
+            ANSWER_CONTENT = #{surv_answer}
     </insert>
+
+    <select id="appFormMapper" resultType="dage.recruituser.DTO.AppFormDTO">
+        SELECT
+            A.FORM_NO,
+            A.APP_NO,
+            A.USER_EMAIL,
+            A.USER_NAME,
+            A.USER_BIRTH,
+            B.APP_TITLE,
+            B.APP_JOB,
+            C.REQUEST_DATE,
+            C.USER_GENDER,
+            C.USER_NATION,
+            C.USER_ZIP,
+            C.USER_ADDR,
+            C.USER_ADDR_DTL,
+            C.USER_CP,
+            C.USER_TEL,
+            C.USER_PROFILE,
+            D.MIL_SRVC AS milServiceStatus,
+            D.MIL_TYPE,
+            D.MIL_TYPE_DTL,
+            D.MIL_DSCHR AS milDischarge,
+            D.MIL_EXEM AS milExemption,
+            D.MIL_START_DATE,
+            D.MIL_END_DATE,
+            D.VTR_SRVC AS vtrServiceStatus,
+            D.VTR_RLT AS vtrRelation,
+            D.VTR_NUM AS vtrNumber,
+            D.DIS_SRVC AS disServiceStatus,
+            D.DIS_CLS AS disClass,
+            D.DIS_RATE,
+            E.HIGH_NAME,
+            E.HIGH_LOC,
+            E.HIGH_SER,
+            E.HIGH_GRDTN_CLS AS highGrd,
+            E.HIGH_START_DATE,
+            E.HIGH_END_DATE,
+            E.HIGH_FN,
+            F.UNIV_SEQ,
+            F.UNIV_EDU,
+            F.UNIV_NAME,
+            F.UNIV_LOC,
+            F.UNIV_BRANCH,
+            F.UNIV_GRDTN_CLS AS univGrd,
+            F.UNIV_START_DATE,
+            F.UNIV_END_DATE,
+            F.UNIV_DN,
+            F.UNIV_SER,
+            F.UNIV_CLS,
+            F.UNIV_CLS_MUL,
+            F.UNIV_CLS_SUB,
+            F.UNIV_CRD,
+            F.UNIV_CRD_MAX,
+            F.UNIV_FN,
+            G.CO_NAME,
+            G.CO_STS,
+            G.CO_START_DATE,
+            G.CO_END_DATE,
+            G.CO_LOC,
+            G.CO_CLS,
+            G.CO_FORM_EMP,
+            G.CO_SALARY,
+            G.CO_DEPT,
+            G.CO_RANK,
+            G.CO_WORK,
+            G.CO_RETIRE,
+            H.PROJ_NAME,
+            H.PROJ_START_DATE,
+            H.PROJ_END_DATE,
+            H.PROJ_ORDER,
+            H.PROJ_LOC,
+            H.PROJ_WORK,
+            I.CERT_CLS,
+            I.CERT_NUM,
+            I.CERT_ISU,
+            I.CERT_DATE,
+            J.LANG_NAME,
+            J.LANG_LV,
+            K.OA_NAME,
+            K.OA_LV,
+            L.ACT_NAME,
+            L.ACT_START_DATE,
+            L.ACT_END_DATE,
+            L.ACT_FD,
+            L.ACT_CONDUCT,
+            L.ACT_CONTENT,
+            M.AWD_NAME,
+            M.AWD_DATE,
+            M.AWD_CONDUCT,
+            M.AWD_CONTENT,
+            N.QUEST_NO,
+            N.QUEST_CONTENT AS question,
+            N.ANSWER_CONTENT AS answer
+        FROM APP_USER A
+            LEFT JOIN APP_BOARD B ON A.APP_NO = B.APP_NO
+            LEFT JOIN USER_INFO C ON A.FORM_NO = C.FORM_NO
+            LEFT JOIN PSNL_INFO D ON A.FORM_NO = D.FORM_NO
+            LEFT JOIN EDU_HIGH_INFO E ON A.FORM_NO = E.FORM_NO
+            LEFT JOIN EDU_UNIV_INFO F ON A.FORM_NO = F.FORM_NO
+            LEFT JOIN CAREER_INFO G ON A.FORM_NO = G.FORM_NO
+            LEFT JOIN PROJ_INFO H ON A.FORM_NO = H.FORM_NO
+            LEFT JOIN CERT_INFO I ON A.FORM_NO = I.FORM_NO
+            LEFT JOIN LANG_INFO J ON A.FORM_NO = J.FORM_NO
+            LEFT JOIN OA_INFO K ON A.FORM_NO = K.FORM_NO
+            LEFT JOIN ACT_INFO L ON A.FORM_NO = L.FORM_NO
+            LEFT JOIN AWD_INFO M ON A.FORM_NO = M.FORM_NO
+            LEFT JOIN (
+                    SELECT
+                        A.FORM_NO,
+                        B.APP_NO,
+                        B.QUEST_NO,
+                        B.QUEST_CONTENT,
+                        C.ANSWER_CONTENT
+                    FROM
+                        APP_USER A
+                    LEFT JOIN (
+                        SELECT
+                            A.QUEST_NO,
+                            A.APP_NO,
+                            B.QUEST_CONTENT,
+                            A.QUEST_SEQ
+                        FROM
+                            SURV_QUEST A
+                        LEFT JOIN
+                            REG_QUEST B
+                        ON
+                            A.REG_QUEST_NO = B.REG_QUEST_NO) B
+                        ON
+                            A.APP_NO = B.APP_NO
+                        LEFT JOIN
+                            SURV_ANSWER C
+                        ON
+                            A.FORM_NO = C.FORM_NO AND
+                            B.QUEST_NO = C.QUEST_NO) N
+                        ON
+                            A.FORM_NO = N.FORM_NO
+        WHERE A.FORM_NO = #{form_no};
+    </select>
 
     <!-- 지원서 삭제 -->
     <delete id="deleteUserForm">

@@ -12,6 +12,7 @@ public class AppBoardDTO {
     private String appTitleSub;
     private long appYear;
     private long appDegree;
+    private long appDday;
     private String appJob;
     private Date appStartDate;
     private Date appEndDate;

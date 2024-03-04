@@ -2,46 +2,41 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="topbarFragment">
-    <!-- <div class="container text-center">
-    <div class="row">
-        <div class="col">
-            <div class="navbar_main">
-                <a class="navbar_logo" href="#">로고</a>
-                <div class="navbar_links">
-                    <a href="#">ABOUT</a>
-                    <a href="#">WORKS</a>
-                    <a href="#">NEWS</a>
-                    <a href="#">CONTACT</a>
+
+    <link rel="stylesheet" href="css/layout/header.css">
+
+    <header>
+        <div class="container-fluid" id="header">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <!-- 좌측 영역 -->
+                    <div class="col-sm-1">
+                        <a class="navbar-brand ms-5" href="/anno_list">
+                            <img src="/images/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <!-- 중앙 영역 -->
+                    <div class="col-sm-auto">
+                        <ul class="nav navbar-nav text-center">
+                            <li><a class="hoverable" href="#">공지사항</a></li>
+                            <li><a class="hoverable" href="/anno_list">채용공고</a></li>
+                            <li><a class="hoverable" href="#">지원사항</a></li>
+                            <li><a class="hoverable" href="#">채용문의</a></li>
+                        </ul>
+                    </div>
+                    <!-- 우측 영역 -->
+                    <div class="col-sm-1">
+                        <!-- 우측 내용 -->
+                    </div>
                 </div>
-            </div> -->
-
-    <!-- 모바일버전 -->
-    <!-- <div class="navbar_overlay"></div>
-
-    <div class="navbar_burger">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-list"
-            viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-        </svg>
-    </div>
-
-    <div class="navbar_menu">
-        <a href="#">ABOUT</a>
-        <a href="#">WORKS</a>
-        <a href="#">NEWS</a>
-        <a href="#">CONTACT</a>
-        <div class="navbar_burger_back">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg"
-                viewBox="0 0 16 16">
-                <path
-                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-            </svg>
+            </nav>
+            <div id="what-the-hell-is-this">
+                <div class="page-title">
+                    <h1 class="leads" id="leadsContent"></h1>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-
-    </div> -->
+    </header>
 </th:block>
 
 </html>

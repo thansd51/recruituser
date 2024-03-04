@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+
+<!-- Custom Stylesheets -->
+<style>
+    *,
+    h1,
+    h5 {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: bold;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .job {
+        color: rgb(80, 80, 80);
+    }
+
+    .anno_date {
+        color: rgb(80, 80, 80);
+        display: inline;
+    }
+
+    .card-text {
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: rgb(255, 255, 255);
+        color: rgb(80, 80, 80);
+        font-weight: bold;
+    }
+
+    .btn-primary:hover,
+    a.btn.btn-primary.float-end.rounded-5.border.border-secondary:active {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+    }
+
+    .d-day {
+        background-color: rgb(141, 0, 0);
+        color: aliceblue;
+        font-weight: bold;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        display: inline;
+        padding: 1% 5%;
+        letter-spacing: 2px;
+    }
+</style>
+
+<body>
+    <!-- content -->
+    <div class="container my-5">
+        <h1 class="mt-4 mb-4">입사지원</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- 채용공고 카드 -->
+            <div class="col" th:each="anno : ${annoList}">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title job" th:text="${anno.appJob}"></p>
+                        <h5 class="card-text" th:text="${anno.appTitle}"></h5>
+                        <!-- <div class="d-day rounded-5" th:text="|D-${anno.appDday}|"></div> -->
+
+                        <div class="d-day rounded-5" th:text="(${anno.appDday != 0} ? 'D-' + ${anno.appDday} : 'D-Day')"></div>
+
+
+                        <p class="card-title anno_date ms-1"
+                            th:text="|${#dates.format(anno.appStartDate, 'yyyy.MM.dd')} ~ ${#dates.format(anno.appEndDate, 'yyyy.MM.dd')}|">
+                        </p>
+                        <a th:href="@{/anno_detail(app_no=${anno.appNo})}" class="btn btn-primary float-end rounded-5 border border-secondary">지원하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+
+</body>
+
+</html>

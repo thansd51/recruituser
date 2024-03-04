@@ -4,25 +4,24 @@
 <!-- 공통 헤드-->
 <th:block th:replace="/fragments/head :: headFragment"></th:block>
 
-<style>
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
 
-</style>
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
 
 <body>
-    <!-- 공통 Nav -->
-    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
-
     <!-- content -->
     <div class="container my-5">
         <div class="row p-5">
             <div class="col text-left">
-                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+                <h4 class="headline" th:text="${appBoard.appTitle}"></h4>
             </div>
             <div class="row-sm-12 mt-3">
                 <div class="col-sm mx-3 mb-5">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/user_info">기본정보</a>
+                            <a class="nav-link" th:href="@{/user_info(form_no=${form_no})}">기본정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/edu_info">학력사항</a>
@@ -37,7 +36,7 @@
                             <a class="nav-link" href="/act_info">활동사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/survey_info">자기소개</a>
+                            <a class="nav-link" href="/surv_info">자기소개</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/app_post">지원서 제출</a>
@@ -58,18 +57,20 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="infoCertForm" id="infoCertForm">
-                            <div class="addTableCert">
+                        <div class="addTableCert" th:each="InfoCertDTO : ${certInfo}">
+                            <form name="infoCertForm" id="infoCertForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="cert_seq" name="cert_seq" th:value="${InfoCertDTO.certSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>자격종류</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="cert_cls"
-                                                            name="cert_cls" th:value="${certInfo.certCls}">
+                                                        <input type="text" class="form-control" name="cert_cls"
+                                                            th:value="${InfoCertDTO.certCls}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -78,8 +79,8 @@
                                             <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="cert_num"
-                                                            name="cert_num" th:value="${certInfo.certNum}">
+                                                        <input type="text" class="form-control" name="cert_num"
+                                                            th:value="${InfoCertDTO.certNum}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -90,8 +91,8 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="cert_isu"
-                                                            name="cert_isu" th:value="${certInfo.certIsu}">
+                                                        <input type="text" class="form-control" name="cert_isu"
+                                                            th:value="${InfoCertDTO.certIsu}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -100,8 +101,8 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control date" id="cert_date"
-                                                            name="cert_date" th:value="${certInfo.certDate}">
+                                                        <input type="text" class="form-control date" name="cert_date"
+                                                            id="cert_date" th:value="${InfoCertDTO.certDate}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -121,9 +122,9 @@
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
                         <div id="certWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
@@ -146,30 +147,30 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="infoLangForm" id="infoLangForm">
-                            <div class="addTableLang">
+                        <div class="addTableLang" th:each="InfoLangDTO : ${langInfo}">
+                            <form name="infoLangForm" id="infoLangForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="lang_seq" name="lang_seq" th:value="${InfoLangDTO.langSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>언어</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-6 pe-1">
-                                                        <select class="form-select" id="lang_name" name="lang_name">
-                                                            <option th:if="${langInfo.langName==null}" selected disabled
-                                                                hidden>
-                                                                선택</option>
-                                                            <option th:unless="${langInfo.langName==null}" selected
-                                                                th:value="${langInfo.langName}"
-                                                                th:text="${langInfo.langName}">
+                                                        <select class="form-select lang_name" name="lang_name">
+                                                            <option></option>
+                                                            <option th:if="${InfoLangDTO.langName!=null}" selected
+                                                                th:value="${InfoLangDTO.langName}"
+                                                                th:text="${InfoLangDTO.langName}">
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 ps-1">
-                                                        <input type="text" class="form-control" id="lang_name"
-                                                            name="lang_name" placeholder="기타 선택 시"
-                                                            th:value="${langInfo.langName}">
+                                                        <input type="text" class="form-control" name="lang_name"
+                                                            th:value="${InfoLangDTO.langName}" placeholder="기타 선택 시"
+                                                            th:disabled="${InfoLangDTO.langName != '기타'}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -177,15 +178,12 @@
                                                 </span>수준</th>
                                             <td class="table-light style_width" colspan="1">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <select class="form-select" id="lang_lv" name="lang_lv">
-                                                            <option th:if="${langInfo.langLv==null}" selected disabled
-                                                                hidden>
-                                                                선택</option>
-                                                            <option th:unless="${langInfo.langLv==null}" selected
-                                                                th:value="${langInfo.langLv}"
-                                                                th:text="${langInfo.langLv}">
-                                                            <option value="1">1</option>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-select lang_lv" name="lang_lv">
+                                                            <option></option>
+                                                            <option th:if="${InfoLangDTO.langLv!=null}" selected
+                                                                th:value="${InfoLangDTO.langLv}"
+                                                                th:text="${InfoLangDTO.langLv}">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -206,9 +204,9 @@
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
                         <div id="langWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
@@ -232,28 +230,29 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="infoOaForm" id="infoOaForm">
-                            <div class="addTableIt">
+                        <div class="addTableOa" th:each="InfoOaDTO : ${oaInfo}">
+                            <form name="infoOaForm" id="infoOaForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="oa_seq" name="oa_seq" th:value="${InfoOaDTO.oaSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>IT활용종류</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-6 pe-1">
-                                                        <select class="form-select" id="oa_name" name="oa_name">
-                                                            <option th:if="${oaInfo.oaName==null}" selected disabled
-                                                                hidden>
-                                                                선택</option>
-                                                            <option th:unless="${oaInfo.oaName==null}" selected
-                                                                th:value="${oaInfo.oaName}" th:text="${oaInfo.oaName}">
+                                                        <select class="form-select oa_name" name="oa_name">
+                                                            <option></option>
+                                                            <option th:if="${InfoOaDTO.oaName!=null}" selected
+                                                                th:value="${InfoOaDTO.oaName}"
+                                                                th:text="${InfoOaDTO.oaName}">
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 ps-1">
-                                                        <input type="text" class="form-control" id="oa_name"
-                                                            name="oa_name" th:value="${oaInfo.oaName}"
-                                                            placeholder="기타 선택 시">
+                                                        <input type="text" class="form-control" name="oa_name"
+                                                            th:value="${InfoOaDTO.oaName}" placeholder="기타 선택 시"
+                                                            th:disabled="${InfoOaDTO.oaName != '기타'}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -261,14 +260,12 @@
                                                 </span>수준</th>
                                             <td class="table-light style_width" colspan="1">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <select class="form-select" id="oa_lv" name="oa_lv">
-                                                            <option th:if="${oaInfo.oaLv==null}" selected disabled
-                                                                hidden>
-                                                                선택</option>
-                                                            <option th:unless="${oaInfo.oaLv==null}" selected
-                                                                th:value="${oaInfo.oaLv}" th:text="${oaInfo.oaLv}">
-                                                            <option value="1">1</option>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-select oa_lv" name="oa_lv">
+                                                            <option></option>
+                                                            <option th:if="${InfoOaDTO.oaLv!=null}" selected
+                                                                th:value="${InfoOaDTO.oaLv}"
+                                                                th:text="${InfoOaDTO.oaLv}">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -289,10 +286,10 @@
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
-                        <div id="itWrap"></div>
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
+                        <div id="oaWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
                             <div class="col">
@@ -309,6 +306,7 @@
             <div class="col mb-5 text-center">
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="tempSave_btn">임시저장</button>
             </div>
         </div>
     </div>
@@ -316,55 +314,68 @@
     <script>
         $(function () {
             selectOpt("lang_name", "FOR_LANG");
+            selectOpt("lang_lv", "LV");
             selectOpt("oa_name", "OA_APP");
+            selectOpt("oa_lv", "LV");
+
         });
 
-        $(function () {
+        var certSeqValue = $('#cert_seq').first().val().trim();
+        var langSeqValue = $('#lang_seq').first().val().trim();
+        var oaSeqValue = $('#oa_seq').first().val().trim();
 
-            var wrap = $('.addTableCert').wrapAll("<div/>");
-            var tmpl = wrap.parent().html();
-            $("#addbtn_cert").click(function () {
-                $("#certWrap").append(tmpl);
-            });
+        if (!certSeqValue || certSeqValue !== '1') {
+            $('#cert_seq').val('1');
+        }
+        if (!langSeqValue || langSeqValue !== '1') {
+            $('#lang_seq').val('1');
+        }
+        if (!oaSeqValue || oaSeqValue !== '1') {
+            $('#oa_seq').val('1');
+        }
 
-            var wrap2 = $('.addTableLang').wrapAll("<div/>");
-            var tmpl2 = wrap2.parent().html();
-            $("#addbtn_lang").click(function () {
-                $("#langWrap").append(tmpl2);
-            });
+        $("#next_btn, #tempSave_btn, #prev_btn, li.nav-item").on("click", function (e) {
 
-            var wrap3 = $('.addTableIt').wrapAll("<div/>");
-            var tmpl3 = wrap3.parent().html();
-            $("#addbtn_it").click(function () {
-                $("#itWrap").append(tmpl3);
-            });
-        });
-    </script>
-    <script th:inline="javascript">
-        $("#next_btn").on("click", function (e) {
-            /*<![CDATA[*/
-            var formNo = [[${ certInfo.formNo }]];
-            var infoCertForm = $("#infoCertForm").serialize();
-            var infoLangForm = $("#infoLangForm").serialize();
-            var infoOaForm = $("#infoOaForm").serialize();
+            e.preventDefault();
 
-            console.log(formNo + "&" + infoCertForm + "&" + infoLangForm + "&" + infoOaForm);
+            var href = '';
+            var forms = $('form');
+            var totalForms = forms.length;
+            var count = 0;
 
-            //1. controller-> save -> return url
-            //2. rest controller-> save -> return "url"value -> location.href
-            $.ajax({
-                method: "POST",
-                url: "/infoCert?form_no=" + formNo + "&" + infoCertForm + "&" + infoLangForm + "&" + infoOaForm
-            })
-                .done(function (data) {
-                    location.href = "/act_info?form_no=" + data;
+            if ($(this).attr('id') === "next_btn") {
+                href = "/act_info";
+            } else if ($(this).attr('id') === "prev_btn") {
+                href = "/career_info";
+            } else if ($(this).attr('id') === "tempSave_btn") {
+                href = '';
+            } else {
+                href = $(this).find('a').attr('href');
+            }
+
+            forms.each(function (i, form) {
+                var formData = $(form).serialize();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/infoCert?" + formData
                 })
-                .fail(function (data, textStatus, errorThrown) {
-                    alert("실패")
-                    callback(data);
-                });
+                    .done(function (data) {
+                        count++;
+                        if (count === totalForms) {
+                            if (href == '') {
+                                alert("저장되었습니다.");
+                            }
+                            location.href = href;
+                        }
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패");
+                        callback(data);
+                    });
+            });
+
         });
-        /*]]>*/
     </script>
 
     <!-- 공통 스크립트-->

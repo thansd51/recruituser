@@ -7,9 +7,11 @@ import lombok.Data;
 public class InfoEduUnivDTO {
     private Long formNo;
     private Long univSeq;
+    private String univFn;
     private String univEdu;
     private String univName;
     private String univLoc;
+    private String univBranch;
     private String univGrd;
     private String univStartDate;
     private String univEndDate;
@@ -20,5 +22,4 @@ public class InfoEduUnivDTO {
     private String univClsSub;
     private String univCrd;
     private String univCrdMax;
-    private String univFn;
 }

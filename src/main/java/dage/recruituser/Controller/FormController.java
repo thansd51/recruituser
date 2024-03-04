@@ -17,34 +17,27 @@ public class FormController {
     @Autowired
     FormService formService;
 
-    @Autowired
-    AppBoardService appBoardService;
-
-    @GetMapping("/app_form")
-    public String app_form(HttpSession session, Model model, @RequestParam("app_no") long app_no) {
-
-        AppBoardDTO appBoard = appBoardService.appBoardInfo(app_no);
-
-        session.setAttribute("appBoard", appBoard);
-
-        model.addAttribute("appBoard", appBoard);
-
-        return "userForm/app_form";
-    }
-
-
     @GetMapping("/user_info")
-    public String userInfo(HttpSession session, Model model, @RequestParam("form_no") long form_no) {
+    public String userInfo(HttpSession session, Model model, @RequestParam("form_no") long form_no_pr) {
+
+        /* 유저 정보 */
+        UserDTO appUser = formService.appUser(form_no_pr);
+        long form_no = appUser.getFormNo();
+
+        session.setAttribute("form_no", form_no);
+        session.setAttribute("user_email", appUser.getUserEmail());
+
+        /* 지원 정보 */
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
 
         InfoUserDTO infoUser = formService.userInfo(form_no);
         InfoPersonDTO infoPerson = formService.personInfo(form_no);
 
-        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
-
         session.setAttribute("infoUser", infoUser);
         session.setAttribute("infoPerson", infoPerson);
 
-        model.addAttribute("app_job", appBoard.getAppJob());
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("appBoard", appBoard);
         model.addAttribute("infoUser", infoUser);
         model.addAttribute("infoPerson", infoPerson);
 
@@ -52,14 +45,17 @@ public class FormController {
     }
 
     @GetMapping("/edu_info")
-    public String eduInfo(HttpSession session, Model model, @RequestParam("form_no") long form_no) {
+    public String eduInfo(HttpSession session, Model model) {
+
+        long form_no = (long) session.getAttribute("form_no");
+        String orderBy = "byUnivSeq";
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
 
         InfoEduHighDTO eduHighInfo = formService.eduHighInfo(form_no);
-        InfoEduUnivDTO eduUnivInfo = formService.eduUnivInfo(form_no);
+        List<InfoEduUnivDTO> eduUnivInfo = formService.eduUnivInfo(form_no, orderBy);
 
-        session.setAttribute("eduHighInfo", eduHighInfo);
-        session.setAttribute("eduUnivInfo", eduUnivInfo);
-
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("appBoard", appBoard);
         model.addAttribute("eduHighInfo", eduHighInfo);
         model.addAttribute("eduUnivInfo", eduUnivInfo);
 
@@ -67,14 +63,16 @@ public class FormController {
     }
 
     @GetMapping("/career_info")
-    public String career_info(HttpSession session, Model model, @RequestParam("form_no") long form_no) {
+    public String career_info(HttpSession session, Model model) {
 
-        InfoCareerDTO careerInfo = formService.careerInfo(form_no);
-        InfoProjectDTO projectInfo = formService.projectInfo(form_no);
+        long form_no = (long) session.getAttribute("form_no");
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
 
-        session.setAttribute("careerInfo", careerInfo);
-        session.setAttribute("projectInfo", projectInfo);
+        List<InfoCareerDTO> careerInfo = formService.careerInfo(form_no);
+        List<InfoProjectDTO> projectInfo = formService.projectInfo(form_no);
 
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("appBoard", appBoard);
         model.addAttribute("careerInfo", careerInfo);
         model.addAttribute("projectInfo", projectInfo);
 
@@ -82,17 +80,17 @@ public class FormController {
     }
 
     @GetMapping("/cert_info")
-    public String cert_info(HttpSession session, Model model, @RequestParam("form_no") long form_no) {
+    public String cert_info(HttpSession session, Model model) {
 
-        InfoCertDTO certInfo = formService.certInfo(form_no);
-        InfoLangDTO langInfo = formService.langInfo(form_no);
-        InfoOaDTO oaInfo = formService.oaInfo(form_no);
+        long form_no = (long) session.getAttribute("form_no");
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
 
+        List<InfoCertDTO> certInfo = formService.certInfo(form_no);
+        List<InfoLangDTO> langInfo = formService.langInfo(form_no);
+        List<InfoOaDTO> oaInfo = formService.oaInfo(form_no);
 
-        session.setAttribute("certInfo", certInfo);
-        session.setAttribute("langInfo", langInfo);
-        session.setAttribute("oaInfo", oaInfo);
-
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("appBoard", appBoard);
         model.addAttribute("certInfo", certInfo);
         model.addAttribute("langInfo", langInfo);
         model.addAttribute("oaInfo", oaInfo);
@@ -101,52 +99,87 @@ public class FormController {
     }
 
     @GetMapping("/act_info")
-    public String act_info(HttpSession session, Model model, @RequestParam("form_no") long form_no) {
+    public String act_info(HttpSession session, Model model) {
 
-        InfoActDTO actInfo = formService.actInfo(form_no);
-        InfoAwdDTO awdInfo = formService.awdInfo(form_no);
+        long form_no = (long) session.getAttribute("form_no");
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
 
-        session.setAttribute("actInfo", actInfo);
-        session.setAttribute("awdInfo", awdInfo);
+        List<InfoActDTO> actInfo = formService.actInfo(form_no);
+        List<InfoAwdDTO> awdInfo = formService.awdInfo(form_no);
 
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("appBoard", appBoard);
         model.addAttribute("actInfo", actInfo);
         model.addAttribute("awdInfo", awdInfo);
-
-        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
-        model.addAttribute("app_no", appBoard.getAppNo());
 
         return "userForm/act_info";
     }
 
 
+    @GetMapping("/surv_info")
+    public String survey_info(HttpSession session, Model model) {
 
-    @GetMapping("/survey_info")
-    public String survey_info(HttpSession session, Model model,
-                              @RequestParam("app_no") long app_no,
-                              @RequestParam("form_no") long form_no) {
+        long form_no = (long) session.getAttribute("form_no");
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
 
-        List<InfoSurvDTO> survInfo = formService.survInfo(app_no, form_no);
-        model.addAttribute("survInfo", survInfo);
-
-        long formNO = survInfo.get(0).getFormNo();
-        model.addAttribute("formNO", formNO);
+        List<InfoSurvDTO> survInfo = formService.survInfo(appBoard.getAppNo(), form_no);
 
         session.setAttribute("survInfo", survInfo);
-        session.setAttribute("formNO", formNO);
 
-        return "userForm/survey_info";
+        model.addAttribute("appBoard", appBoard);
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("survInfo", survInfo);
+
+        return "userForm/surv_info";
     }
 
     @GetMapping("/app_post")
     public String app_post(HttpSession session, Model model) {
 
-        InfoUserDTO infoUser = (InfoUserDTO) session.getAttribute("infoUser");
+        long form_no = (long) session.getAttribute("form_no");
+        String orderBy = "byUnivFnFirst";
+        AppBoardDTO appBoard = (AppBoardDTO) session.getAttribute("appBoard");
+        String user_email = (String) session.getAttribute("user_email");
 
-        model.addAttribute("form_no", infoUser.getFormNo());
+        InfoUserDTO infoUser = formService.userInfo(form_no);
+        InfoPersonDTO infoPerson = formService.personInfo(form_no);
+        InfoEduHighDTO eduHighInfo = formService.eduHighInfo(form_no);
+        List<InfoEduUnivDTO> eduUnivInfo = formService.eduUnivInfo(form_no, orderBy);
+        List<InfoCareerDTO> careerInfo = formService.careerInfo(form_no);
+        List<InfoProjectDTO> projectInfo = formService.projectInfo(form_no);
+        List<InfoCertDTO> certInfo = formService.certInfo(form_no);
+        List<InfoLangDTO> langInfo = formService.langInfo(form_no);
+        List<InfoOaDTO> oaInfo = formService.oaInfo(form_no);
+        List<InfoActDTO> actInfo = formService.actInfo(form_no);
+        List<InfoAwdDTO> awdInfo = formService.awdInfo(form_no);
+        List<InfoSurvDTO> survInfo = formService.survInfo(appBoard.getAppNo(), form_no);
+
+        model.addAttribute("form_no", form_no);
+        model.addAttribute("appBoard", appBoard);
+        model.addAttribute("user_email", user_email);
+        model.addAttribute("infoUser", infoUser);
+        model.addAttribute("infoPerson", infoPerson);
+        model.addAttribute("eduHighInfo", eduHighInfo);
+        model.addAttribute("eduUnivInfo", eduUnivInfo);
+        model.addAttribute("careerInfo", careerInfo);
+        model.addAttribute("projectInfo", projectInfo);
+        model.addAttribute("certInfo", certInfo);
+        model.addAttribute("langInfo", langInfo);
+        model.addAttribute("oaInfo", oaInfo);
+        model.addAttribute("actInfo", actInfo);
+        model.addAttribute("awdInfo", awdInfo);
+        model.addAttribute("survInfo", survInfo);
+
+        model.addAttribute("getUniv", eduUnivInfo.get(0));
+        model.addAttribute("getCareer", careerInfo.get(0));
+        model.addAttribute("getProject", projectInfo.get(0));
+        model.addAttribute("getCert", certInfo.get(0));
+        model.addAttribute("getLang", langInfo.get(0));
+        model.addAttribute("getOa", oaInfo.get(0));
+        model.addAttribute("getAct", actInfo.get(0));
+        model.addAttribute("getAwd", awdInfo.get(0));
 
         return "userForm/app_post";
     }
-
-
 
 }

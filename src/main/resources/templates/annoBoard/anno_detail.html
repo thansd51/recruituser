@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+
+<!-- Custom Stylesheets -->
+<style>
+    *,
+    h1,
+    h5 {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: bold;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .job {
+        color: rgb(80, 80, 80);
+    }
+
+    .anno_date {
+        color: rgb(80, 80, 80);
+        display: inline;
+    }
+
+    .card-text {
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: rgb(255, 255, 255);
+        color: rgb(80, 80, 80);
+        font-weight: bold;
+    }
+
+    .btn-primary:hover,
+    a.btn.btn-primary.float-end.rounded-5.border.border-secondary:active {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+    }
+
+    .d-day {
+        background-color: rgb(141, 0, 0);
+        color: aliceblue;
+        font-weight: bold;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        display: inline;
+        padding: 1% 5%;
+    }
+
+    .title {
+        align-items: center;
+    }
+
+    .content {
+        word-wrap: break-word;
+    }
+
+    #next_btn,
+    #prev_btn {
+        width: 150px;
+        height: 50px;
+        border: 1px solid;
+        border-color: rgba(204, 204, 204, 0.795);
+        border-radius: 0;
+    }
+</style>
+
+<body>
+    <!-- content -->
+    <div class="container my-5">
+        <div class="row title" style="border-top: 1px solid; border-bottom: 1px solid gray;">
+            <div class="col-9 my-3 ms-3">
+                <h5 class="m-0" th:text="${appBoard.appTitle}"></h5>
+            </div>
+            <div class="col my-3 me-3 text-end">
+                <p class="m-0"
+                    th:text="|${#dates.format(appBoard.appStartDate, 'yyyy.MM.dd')} ~ ${#dates.format(appBoard.appEndDate, 'yyyy.MM.dd')}|">
+                </p>
+            </div>
+        </div>
+        <div class="content m-3 text-center">
+            <p th:text="${appBoard.appContent}"></p>
+        </div>
+    </div>
+    <div class="col mb-5 text-center">
+        <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">목록</button>
+        <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn"
+            th:data-app-no="${appBoard.appNo}">지원하기</button>
+    </div>
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+
+    <script>
+        $("#next_btn, #prev_btn").click(function () {
+            if ($(this).is("#next_btn")) {
+                var appNo = $(this).data("app-no");
+                window.location.href = '/app_form?app_no=' + appNo;
+            } else if ($(this).is("#prev_btn")) {
+                window.location.href = '/anno_list';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

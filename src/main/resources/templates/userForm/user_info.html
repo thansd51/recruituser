@@ -4,20 +4,24 @@
 <!-- 공통 헤드-->
 <th:block th:replace="/fragments/head :: headFragment"></th:block>
 
-<body>
-    <!-- 공통 Nav -->
-    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
+
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+<body> 
     <!-- content -->
     <div class="container my-5">
         <div class="row p-5">
             <div class="col text-left">
-                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+                <h4 class="headline" th:text="${appBoard.appTitle}"></h4>
             </div>
             <div class="row-sm-12 mt-3">
                 <div class="col-sm mx-3 mb-5">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/user_info">기본정보</a>
+                            <a class="nav-link active" th:href="@{/user_info(form_no=${form_no})}">기본정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/edu_info">학력사항</a>
@@ -32,7 +36,7 @@
                             <a class="nav-link" href="/act_info">활동사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/survey_info">자기소개</a>
+                            <a class="nav-link" href="/surv_info">자기소개</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/app_post">지원서 제출</a>
@@ -57,22 +61,22 @@
                             <table class="table mb-5">
                                 <tbody>
                                     <tr>
-                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
-                                            </span>지원직무
+                                        <th class="table-light text-center" scope="row">
+                                            <span>지원직무</span>
                                         </th>
-                                        <td class="table-light" colspan="1">
+                                        <td class="table-light" colspan="2">
                                             <div class="row">
-                                                <div class="col">
-                                                    <!-- <span class="ms-3"
-                                                        style="font-weight: bold; font-size: 16px;" th:text="${app_job}"></span> -->
+                                                <div class="col text-center">
+                                                    <span class="mx-2" style="font-weight: bold; font-size: 16px;"
+                                                        th:text="${appBoard.appJob}"></span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
-                                            </span>입사가능시기
+                                        <th class="table-light text-center" scope="row">
+                                            <span>입사가능시기</span>
                                         </th>
-                                        <td class="table-light" rowspan="1">
-                                            <div class="row-sm-3">
+                                        <td class="table-light" colspan="2">
+                                            <div class="row">
                                                 <div class="col">
                                                     <input type="text" class="form-control date" name="request_date"
                                                         id="request_date" th:value="${infoUser.requestDate}">
@@ -158,12 +162,10 @@
                                         </th>
                                         <td class="table-light" colspan="3">
                                             <div class="col-sm-5">
-                                                <select class="form-select" aria-label="user_nation" name="user_nation"
+                                                <select class="form-select user_nation" name="user_nation"
                                                     id="user_nation">
-                                                    <option th:if="${infoUser.userNation==null}" selected disabled
-                                                        hidden>선택
-                                                    </option>
-                                                    <option th:unless="${infoUser.userNation==null}" selected
+                                                    <option></option>
+                                                    <option th:if="${infoUser.userNation!=null}" selected
                                                         th:value="${infoUser.userNation}"
                                                         th:text="${infoUser.userNation}">
                                                     </option>
@@ -279,15 +281,13 @@
                                         <th class="table-light" scope="row"><span class="marking">&#42;
                                             </span>병역여부
                                         </th>
-                                        <td class="table-light" colspan="1">
+                                        <td class="table-light style_width" colspan="1">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="mil_srvc" name="mil_srvc"
-                                                        id="mil_srvc">
-                                                        <option th:if="${infoPerson.milServiceStatus==null}" selected
-                                                            disabled hidden>선택</option>
-                                                        <option th:unless="${infoPerson.milServiceStatus==null}"
-                                                            selected th:value="${infoPerson.milServiceStatus}"
+                                                    <select class="form-select mil_srvc" name="mil_srvc" id="mil_srvc">
+                                                        <option></option>
+                                                        <option th:if="${infoPerson.milServiceStatus!=null}" selected
+                                                            th:value="${infoPerson.milServiceStatus}"
                                                             th:text="${infoPerson.milServiceStatus}"></option>
                                                     </select>
                                                 </div>
@@ -298,82 +298,82 @@
                                         </th>
                                         <td class="table-light style_width" colspan="1">
                                             <div class="row">
-                                                <div class="col-sm-6 pe-1">
-                                                    <select class="form-select" aria-label="mil_type" name="mil_type"
-                                                        id="mil_type">
-                                                        <option th:if="${infoPerson.milType==null}" selected disabled
-                                                            hidden>
-                                                            선택</option>
-                                                        <option th:unless="${infoPerson.milType==null}" selected
-                                                            th:value="${infoPerson.milType}"
-                                                            th:text="${infoPerson.milType}">
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-6 ps-1">
-                                                    <select class="form-select" aria-label="mil_type_dtl"
-                                                        name="mil_type_dtl" id="mil_type_dtl">
-                                                        <option th:if="${infoPerson.milTypeDtl==null}" selected disabled
-                                                            hidden>선택
-                                                        </option>
-                                                        <option th:unless="${infoPerson.milTypeDtl==null}" selected
-                                                            th:value="${infoPerson.milTypeDtl}"
-                                                            th:text="${infoPerson.milTypeDtl}">
-                                                        </option>
-                                                    </select>
-                                                </div>
-
+                                                <th:block
+                                                    th:with="milDisabled=${infoPerson.milServiceStatus == '미필' or infoPerson.milServiceStatus == '비대상' or infoPerson.milServiceStatus == '면제'}">
+                                                    <div class="col-sm-6 pe-1">
+                                                        <select class="form-select mil_type" name="mil_type"
+                                                            id="mil_type" th:disabled="${milDisabled}">
+                                                            <option></option>
+                                                            <option th:unless="${infoPerson.milType == null}" selected
+                                                                th:value="${infoPerson.milType}"
+                                                                th:text="${infoPerson.milType}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 ps-1">
+                                                        <select class="form-select mil_type_dtl" name="mil_type_dtl"
+                                                            id="mil_type_dtl" th:disabled="${milDisabled}">
+                                                            <option></option>
+                                                            <option th:unless="${infoPerson.milTypeDtl == null}"
+                                                                selected th:value="${infoPerson.milTypeDtl}"
+                                                                th:text="${infoPerson.milTypeDtl}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </th:block>
                                             </div>
-
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
-                                            </span>전역사유
-                                        </th>
-                                        <td class="table-light" colspan="1">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <select class="form-select" aria-label="mil_discharge"
-                                                        name="mil_discharge" id="mil_discharge">
-                                                        <option th:if="${infoPerson.milDischarge==null}" selected
-                                                            disabled hidden>
-                                                            선택</option>
-                                                        <option th:unless="${infoPerson.milDischarge==null}" selected
-                                                            th:value="${infoPerson.milDischarge}"
-                                                            th:text="${infoPerson.milDischarge}"></option>
-                                                    </select>
+                                        <th:block
+                                            th:with="milDisabled=${infoPerson.milServiceStatus == '미필' or infoPerson.milServiceStatus == '비대상' or infoPerson.milServiceStatus == '면제'}">
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>전역사유
+                                            </th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <select class="form-select mil_discharge" id="mil_discharge"
+                                                            name="mil_discharge" th:disabled="${milDisabled}">
+                                                            <option></option>
+                                                            <option th:if="${infoPerson.milDischarge!=null}" selected
+                                                                th:value="${infoPerson.milDischarge}"
+                                                                th:text="${infoPerson.milDischarge}"></option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
+                                            <th class="table-light" scope="row"><span class="marking">&nbsp;
+                                                </span>복무기간
+                                            </th>
+                                            <td class="table-light style_width" colspan="1">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="input-group dateMonth">
+                                                            <input type="text" class="form-control"
+                                                                name="mil_start_date" id="mil_start_date"
+                                                                th:value="${infoPerson.milStartDate}"
+                                                                th:disabled="${milDisabled}">
+                                                            <span class="input-group-text">~</span>
+                                                            <input type="text" class="form-control" name="mil_end_date"
+                                                                id="mil_end_date" th:value="${infoPerson.milEndDate}"
+                                                                th:disabled="${milDisabled}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </th:block>
+                                    </tr>
+                                    <tr>
                                         <th class="table-light" scope="row"><span class="marking">&nbsp;
                                             </span>면제사유
                                         </th>
-                                        <td class="table-light" colspan="1">
+                                        <td class="table-light" colspan="3">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <input type="text" class="form-control" name="mil_exem"
-                                                        id="mil_exem" th:value="${infoPerson.milExemption}" disabled>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light" scope="row"><span class="marking">&nbsp;
-                                            </span>복무기간
-                                        </th>
-                                        <td class="table-light" colspan="3">
-                                            <div class="row">
-                                                <div class="col-sm-5" style="width: 40%;">
-                                                    <div class="input-group dateMonth">
-                                                        <input type="text" class="form-control"
-                                                            aria-label="mil_start_date" name="mil_start_date"
-                                                            id="mil_start_date" th:value="${infoPerson.milStartDate}">
-                                                        <span class="input-group-text">~</span>
-                                                        <input type="text" class="form-control"
-                                                            aria-label="mil_end_date" name="mil_end_date"
-                                                            id="mil_end_date" th:value="${infoPerson.milEndDate}">
-                                                    </div>
+                                                        id="mil_exem" th:value="${infoPerson.milExemption}"
+                                                        th:disabled="${infoPerson.milServiceStatus != '면제'}">
                                                 </div>
                                             </div>
                                         </td>
@@ -405,20 +405,13 @@
                                                     <span class="marking">&#42;
                                                     </span>보훈여부
                                                 </div>
-                                                <div class="col-sm-auto ps-1 pe-0">
-                                                    <select class="form-select" aria-label="vtr_srvc" name="vtr_srvc"
-                                                        id="vtr_srvc">
-                                                        <option th:if="${infoPerson.vtrServiceStatus==null}" selected
-                                                            disabled hidden>선택</option>
-
-                                                        <option th:if="${infoPerson.vtrServiceStatus=='T'}" selected
-                                                            th:value="${infoPerson.vtrServiceStatus}">해당</option>
-
-                                                        <option th:if="${infoPerson.vtrServiceStatus=='F'}" selected
-                                                            th:value="${infoPerson.vtrServiceStatus}">비해당</option>
-                                                        <option value="T">해당</option>
-
-                                                        <option value="F">비해당</option>
+                                                <div class="col-sm-2 ps-1 pe-0">
+                                                    <select class="form-select vtr_srvc" name="vtr_srvc" id="vtr_srvc">
+                                                        <option></option>
+                                                        <option th:if="${infoPerson.vtrServiceStatus != null}" selected
+                                                            th:value="${infoPerson.vtrServiceStatus}"
+                                                            th:text="${infoPerson.vtrServiceStatus == 'T' ? '해당' : infoPerson.vtrServiceStatus == 'F' ? '비해당' : infoPerson.vtrServiceStatus}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-auto pe-0">
@@ -426,11 +419,10 @@
                                                     </span>보훈관계
                                                 </div>
                                                 <div class="col-sm-2 ps-1 pe-0">
-                                                    <select class="form-select" aria-label="vtr_relation"
-                                                        name="vtr_relation" id="vtr_relation">
-                                                        <option th:if="${infoPerson.vtrRelation==null}" selected
-                                                            disabled hidden>
-                                                            선택</option>
+                                                    <select class="form-select vtr_relation" name="vtr_relation"
+                                                        id="vtr_relation"
+                                                        th:disabled="${infoPerson.vtrServiceStatus == 'F'}">
+                                                        <option></option>
                                                         <option th:unless="${infoPerson.vtrRelation==null}" selected
                                                             th:value="${infoPerson.vtrRelation}"
                                                             th:text="${infoPerson.vtrRelation}"></option>
@@ -441,8 +433,9 @@
                                                     </span>보훈번호
                                                 </div>
                                                 <div class="col-sm-3 ps-1 pe-0">
-                                                    <input type="text" class="form-control" aria-label="vtr_num"
-                                                        name="vtr_num" id="vtr_num" th:value="${infoPerson.vtrNumber}">
+                                                    <input type="text" class="form-control vtr_num" name="vtr_num"
+                                                        id="vtr_num" th:value="${infoPerson.vtrNumber}"
+                                                        th:disabled="${infoPerson.vtrServiceStatus == 'F'}">
                                                 </div>
                                             </div>
                                         </td>
@@ -457,30 +450,24 @@
                                                     <span class="marking">&#42;
                                                     </span>장애여부
                                                 </div>
-                                                <div class="col-sm-auto ps-1 pe-0">
-                                                    <select class="form-select" aria-label="dis_srvc" name="dis_srvc"
-                                                        id="dis_srvc">
-                                                        <option th:if="${infoPerson.disServiceStatus==null}" selected
-                                                            disabled hidden>선택</option>
-                                                        <option th:if="${infoPerson.disServiceStatus=='T'}" selected
-                                                            th:value="${infoPerson.disServiceStatus}">해당</option>
-                                                        <option th:if="${infoPerson.disServiceStatus=='F'}" selected
-                                                            th:value="${infoPerson.disServiceStatus}">비해당</option>
-                                                        <option value="T">해당</option>
-                                                        <option value="F">비해당</option>
+                                                <div class="col-sm-2 ps-1 pe-0">
+                                                    <select class="form-select dis_srvc" name="dis_srvc" id="dis_srvc">
+                                                        <option></option>
+                                                        <option th:if="${infoPerson.disServiceStatus != null}" selected
+                                                            th:value="${infoPerson.disServiceStatus}"
+                                                            th:text="${infoPerson.disServiceStatus == 'T' ? '해당' : infoPerson.disServiceStatus == 'F' ? '비해당' : infoPerson.disServiceStatus}">
+                                                        </option>
                                                     </select>
                                                 </div>
-
                                                 <div class="col-sm-auto pe-0">
                                                     <span class="marking">&nbsp;
                                                     </span>장애구분
                                                 </div>
                                                 <div class="col-sm-2 ps-1 pe-0">
-                                                    <select class="form-select" aria-label="dis_class" name="dis_class"
-                                                        id="dis_class">
-                                                        <option th:if="${infoPerson.disClass==null}" selected disabled
-                                                            hidden>
-                                                            선택</option>
+                                                    <select class="form-select dis_class" name="dis_class"
+                                                        id="dis_class"
+                                                        th:disabled="${infoPerson.disServiceStatus == 'F'}">
+                                                        <option></option>
                                                         <option th:unless="${infoPerson.disClass==null}" selected
                                                             th:value="${infoPerson.disClass}"
                                                             th:text="${infoPerson.disClass}">
@@ -491,12 +478,10 @@
                                                     <span class="marking">&nbsp;
                                                     </span>장애등급
                                                 </div>
-                                                <div class="col-sm-3 ps-1 pe-0">
-                                                    <select class="form-select" aria-label="dis_rate" name="dis_rate"
-                                                        id="dis_rate">
-                                                        <option th:if="${infoPerson.disRate==null}" selected disabled
-                                                            hidden>
-                                                            선택</option>
+                                                <div class="col-sm-2 ps-1 pe-0">
+                                                    <select class="form-select dis_rate" name="dis_rate" id="dis_rate"
+                                                        th:disabled="${infoPerson.disServiceStatus == 'F'}">
+                                                        <option></option>
                                                         <option th:unless="${infoPerson.disRate==null}" selected
                                                             th:value="${infoPerson.disRate}"
                                                             th:text="${infoPerson.disRate}">
@@ -513,14 +498,13 @@
                         <!-- 기본정보 탭 end-->
                     </form>
                 </div>
+
             </div>
             <!-- 버튼 -->
             <div class="col mb-5 text-center">
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="btn"
-                    onclick="location.href='/app_form'">이전
-                </button>
-                <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음
-                </button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="tempSave_btn">임시저장</button>
             </div>
         </div>
     </div>
@@ -533,9 +517,11 @@
             selectOpt("mil_type", "MIL_TYPE");
             selectOpt("mil_type_dtl", "MIL_TYPE_DTL");
             selectOpt("mil_discharge", "MIL_DSCHR");
+            selectOpt("vtr_srvc", "DIV");
             selectOpt("vtr_relation", "VTR_RLT");
             selectOpt("dis_class", "DIS_CLS");
             selectOpt("dis_rate", "DIS_RATE");
+            selectOpt("dis_srvc", "DIV");
 
 
             /* 처음 이미지 가져오기 */
@@ -629,25 +615,39 @@
     </script>
 
     <script th:inline="javascript">
-        $("#next_btn").on("click", function (e) {
+        $("#next_btn, #tempSave_btn, #prev_btn, li.nav-item").on("click", function (e) {
             /*<![CDATA[*/
-            var formNo = [[${ infoUser.formNo }]];
+            e.preventDefault();
+
+            var href = '';
+            var formNo = [[${ form_no }]];
+            var appNo = [[${ appBoard.appJob }]];
+
             var infoUserForm = $("#infoUserForm").serialize();
             var infoPersonForm = $("#infoPersonForm").serialize();
 
-            console.log(infoUserForm);
-            console.log("form_no=" + formNo + infoUserForm + "&" + infoPersonForm);
-            //1. controller-> save -> return url
-            //2. rest controller-> save -> return "url"value -> location.href
+            if ($(this).attr('id') === "next_btn") {
+                href = "/edu_info";
+            } else if ($(this).attr('id') === "prev_btn") {
+                href = "/app_form";
+            } else if ($(this).attr('id') === "tempSave_btn") {
+                href = '';
+            } else {
+                href = $(this).find('a').attr('href');
+            }
+
             $.ajax({
                 method: "POST",
                 url: "/infoUser?form_no=" + formNo + "&" + infoUserForm + "&" + infoPersonForm
             })
                 .done(function (data) {
-                    location.href = "/edu_info?form_no=" + data;
+                    if (href == '') {
+                        alert(data);
+                    }
+                    location.href = href;
                 })
                 .fail(function (data, textStatus, errorThrown) {
-                    alert("실패")
+                    alert("실패");
                     callback(data);
                 });
         });
@@ -655,6 +655,7 @@
     </script>
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+
 </body>
 
 </html>

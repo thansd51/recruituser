@@ -4,25 +4,24 @@
 <!-- 공통 헤드-->
 <th:block th:replace="/fragments/head :: headFragment"></th:block>
 
-<style>
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
 
-</style>
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
 
 <body>
-    <!-- 공통 Nav -->
-    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
-
     <!-- content -->
     <div class="container my-5">
         <div class="row p-5">
             <div class="col text-left">
-                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+                <h4 class="headline" th:text="${appBoard.appTitle}"></h4>
             </div>
             <div class="row-sm-12 mt-3">
                 <div class="col-sm mx-3 mb-5">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/user_info">기본정보</a>
+                            <a class="nav-link" th:href="@{/user_info(form_no=${form_no})}">기본정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/edu_info">학력사항</a>
@@ -37,7 +36,7 @@
                             <a class="nav-link active" href="/act_info">활동사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/survey_info">자기소개</a>
+                            <a class="nav-link" href="/surv_info">자기소개</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/app_post">지원서 제출</a>
@@ -58,18 +57,20 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="infoActForm" id="infoActForm">
-                            <div class="addTableAct">
+                        <div class="addTableAct" th:each="InfoActDTO : ${actInfo}">
+                            <form name="infoActForm" id="infoActForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="act_seq" name="act_seq" th:value="${InfoActDTO.actSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>활동명</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="act_name"
-                                                            name="act_name" th:value="${actInfo.actName}">
+                                                        <input type="text" class="form-control" name="act_name"
+                                                            th:value="${InfoActDTO.actName}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -82,11 +83,11 @@
                                                             <input type="text" class="form-control"
                                                                 aria-label="mil_start_date" id="act_start_date"
                                                                 name="act_start_date"
-                                                                th:value="${actInfo.actStartDate}">
+                                                                th:value="${InfoActDTO.actStartDate}">
                                                             <span class="input-group-text">~</span>
                                                             <input type="text" class="form-control"
                                                                 aria-label="mil_end_date" id="act_end_date"
-                                                                name="act_end_date" th:value="${actInfo.actEndDate}">
+                                                                name="act_end_date" th:value="${InfoActDTO.actEndDate}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -98,12 +99,11 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <select class="form-select" id="act_fd" name="act_fd">
-                                                            <option th:if="${actInfo.ActFd==null}" selected disabled
-                                                                hidden>
-                                                                선택</option>
-                                                            <option th:unless="${actInfo.ActFd==null}" selected
-                                                                th:value="${actInfo.ActFd}" th:text="${actInfo.ActFd}">
+                                                        <select class="form-select act_fd" name="act_fd">
+                                                            <option></option>
+                                                            <option th:unless="${InfoActDTO.ActFd==null}" selected
+                                                                th:value="${InfoActDTO.ActFd}"
+                                                                th:text="${InfoActDTO.ActFd}">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -114,7 +114,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" name="act_conduct"
-                                                            id="act_conduct" th:value="${actInfo.actConduct}">
+                                                            th:value="${InfoActDTO.actConduct}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -126,7 +126,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" name="act_content"
-                                                            id="act_content" th:value="${actInfo.actContent}">
+                                                            th:value="${InfoActDTO.actContent}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -138,17 +138,17 @@
                                     <div class="col-sm-auto">
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="btncolor">초기화</button>
+                                                id="resetBtn">초기화</button>
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="btncolor">삭제</button>
+                                                id="deleteBtn">삭제</button>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
                         <div id="actWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
@@ -171,18 +171,20 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="infoAwdForm" id="infoAwdForm">
-                            <div class="addTableAwd">
+                        <div class="addTableAwd" th:each="InfoAwdDTO : ${awdInfo}">
+                            <form name="infoAwdForm" id="infoAwdForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="awd_seq" name="awd_seq" th:value="${InfoAwdDTO.awdSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>수상명</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" name="awd_name"
-                                                            id="awd_name" th:value="${awdInfo.awdName}">
+                                                            th:value="${InfoAwdDTO.awdName}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -192,7 +194,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control date" name="awd_date"
-                                                            id="awd_date" th:value="${awdInfo.awdDate}">
+                                                            id="awd_date" th:value="${InfoAwdDTO.awdDate}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -204,7 +206,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" name="awd_conduct"
-                                                            id="awd_conduct" th:value="${awdInfo.awdConduct}">
+                                                            th:value="${InfoAwdDTO.awdConduct}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -214,7 +216,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" name="awd_content"
-                                                            id="awd_content" th:value="${awdInfo.awdContent}">
+                                                            th:value="${InfoAwdDTO.awdContent}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -234,9 +236,9 @@
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
                         <div id="awdWrap"></div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
@@ -254,6 +256,7 @@
             <div class="col mb-5 text-center">
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="tempSave_btn">임시저장</button>
             </div>
         </div>
     </div>
@@ -263,48 +266,58 @@
             selectOpt("act_fd", "ACT_FD");
         });
 
-        $(function () {
+        var actSeqValue = $('#act_seq').first().val().trim();
+        var awdSeqValue = $('#awd_seq').first().val().trim();
 
-            var wrap = $('.addTableAct').wrapAll("<div/>");
-            var tmpl = wrap.parent().html();
-            $("#addbtn_act").click(function () {
-                $("#actWrap").append(tmpl);
-            });
+        if (!actSeqValue || actSeqValue !== '1') {
+            $('#act_seq').val('1');
+        }
+        if (!awdSeqValue || awdSeqValue !== '1') {
+            $('#awd_seq').val('1');
+        }
 
-            var wrap2 = $('.addTableAwd').wrapAll("<div/>");
-            var tmpl2 = wrap2.parent().html();
-            $("#addbtn_awd").click(function () {
-                $("#awdWrap").append(tmpl2);
-            });
+        $("#next_btn, #tempSave_btn, #prev_btn, li.nav-item").on("click", function (e) {
 
-        });
-    </script>
-    <script th:inline="javascript">
-        $("#next_btn").on("click", function (e) {
-            /*<![CDATA[*/
-            var formNo = [[${ actInfo.formNo }]];
-            var appNo = [[${ app_no }]];
+            e.preventDefault();
 
-            var infoActForm = $("#infoActForm").serialize();
-            var infoAwdForm = $("#infoAwdForm").serialize();
+            var href = '';
+            var forms = $('form');
+            var totalForms = forms.length;
+            var count = 0;
 
-            console.log(formNo + "&" + infoActForm + "&" + infoAwdForm);
+            if ($(this).attr('id') === "next_btn") {
+                href = "/surv_info";
+            } else if ($(this).attr('id') === "prev_btn") {
+                href = "/cert_info";
+            } else if ($(this).attr('id') === "tempSave_btn") {
+                href = '';
+            } else {
+                href = $(this).find('a').attr('href');
+            }
 
-            //1. controller-> save -> return url
-            //2. rest controller-> save -> return "url"value -> location.href
-            $.ajax({
-                method: "POST",
-                url: "/infoAct?form_no=" + formNo + "&" + infoActForm + "&" + infoAwdForm
-            })
-                .done(function (data) {
-                    location.href = "/survey_info?app_no=" + appNo +  "&form_no=" + data;
+            forms.each(function (i, form) {
+                var formData = $(form).serialize();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/infoAct?" + formData
                 })
-                .fail(function (data, textStatus, errorThrown) {
-                    alert("실패")
-                    callback(data);
-                });
+                    .done(function (data) {
+                        count++;
+                        if (count === totalForms) {
+                            if (href == '') {
+                                alert("저장되었습니다.");
+                            }
+                            location.href = href;
+                        }
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패");
+                        callback(data);
+                    });
+            });
+
         });
-        /*]]>*/
     </script>
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>

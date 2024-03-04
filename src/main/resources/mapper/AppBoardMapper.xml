@@ -21,4 +21,24 @@
             APP_BOARD
         WHERE APP_NO = #{APP_NO}
     </select>
+
+    <select id="annoList" resultType="dage.recruituser.DTO.AppBoardDTO">
+        SELECT
+            APP_NO,
+            APP_TITLE,
+            APP_TITLE_SUB,
+            APP_YEAR,
+            APP_DEGREE,
+            APP_JOB,
+            APP_START_DATE,
+            APP_END_DATE,
+            APP_CONTENT,
+            APP_FILE_1,
+            APP_FILE_2,
+            APP_FILE_3,
+            APP_FILE_4,
+            APP_FILE_5
+        FROM
+            APP_BOARD
+    </select>
 </mapper>

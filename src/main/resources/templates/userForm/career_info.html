@@ -4,25 +4,24 @@
 <!-- 공통 헤드-->
 <th:block th:replace="/fragments/head :: headFragment"></th:block>
 
-<style>
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
 
-</style>
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
 
 <body>
-    <!-- 공통 Nav -->
-    <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
-
     <!-- content -->
     <div class="container my-5">
         <div class="row p-5">
             <div class="col text-left">
-                <h4 class="headline">[정규직] 동아지질 신입사원 채용공고</h4>
+                <h4 class="headline" th:text="${appBoard.appTitle}"></h4>
             </div>
             <div class="row-sm-12 mt-3">
                 <div class="col-sm mx-3 mb-5">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/user_info">기본정보</a>
+                            <a class="nav-link" th:href="@{/user_info(form_no=${form_no})}">기본정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/edu_info">학력사항</a>
@@ -37,7 +36,7 @@
                             <a class="nav-link" href="/act_info">활동사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/survey_info">자기소개</a>
+                            <a class="nav-link" href="/surv_info">자기소개</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/app_post">지원서 제출</a>
@@ -58,18 +57,20 @@
                             </div>
                         </div>
                         <!-- 추가 테이블 -->
-                        <form name="infoCareerForm" id="infoCareerForm">
-                            <div class="addTableCo">
+                        <div class="addTableCo mb-5" th:each="InfoCareerDTO : ${careerInfo}">
+                            <form name="infoCareerForm" id="infoCareerForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="co_seq" name="co_seq" th:value="${InfoCareerDTO.coSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>회사명</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <input type="text" class="form-control" name="co_name"
-                                                            id="co_name" th:value="${careerInfo.coName}">
+                                                            th:value="${InfoCareerDTO.coName}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -77,18 +78,27 @@
                                                 </span>근무기간</th>
                                             <td class="table-light style_width" colspan="1">
                                                 <div class="row">
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <select class="form-select co_sts" name="co_sts">
+                                                            <option></option>
+                                                            <option th:unless="${InfoCareerDTO.coSts==null}" selected
+                                                                th:value="${InfoCareerDTO.coSts}"
+                                                                th:text="${InfoCareerDTO.coSts}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-9 ps-0">
                                                         <div class="input-group dateMonth">
                                                             <input type="text" class="form-control" id="co_start_date"
                                                                 name="co_start_date"
-                                                                th:value="${careerInfo.coStartDate}">
+                                                                th:value="${InfoCareerDTO.coStartDate}">
                                                             <span class="input-group-text">~</span>
                                                             <input type="text" class="form-control" id="co_end_date"
-                                                                name="co_end_date" th:value="${careerInfo.coEndDate}">
+                                                                name="co_end_date"
+                                                                th:value="${InfoCareerDTO.coEndDate}">
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </td>
                                         </tr>
                                         <tr>
@@ -96,15 +106,13 @@
                                                 </span>업종·소재지</th>
                                             <td class="table-light" colspan="3">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <input type="text" class="form-control" id="co_cls"
-                                                            name="co_cls" th:value="${careerInfo.coCls}"
-                                                            placeholder="업종">
+                                                    <div class="col-sm-5">
+                                                        <input type="text" class="form-control" name="co_cls"
+                                                            th:value="${InfoCareerDTO.coCls}" placeholder="업종">
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="co_loc"
-                                                            name="co_loc" th:value="${careerInfo.coLoc}"
-                                                            placeholder="소재지">
+                                                    <div class="col-sm-3 ps-0">
+                                                        <input type="text" class="form-control" name="co_loc"
+                                                            th:value="${InfoCareerDTO.coLoc}" placeholder="소재지">
                                                     </div>
                                                 </div>
                                             </td>
@@ -114,21 +122,18 @@
                                                 </span>고용형태</th>
                                             <td class="table-light" colspan="3">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <select class="form-select" id="co_form_emp" name="co_form_emp">
-                                                            <option th:if="${careerInfo.coFormEmp==null}" selected
-                                                                disabled hidden>
-                                                                선택</option>
-                                                            <option th:unless="${careerInfo.coFormEmp==null}" selected
-                                                                th:value="${careerInfo.coFormEmp}"
-                                                                th:text="${careerInfo.coFormEmp}">
+                                                    <div class="col-sm-5">
+                                                        <select class="form-select co_form_emp" name="co_form_emp">
+                                                            <option></option>
+                                                            <option th:unless="${InfoCareerDTO.coFormEmp==null}"
+                                                                selected th:value="${InfoCareerDTO.coFormEmp}"
+                                                                th:text="${InfoCareerDTO.coFormEmp}">
                                                             </option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="co_salary"
-                                                            name="co_salary" th:value="${careerInfo.coSalary}"
-                                                            placeholder="연봉">
+                                                    <div class="col-sm-3 ps-0">
+                                                        <input type="text" class="form-control" name="co_salary"
+                                                            th:value="${InfoCareerDTO.coSalary}" placeholder="연봉">
                                                     </div>
                                                     <div class="col-sm-auto p-0">
                                                         <span class="marking">
@@ -142,15 +147,13 @@
                                                 </span>근무부서</th>
                                             <td class="table-light" colspan="3">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <input type="text" class="form-control" id="co_dept"
-                                                            name="co_dept" th:value="${careerInfo.coDept}"
-                                                            placeholder="">
+                                                    <div class="col-sm-5">
+                                                        <input type="text" class="form-control" name="co_dept"
+                                                            th:value="${InfoCareerDTO.coDept}" placeholder="">
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="co_rank"
-                                                            name="co_rank" th:value="${careerInfo.coRank}"
-                                                            placeholder="직위">
+                                                    <div class="col-sm-3 ps-0">
+                                                        <input type="text" class="form-control" name="co_rank"
+                                                            th:value="${InfoCareerDTO.coRank}" placeholder="직위">
                                                     </div>
                                                 </div>
                                             </td>
@@ -161,8 +164,8 @@
                                             <td class="table-light" colspan="3">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="co_work"
-                                                            name="co_work" th:value="${careerInfo.coWork}">
+                                                        <input type="text" class="form-control" name="co_work"
+                                                            th:value="${InfoCareerDTO.coWork}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -173,8 +176,8 @@
                                             <td class="table-light" colspan="3">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="co_retire"
-                                                            name="co_retire" th:value="${careerInfo.coRetire}">
+                                                        <input type="text" class="form-control" name="co_retire"
+                                                            th:value="${InfoCareerDTO.coRetire}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -186,17 +189,19 @@
                                     <div class="col-sm-auto">
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="resetBtn">초기화</button>
-                                            <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="deleteBtn">삭제</button>
+                                                id="coResetBtn">초기화</button>
+                                            <div th:if='${InfoCareerDTO.coSeq != null and InfoCareerDTO.coSeq != 1}'>
+                                                <button type="button" class="btn btn-outline-primary btncolor"
+                                                    id="coDeleteBtn">삭제</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
                         <div id="coWrap">
                         </div>
                         <!-- 추가 버튼 -->
@@ -220,18 +225,20 @@
                             </div>
                         </div>
                         <!-- 추가 테이블-->
-                        <form name="infoProjectForm" id="infoProjectForm">
-                            <div class="addTablePro">
+                        <div class="addTablePro mb-5" th:each="InfoProjectDTO : ${projectInfo}">
+                            <form name="infoProjectForm" id="infoProjectForm">
+                                <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                                <input type="hidden" id="proj_seq" name="proj_seq" th:value="${InfoProjectDTO.projSeq}">
                                 <table class="table mb-3">
                                     <tbody>
                                         <tr>
                                             <th class="table-light" scope="row"><span class="marking">&nbsp;
                                                 </span>프로젝트명</th>
-                                            <td class="table-light" colspan="1">
+                                            <td class="table-light style_width" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="proj_name"
-                                                            name="proj_name" th:value="${projectInfo.projName}">
+                                                        <input type="text" class="form-control" name="proj_name"
+                                                            th:value="${InfoProjectDTO.projName}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -243,12 +250,12 @@
                                                         <div class="input-group dateMonth">
                                                             <input type="text" class="form-control" id="proj_start_date"
                                                                 name="proj_start_date"
-                                                                th:value="${projectInfo.projStartDate}">
+                                                                th:value="${InfoProjectDTO.projStartDate}">
                                                             <span class="input-group-text">~</span>
                                                             <input type="text" class="form-control"
                                                                 aria-label="mil_end_date" id="proj_end_date"
                                                                 name="proj_end_date"
-                                                                th:value="${projectInfo.projEndDate}">
+                                                                th:value="${InfoProjectDTO.projEndDate}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -261,8 +268,8 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="proj_order"
-                                                            name="proj_order" th:value="${projectInfo.projOrder}">
+                                                        <input type="text" class="form-control" name="proj_order"
+                                                            th:value="${InfoProjectDTO.projOrder}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -271,8 +278,8 @@
                                             <td class="table-light" colspan="1">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="proj_loc"
-                                                            name="proj_loc" th:value="${projectInfo.projLoc}">
+                                                        <input type="text" class="form-control" name="proj_loc"
+                                                            th:value="${InfoProjectDTO.projLoc}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -283,8 +290,8 @@
                                             <td class="table-light" colspan="3">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="proj_work"
-                                                            name="proj_work" th:value="${projectInfo.projWork}">
+                                                        <input type="text" class="form-control" name="proj_work"
+                                                            th:value="${InfoProjectDTO.projWork}">
                                                     </div>
                                                 </div>
                                             </td>
@@ -296,23 +303,23 @@
                                     <div class="col-sm-auto">
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="resetBtn">초기화</button>
+                                                id="projResetBtn">초기화</button>
                                             <button type="button" class="btn btn-outline-primary btncolor"
-                                                id="deleteBtn">삭제</button>
+                                                id="projDeleteBtn">삭제</button>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 초기화/삭제 end -->
                                 <hr>
-                            </div>
-                            <!-- 추가 테이블 end-->
-                        </form>
-                        <div id="proWrap">
+                                <!-- 추가 테이블 end-->
+                            </form>
+                        </div>
+                        <div id="projWrap">
                         </div>
                         <!-- 추가 버튼 -->
                         <div class="row mb-5">
                             <div class="col">
-                                <button type="button" class="btn btn-dark" id="addbtn_pro"
+                                <button type="button" class="btn btn-dark" id="addbtn_proj"
                                     style="width: 100%;">추가</button>
                             </div>
                         </div>
@@ -325,6 +332,7 @@
             <div class="col mb-5 text-center">
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="prev_btn">이전</button>
                 <button type="button" class="btn btn-secondary btn-lg mx-2" id="next_btn">다음</button>
+                <button type="button" class="btn btn-secondary btn-lg mx-2" id="tempSave_btn">임시저장</button>
             </div>
         </div>
     </div>
@@ -334,45 +342,457 @@
     <script>
         $(function () {
             selectOpt("co_form_emp", "FORM_EMP");
+            selectOpt("co_sts", "CO_STS");
         });
 
-        $(function () {
+        /* 초기화 버튼 */
+        $(document).on('click', '#coResetBtn', function () {
 
-            var wrap = $('.addTableCo').wrapAll("<div/>");
-            var tmpl = wrap.parent().html();
-            $("#addbtn_co").click(function () {
-                $("#coWrap").append(tmpl);
+            var selectedForm = $(this)
+                .closest('.addTableCo')
+                .find('form')
+                .find('input:not(#co_seq, #form_no), select')
+                .val("")
+                .trigger("change");
+        })
+
+        var coSeqValue = $('#co_seq').first().val().trim();
+
+        var projSeqValue = $('#proj_seq').first().val().trim();
+
+        if (!coSeqValue || coSeqValue !== '1') {
+            $('#co_seq').val('1');
+        }
+
+        if (!projSeqValue || projSeqValue !== '1') {
+            $('#proj_seq').val('1');
+        }
+
+        $(document).on('click', '#deleteBtn', function () {
+
+            var setSeq = $('form').last().serialize();
+
+            $(this).closest('.addTableCo').remove();
+
+            $('.addTableCo').each(function (index) {
+                $(this).find('input[name="co_seq"]').val(index + 1);
             });
 
-            var wrap2 = $('.addTablePro').wrapAll("<div/>");
-            var tmpl2 = wrap2.parent().html();
-            $("#addbtn_pro").click(function () {
-                $("#proWrap").append(tmpl2);
+            var forms = $('.addTableCo').find('form');
+            var totalForms = forms.length;
+
+            forms.each(function (i, form) {
+
+                var formData = $(form).serialize();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/infoCareer?" + formData
+                })
+                    .done(function (data) {
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패");
+                        callback(data);
+                    });
+            });
+
+            // $.ajax({
+            //     method: "POST",
+            //     url: "/infoEduDelete?" + setSeq
+            // })
+            //     .done(function (data) {
+            //     })
+            //     .fail(function (data, textStatus, errorThrown) {
+            //         alert("실패");
+            //         callback(data);
+            //     });
+        });
+    </script>
+    <script th:inline="javascript">
+        $("#next_btn, #tempSave_btn, #prev_btn, li.nav-item").on("click", function (e) {
+
+            e.preventDefault();
+
+            var href = '';
+            var forms = $('form');
+            var totalForms = forms.length;
+            var count = 0;
+
+            if ($(this).attr('id') === "next_btn") {
+                href = "/cert_info";
+            } else if ($(this).attr('id') === "prev_btn") {
+                href = "/edu_info";
+            } else if ($(this).attr('id') === "tempSave_btn") {
+                href = '';
+            } else {
+                href = $(this).find('a').attr('href');
+            }
+
+            forms.each(function (i, form) {
+                var formData = $(form).serialize();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/infoCareer?" + formData
+                })
+                    .done(function (data) {
+                        count++;
+                        if (count === totalForms) {
+                            if (href == '') {
+                                alert("저장되었습니다.");
+                            }
+                            location.href = href;
+                        }
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패");
+                        callback(data);
+                    });
             });
 
         });
     </script>
     <script th:inline="javascript">
+        /*<![CDATA[*/
+        var formCounter = 1;
+        var formNo = [[${ form_no }]];
+        $('#addbtn_co').click(function () {
 
-        $("#next_btn").on("click", function (e) {
-            /*<![CDATA[*/
-            var formNo = [[${ careerInfo.formNo }]];
-            var infoCareerForm = $("#infoCareerForm").serialize();
-            var infoProjectForm = $("#infoProjectForm").serialize();
+            formCounter++;
 
-            //1. controller-> save -> return url
-            //2. rest controller-> save -> return "url"value -> location.href
-            $.ajax({
-                method: "POST",
-                url: "/infoCareer?form_no=" + formNo + "&" + infoCareerForm + "&" + infoProjectForm 
-            })
-                .done(function (data) {
-                    location.href = "/cert_info?form_no=" + data;
+            var form = $('<form>', {
+                name: 'infoCareerForm',
+                id: 'infoCareerForm'
+            });
+
+            var addTable = $('<div>', {
+                class: 'addTableCo mb-5'
+            });
+
+            var getFormNo = $('<input >', {
+                type: 'hidden',
+                name: 'form_no',
+                id: 'form_no',
+                value: formNo
+            });
+
+            var table = $('<table>', {
+                class: 'table mb-3'
+            });
+
+            var tbody = $('<tbody>');
+
+            var ths = ['회사명', '근무기간', '업종·소재지', '고용형태', '근무부서', '담당업무 및 &nbsp;&nbsp;&nbsp;주요성과', '퇴직사유'];
+
+            var ths_len = Math.ceil(ths.length / 2);
+
+            // 반복문을 사용하여 th 요소들을 생성합니다.
+            // for (var i = 0; i < ths_len; i++) {
+
+            //     var tr = $('<tr>');
+
+            //     for (var j = 0; j < 2; j++) {
+
+            //         var index = i * 2 + j;
+
+            //         if (index < ths.length) {
+
+            //             var th = $('<th>', {
+            //                 class: 'table-light',
+            //                 scope: 'row',
+            //                 html: '<span class="marking">&nbsp;</span>' + ths[index]
+            //             });
+
+            //         }
+
+            //         var td = $('<td>', {
+            //             class: 'table-light style_width',
+            //             colspan: '1'
+            //         });
+
+            //         var td_std = $('<td>', {
+            //             class: 'table-light',
+            //             colspan: '3'
+            //         });
+
+            //         var rowDiv = $('<div>', {
+            //             class: 'row'
+            //         });
+
+            //         var colDiv = $('<div>', {
+            //             class: 'col-sm-12'
+            //         });
+
+            //         var firstColDiv = $('<div>', {
+            //             class: 'col-sm-5'
+            //         });
+
+            //         var secondColDiv = $('<div>', {
+            //             class: 'col-sm-3 ps-0'
+            //         });
+
+            //         var phColDiv = $('<div>', {
+            //             class: 'col-sm-auto p-0'
+            //         });
+
+            //         switch (ths[index]) {
+            //             case '회사명':
+            //                 var inputContent = $('<input>', {
+            //                     type: 'text',
+            //                     class: 'form-control',
+            //                     name: 'co_name'
+            //                 });
+
+            //                 colDiv.append(inputContent);
+            //                 break;
+            //             case '근무기간':
+            //                 var inputGrp = $('<div>', {
+            //                     class: 'input-group dateMonth'
+            //                 });
+
+            //                 var inputStartDate = $('<input>', {
+            //                     type: 'text',
+            //                     class: 'form-control',
+            //                     name: 'co_start_date',
+            //                     id: 'co_start_date'
+            //                 });
+
+            //                 var grpTxt = $('<span>', {
+            //                     class: 'input-group-text',
+            //                     text: '~'
+            //                 });
+
+            //                 var inputEndDate = $('<input>', {
+            //                     type: 'text',
+            //                     class: 'form-control',
+            //                     name: 'co_end_date',
+            //                     id: 'co_end_date'
+            //                 });
+
+            //                 inputGrp.append(inputStartDate, grpTxt, inputEndDate);
+            //                 colDiv.append(inputGrp);
+            //                 break;
+            //             case '업종·소재지':
+            //                 var inputCls = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_cls',
+            //                     placeholder: '업종'
+            //                 });
+
+            //                 firstColDiv.append(inputCls);
+
+            //                 var inputLoc = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_loc',
+            //                     placeholder: '소재지'
+            //                 });
+
+            //                 secondColDiv.append(inputLoc);
+
+            //                 rowDiv.append(firstColDiv, secondColDiv);
+
+            //                 td_std.append(rowDiv);
+            //                 break;
+            //             case '고용형태':
+            //                 var inputContent = $('<select>', {
+            //                     class: 'form-select co_form_emp',
+            //                     name: 'co_form_emp'
+            //                 });
+
+            //                 var option = $('<option>');
+
+            //                 inputContent.append(option);
+            //                 firstColDiv.append(inputContent);
+
+            //                 var inputSal = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_salary',
+            //                     placeholder: '연봉'
+            //                 });
+
+            //                 secondColDiv.append(inputSal);
+
+            //                 var phSpan = $('<span>', {
+            //                     class: 'marking',
+            //                     text: '만원'
+            //                 });
+
+            //                 phColDiv.append(phSpan);
+
+            //                 rowDiv.append(firstColDiv, secondColDiv, phColDiv);
+
+            //                 td_std.append(rowDiv);
+            //                 break;
+            //             case '근무부서':
+            //                 var inputDept = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_dept',
+            //                     placeholder: '부서'
+            //                 });
+
+            //                 firstColDiv.append(inputDept);
+
+            //                 var inputRank = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_rank',
+            //                     placeholder: '직위'
+            //                 });
+
+            //                 secondColDiv.append(inputRank);
+
+            //                 rowDiv.append(firstColDiv, secondColDiv);
+
+            //                 td_std.append(rowDiv);
+            //                 break;
+            //             case '담당업무 및 &nbsp;&nbsp;&nbsp;주요성과':
+            //                 var inputContent = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_work'
+            //                 });
+
+            //                 colDiv.append(inputContent);
+            //                 break;
+            //             case '퇴직사유':
+            //                 var inputContent = $('<text>', {
+            //                     class: 'form-control',
+            //                     name: 'co_retire'
+            //                 });
+
+            //                 colDiv.append(inputContent);
+            //                 break;
+            //         }
+
+            //         rowDiv.append(colDiv);
+            //         td.append(rowDiv);
+            //         tr.append(th, td, td_std);
+            //     }
+            //     tbody.append(tr);
+            // }
+
+            table.append(tbody);
+
+            var getSeq = $('<input>', {
+                type: 'hidden',
+                name: 'co_seq',
+                id: 'co_seq',
+                value: $('.addTableCo').length + 1
+            });
+
+            /* 버튼 */
+            var resetBtn = $('<button>', {
+                type: 'button',
+                class: 'btn btn-outline-primary btncolor',
+                id: 'coResetBtn',
+                text: '초기화',
+                // click: function () {
+                //     form.find('input:not(#co_seq, #form_no), select').val("").trigger("change");
+                // }
+            });
+
+            var deleteBtn = $('<button>', {
+                type: 'button',
+                class: 'btn btn-outline-primary btncolor',
+                id: 'addDeleteBtn_co',
+                text: '삭제',
+                // click: function () {
+                //     var setSeq = $('form').last().serialize();
+
+                //     addTable.remove();
+                //     $('.addTableCo').each(function (index) {
+                //         $(this).find('input[name="univ_seq"]').val(index + 1);
+                //     });
+
+                //     var forms = $('.addTableCo').find('form');
+                //     var totalForms = forms.length;
+
+                //     forms.each(function (i, form) {
+
+                //         var formData = $(form).serialize();
+
+                //         $.ajax({
+                //             method: "POST",
+                //             url: "/infoCareer?" + formData
+                //         })
+                //             .done(function (data) {
+                //             })
+                //             .fail(function (data, textStatus, errorThrown) {
+                //                 alert("실패");
+                //                 callback(data);
+                //             });
+                //     });
+
+                //     $.ajax({
+                //         method: "POST",
+                //         url: "/infoEduDelete?" + setSeq
+                //     })
+                //         .done(function (data) {
+                //         })
+                //         .fail(function (data, textStatus, errorThrown) {
+                //             alert("실패");
+                //             callback(data);
+                //         });
+                // }
+            });
+
+            var btnGroupDiv = $('<div>', {
+                class: 'btn-group',
+                role: 'group'
+            });
+
+            var btncolDiv = $('<div>', {
+                class: 'col-sm-auto'
+            });
+
+            var btnrowDiv = $('<div>', {
+                class: 'row justify-content-sm-end'
+            });
+
+            btnGroupDiv.append(resetBtn, deleteBtn);
+
+            btncolDiv.append(btnGroupDiv);
+
+            btnrowDiv.append(btncolDiv);
+
+            var hr = $('<hr>');
+
+            form.append(getFormNo, getSeq, table);
+
+            // var addFormSerl = form.serialize();
+
+            // $.ajax({
+            //     method: "POST",
+            //     url: "/infoCareer?" + addFormSerl
+            // })
+            //     .done(function (data) {
+            //     })
+            //     .fail(function (data, textStatus, errorThrown) {
+            //         alert("실패");
+            //         callback(data);
+            //     });
+
+            addTable.append(form, btnrowDiv, hr)
+            $('.coWrap').append(addTable);
+
+            $(function () {
+                selectOpt("co_form_emp", "FORM_EMP");
+            });
+
+            $('.date').datepicker({
+                format: "yyyy-mm-dd",
+                language: "kr",
+                autoclose: true
+            });
+
+            $('.dateMonth input').each(function () {
+                $(this).datepicker({
+                    format: 'yyyy-mm',
+                    language: "kr",
+                    minViewMode: "months",
+                    autoclose: true
                 })
-                .fail(function (data, textStatus, errorThrown) {
-                    alert("실패")
-                    callback(data);
-                });
+            });
+
         });
         /*]]>*/
     </script>

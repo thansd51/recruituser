@@ -11,10 +11,5 @@ public class UserDTO {
     private String userEmail;
     private String userPassword;
     private String userName;
-    private Date userBirth;
-    private String userAgree1;
-    private String userAgree2;
-    private String userAgree3;
-    private String userAgree4;
-    private String userAgree5;
+    private String userBirth;
 }
