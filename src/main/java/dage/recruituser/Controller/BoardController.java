@@ -21,7 +21,7 @@ public class BoardController {
 
     @GetMapping("/anno_list")
     public String anno_list(HttpSession session, Model model) {
-        List<AppBoardDTO> anno_list = appBoardService.annoList();
+        List<AppBoardDTO> anno_list = appBoardService.selectAllAppBoardInfo();
 
         for (AppBoardDTO dto : anno_list) {
             Date endDate = dto.getAppEndDate();
@@ -41,11 +41,12 @@ public class BoardController {
 
     @GetMapping("/anno_detail")
     public String board_modify(HttpSession session, Model model, @RequestParam("app_no") long app_no) {
-
-        AppBoardDTO appBoard = appBoardService.appBoardInfo(app_no);
+        AppBoardDTO appBoard = appBoardService.selectAppBoardInfo(app_no);
 
         session.setAttribute("appBoard", appBoard);
         model.addAttribute("appBoard", appBoard);
+
+        System.out.println(session.getAttribute("appBoard"));
 
         return "annoBoard/anno_detail";
     }

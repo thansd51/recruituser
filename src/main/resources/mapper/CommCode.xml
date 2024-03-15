@@ -9,4 +9,11 @@
         WHERE A.GRP_NAME = #{GRP_NAME}
         ORDER BY B.DTL_CODE
     </select>
+
+    <select id="selectAppList" resultType="dage.recruituser.DTO.AppBoardDTO">
+        SELECT APP_NO AS id, APP_TITLE AS TEXT
+        FROM APP_BOARD
+        WHERE APP_NO = #{APP_NO}
+        ORDER BY APP_NO DESC
+    </select>
 </mapper>

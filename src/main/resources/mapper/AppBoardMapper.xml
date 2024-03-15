@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dage.recruituser.DAO.AppBoardDAO">
-    <select id="appBoardInfo" resultType="dage.recruituser.DTO.AppBoardDTO">
+    <select id="selectAppBoardInfo" resultType="dage.recruituser.DTO.AppBoardDTO">
         SELECT
             APP_NO,
             APP_TITLE,
@@ -19,26 +19,75 @@
             APP_FILE_5
         FROM
             APP_BOARD
-        WHERE APP_NO = #{APP_NO}
+        <where>
+            <if test="app_no != null">
+                AND APP_NO = #{app_no}
+            </if>
+        </where>
+        ORDER BY APP_NO DESC
     </select>
 
-    <select id="annoList" resultType="dage.recruituser.DTO.AppBoardDTO">
-        SELECT
-            APP_NO,
-            APP_TITLE,
-            APP_TITLE_SUB,
-            APP_YEAR,
-            APP_DEGREE,
-            APP_JOB,
-            APP_START_DATE,
-            APP_END_DATE,
-            APP_CONTENT,
-            APP_FILE_1,
-            APP_FILE_2,
-            APP_FILE_3,
-            APP_FILE_4,
-            APP_FILE_5
-        FROM
+    <!--공고 등록-->
+    <insert id="appRegister" parameterType="hashmap"  useGeneratedKeys="true" keyColumn="APP_NO" keyProperty="app_no">
+    INSERT INTO APP_BOARD (
+        APP_TITLE,
+        APP_TITLE_SUB,
+        APP_YEAR,
+        APP_DEGREE,
+        APP_JOB,
+        APP_START_DATE,
+        APP_END_DATE,
+        APP_CONTENT,
+        APP_FILE_1,
+        APP_FILE_2,
+        APP_FILE_3,
+        APP_FILE_4,
+        APP_FILE_5
+    ) VALUES (
+        #{app_title},
+        #{app_title_sub},
+        #{app_year},
+        #{app_degree},
+        #{app_job},
+        #{app_start_date},
+        #{app_end_date},
+        #{app_content},
+        #{app_file_1},
+        #{app_file_2},
+        #{app_file_3},
+        #{app_file_4},
+        #{app_file_5})
+    </insert>
+
+    <!--공고 수정-->
+    <update id="appUpdate" parameterType="hashmap">
+        UPDATE APP_BOARD SET
+            APP_TITLE = #{app_title},
+            APP_TITLE_SUB = #{app_title_sub},
+            APP_YEAR = #{app_year},
+            APP_DEGREE = #{app_degree},
+            APP_JOB = #{app_job},
+            APP_START_DATE = #{app_start_date},
+            APP_END_DATE = #{app_end_date},
+            APP_CONTENT = #{app_content},
+            APP_FILE_1 = #{app_file_1},
+            APP_FILE_2 = #{app_file_2},
+            APP_FILE_3 = #{app_file_3},
+            APP_FILE_4 = #{app_file_4},
+            APP_FILE_5 = #{app_file_5}
+        WHERE
+            APP_NO = #{app_no}
+    </update>
+
+    <!--공고 삭제-->
+    <delete id="appDelete">
+        SET FOREIGN_KEY_CHECKS=0;
+
+        DELETE FROM
             APP_BOARD
-    </select>
+        WHERE
+            APP_NO = #{app_no};
+
+        SET FOREIGN_KEY_CHECKS=1;
+    </delete>
 </mapper>

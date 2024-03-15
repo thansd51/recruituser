@@ -82,6 +82,10 @@
                                                     <div class="modal-body">
                                                         <div class="row mt-3 ps-3 text-start">
                                                             <h4 class="title" th:text="${appBoard.appTitle}"></h4>
+                                                            <input type="hidden" id="app_no" name="app_no"
+                                                                th:value="${appBoard.appNo}">
+                                                            <input type="hidden" id="form_no" name="form_no"
+                                                                th:value="${form_no}">
                                                         </div>
                                                         <table class="table mb-5">
                                                             <tbody>
@@ -147,7 +151,11 @@
                                                                         <div class="row-sm">
                                                                             <div class="col-sm">
                                                                                 <img class="userPhoto"
-                                                                                    src="images/userimg.png">
+                                                                                    th:if="${infoUser.userProfile != null}"
+                                                                                    th:src="|/images/userPhoto/${infoUser.userProfile}|" />
+                                                                                <img class="userPhoto"
+                                                                                    th:if="${infoUser.userProfile == null}"
+                                                                                    src="images/userimg.png" />
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -875,7 +883,7 @@
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <button type="submit" class="btn btn-primary m-1" id="app_submit">지원서
+                                        <button class="btn btn-primary m-1" id="btn_app_submit">지원서
                                             제출</button>
                                         <button type="" class="btn btn-danger m-1" id="btn_app_delete">지원서
                                             삭제</button>
@@ -895,54 +903,41 @@
             </div>
         </div>
     </div>
-
-    <script th:inline="javascript">
-        $("#btn_app_delete").on("click", function (e) {
-            /*<![CDATA[*/
-            var form_no = [[${ form_no }]];
-
-            // console.log(form_no);
-
-            //1. controller-> save -> return url
-            //2. rest controller-> save -> return "url"value -> location.href
-            $.ajax({
-                method: "POST",
-                url: "/appPost?form_no=" + form_no
-            })
-                .done(function (msg) {
-                    location.href = "/app_form";
-                })
-                .fail(function (data, textStatus, errorThrown) {
-                    alert("실패")
-                    callback(data);
-                });
-        });
-        /*]]>*/
-    </script>
-    <script>
-
-        // AJAX GET 요청을 보내어 infoUser를 가져옵니다.
-        $("#previewBtn").on("click", function (data) {
-            $.ajax({
-                type: "GET",
-                url: "/appPost",
-                success: function (response) {
-                    // 서버에서 받은 데이터를 처리합니다.
-                    // 여기서 response는 infoUser 객체여야 합니다.
-                    console.log("InfoUser:", response);
-                    alert(data);
-                    alert(response);
-                    // 처리된 데이터를 사용합니다.
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error:", error);
-                    // 오류 처리
-                }
-            });
-        });
-    </script>
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+    <script>
+        $("#btn_app_submit, #btn_app_delete").on("click", function (e) {
+            var appNo = $("#app_no").val();
+            var formNo = $("#form_no").val();
+
+
+            if ($(this).attr('id') === "btn_app_submit") {
+                $.ajax({
+                    method: "GET",
+                    url: "/user_management?app_no=" + appNo + "&form_no=" + formNo
+                })
+                    .done(function (data) {
+                        alert("성공")
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패")
+                        callback(data);
+                    });
+            } else if ($(this).attr('id') === "btn_app_delete") {
+                $.ajax({
+                    method: "POST",
+                    url: "/appPost?form_no=" + formNo
+                })
+                    .done(function (msg) {
+                        location.href = "/app_form";
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패")
+                        callback(data);
+                    });
+            }
+        });
+    </script>
 </body>
 
 </html>

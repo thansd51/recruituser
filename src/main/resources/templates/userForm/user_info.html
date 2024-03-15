@@ -10,7 +10,7 @@
 <!-- 공통 Nav -->
 <th:block th:replace="/fragments/top :: topbarFragment"></th:block>
 
-<body> 
+<body>
     <!-- content -->
     <div class="container my-5">
         <div class="row p-5">
@@ -103,8 +103,11 @@
                                 <tbody>
                                     <tr>
                                         <td class="table-light" id="idPhoto" rowspan="5">
-                                            <img class="userPhoto" src="images/userimg.png">
-                                            <input type="file" id="user_profile"
+                                            <img class="userPhoto" th:if="${infoUser.userProfile != null}"
+                                                th:src="|/images/userPhoto/${infoUser.userProfile}|" />
+                                            <img class="userPhoto" th:if="${infoUser.userProfile == null}"
+                                                src="images/userimg.png" />
+                                            <input type="file" id="user_profile" name="user_profile"
                                                 accept="image/gif, image/png, image/jpeg" style="display: none;">
                                             <button type="button" class="btn btn-dark my-2"
                                                 onclick="document.getElementById('user_profile').click();">사진등록
@@ -509,6 +512,8 @@
         </div>
     </div>
 
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         $(function () {
@@ -522,31 +527,6 @@
             selectOpt("dis_class", "DIS_CLS");
             selectOpt("dis_rate", "DIS_RATE");
             selectOpt("dis_srvc", "DIV");
-
-
-            /* 처음 이미지 가져오기 */
-            let photo_path = $('.userPhoto').attr('src');
-            let my_photo; //회원이 업로드할 이미지 담을 변수
-            $('#user_profile').change(function () {
-                my_photo = this.files[0];
-                if (!my_photo) {
-                    $('.userPhoto').attr('src', photo_path);
-                    return
-                }
-                if (my_photo.size > 1024 * 1024) {
-                    alert(Math.round(my_photo.size / 1024 / 1024) + 'MB(1MB까지만 업로드 가능)');
-                    $('.userPhoto').attr('src', photo_path);
-                    $(this).val('');
-                    return;
-                }
-                /* 이미지 미리보기 처리 */
-                let reader = new FileReader();
-                reader.readAsDataURL(my_photo);
-
-                reader.onload = function () {
-                    $('.userPhoto').attr('src', reader.result);
-                };
-            });
         });
 
         /* 휴대폰 번호 형식 변환 */
@@ -615,16 +595,44 @@
     </script>
 
     <script th:inline="javascript">
+        /*<![CDATA[*/
+        let photo_path = $('.userPhoto').attr('src');
+        let my_photo; //회원이 업로드할 이미지 담을 변수
+
+        $('#user_profile').change(function () {
+            my_photo = this.files[0];
+            if (!my_photo) {
+                $('.userPhoto').attr('src', photo_path);
+                return
+            }
+            if (my_photo.size > 1024 * 1024) {
+                alert('(' + Math.round(my_photo.size / 1024 / 1024) + 'MB까지만 업로드 가능)');
+                $('.userPhoto').attr('src', photo_path);
+                $(this).val('');
+                return;
+            }
+            /* 이미지 미리보기 처리 */
+            let reader = new FileReader();
+            reader.readAsDataURL(my_photo);
+
+            reader.onload = function () {
+                $('.userPhoto').attr('src', reader.result);
+            };
+        });
+
         $("#next_btn, #tempSave_btn, #prev_btn, li.nav-item").on("click", function (e) {
-            /*<![CDATA[*/
             e.preventDefault();
 
             var href = '';
             var formNo = [[${ form_no }]];
-            var appNo = [[${ appBoard.appJob }]];
 
-            var infoUserForm = $("#infoUserForm").serialize();
-            var infoPersonForm = $("#infoPersonForm").serialize();
+            // FormData 객체 생성
+            var formData = new FormData($("#infoUserForm")[0]);
+
+            var infoPersonFormData = new FormData($("#infoPersonForm")[0]);
+            for (var pair of infoPersonFormData.entries()) {
+                formData.append(pair[0], pair[1]);
+            }
 
             if ($(this).attr('id') === "next_btn") {
                 href = "/edu_info";
@@ -636,26 +644,36 @@
                 href = $(this).find('a').attr('href');
             }
 
+            // 사진 첨부 여부 확인
+            var my_photo = $('#user_profile')[0].files[0] || null;
+
+            if (my_photo) {
+                formData.append('form_no', formNo);
+                formData.append('user_profile', my_photo);
+            } else {
+                // 사진을 첨부하지 않았을 때의 처리
+                formData.append('form_no', formNo);
+            }
+
             $.ajax({
                 method: "POST",
-                url: "/infoUser?form_no=" + formNo + "&" + infoUserForm + "&" + infoPersonForm
-            })
-                .done(function (data) {
-                    if (href == '') {
-                        alert(data);
-                    }
+                url: "/infoUser",
+                data: formData,
+                contentType: false,
+                processData: false
+            }).done(function (data) {
+                if (href == '') {
+                    alert(data);
+                } else {
                     location.href = href;
-                })
-                .fail(function (data, textStatus, errorThrown) {
-                    alert("실패");
-                    callback(data);
-                });
+                }
+            }).fail(function (data, textStatus, errorThrown) {
+                alert("실패");
+                callback(data);
+            });
         });
         /*]]>*/
     </script>
-    <!-- 공통 스크립트-->
-    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
-
 </body>
 
 </html>

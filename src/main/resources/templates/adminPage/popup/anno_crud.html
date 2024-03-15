@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<!-- CKEditor CDN 추가 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/translations/ko.js"></script>
+
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
+
+<style>
+    * {
+        font-weight: bold;
+    }
+
+    .hr-divider {
+        border-top: 1px solid #cacaca;
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        background-color: rgb(255, 255, 255);
+        color: rgb(80, 80, 80);
+        font-weight: bold;
+    }
+
+    .btn-primary:hover,
+    a.btn.btn-primary.float-end.rounded-5.border.border-secondary:active {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+    }
+
+    #saveBtn:active,
+    #closeBtn:active {
+        border: 1px solid #414141;
+        background-color: #414141;
+        color: #ffffff;
+    }
+
+    #app_start_date,
+    #app_end_date{
+        text-align: center;
+    }
+
+    .marking {
+        color: rgb(228, 33, 33);
+    }
+
+    .table {
+        border-top: #cacaca 1px solid;
+        border-bottom: #cacaca 1px solid;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+    td.tdTitle {
+        background-color: rgb(245, 245, 245);
+    }
+
+    .ck-editor__editable {
+        height: 500px;
+    }
+
+    .ck-content {
+        font-size: 13px;
+    }
+
+    .ck-content .image {
+        /* Block images */
+        max-width: 80%;
+        margin: 20px auto;
+    }
+</style>
+
+<body>
+    <div class="container my-5">
+        <div class="modal-header pt-3">
+            <h1 class="modal-title fs-3" th:if="${appBoard != null && appBoard.appNo != null}">공고 수정</h1>
+            <h1 class="modal-title fs-3" th:if="${appBoard == null}">공고 등록</h1>
+        </div>
+        <hr class="hr-divider">
+        <div class="row px-5">
+            <div class="modal-body">
+                <form name="appRegister" id="appRegister">
+                    <input type="hidden" th:if="${appBoard != null && appBoard.appNo != null}" name="app_no" th:value="${appBoard.appNo}">
+                    <div class="mb-3">
+                        <label for="title" class="form-label"><span class="marking">&#42;</span>제목</label>
+                        <input type="text" class="form-control" id="app_title" name="app_title"
+                            th:if="${appBoard != null && appBoard.appNo != null}" th:value="${appBoard.appTitle}">
+                        <input type="text" class="form-control" id="app_title" name="app_title"
+                            th:if="${appBoard == null}">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td class="tdTitle">부제목</td>
+                                    <td colspan="3">
+                                        <input type="text" class="form-control" id="app_title_sub" name="app_title_sub"
+                                            th:value="${appBoard.appTitleSub}"
+                                            th:if="${appBoard != null && appBoard.appNo != null}">
+                                        <input type="text" class="form-control" id="app_title_sub" name="app_title_sub"
+                                            th:if="${appBoard == null}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdTitle"><span class="marking">&#42;</span>직무</td>
+                                    <td class="col-4">
+                                        <select class="form-select app_job" name="app_job" id="app_job">
+                                            <option></option>
+                                            <option th:if="${appBoard != null and appBoard.appJob != null}" selected
+                                                th:value="${appBoard.appJob}" th:text="${appBoard.appJob}"></option>
+                                        </select>
+                                    </td>
+                                    <td class="tdTitle"><span class="marking">&#42;</span>기간</td>
+                                    <td class="col-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control date" name="app_start_date"
+                                                id="app_start_date"
+                                                th:value="${#dates.format(appBoard.appStartDate, 'yyyy-MM-dd')}"
+                                                th:if="${appBoard != null && appBoard.appNo != null}">
+                                            <input type="text" class="form-control date" name="app_start_date"
+                                                id="app_start_date" th:if="${appBoard == null}">
+                                            <span class="input-group-text">~</span>
+                                            <input type="text" class="form-control date" name="app_end_date"
+                                                id="app_end_date"
+                                                th:value="${#dates.format(appBoard.appEndDate, 'yyyy-MM-dd')}"
+                                                th:if="${appBoard != null && appBoard.appNo != null}">
+                                            <input type="text" class="form-control date" name="app_end_date"
+                                                id="app_end_date" th:if="${appBoard == null}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdTitle col"><span class="marking">&#42;</span>년도</td>
+                                    <td>
+                                        <input type="text" class="form-control" id="app_year" name="app_year"
+                                            th:value="${appBoard.appYear}"
+                                            th:if="${appBoard != null && appBoard.appNo != null}">
+                                        <input type="text" class="form-control" id="app_year" name="app_year"
+                                            th:if="${appBoard == null}">
+                                    </td>
+                                    <td class="tdTitle col"><span class="marking">&#42;</span>차수</td>
+                                    <td><select class="form-select form-select-sm" name="app_degree">
+                                            <option style="display: none;" selected>선택</option>
+                                            <option th:if="${appBoard != null and appBoard.appDegree != null}" selected
+                                                th:value="${appBoard.appDegree}" th:text="${appBoard.appDegree}">
+                                            </option>
+                                            </option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label"><span class="marking">&#42;</span>내용</label>
+                        <textarea class="form-control" id="app_content" name="app_content"
+                            th:text="${appBoard.appContent}"
+                            th:if="${appBoard != null && appBoard.appNo != null}"></textarea>
+                        <textarea class="form-control" id="app_content" name="app_content"
+                            th:if="${appBoard == null}"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mb-3">
+                <button type="button" id="closeBtn"
+                    class="btn btn-primary rounded-0 border border-black me-3">닫기</button>
+                <button type="button" id="saveBtn" class="btn btn-primary rounded-0 border border-black">등록</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+    <script>
+        $(function () {
+            selectOpt("app_job", "SUP_JOB");
+        });
+
+        // ClassicEditor
+        //     .create(document.querySelector('#content'), {
+        //         language: "ko",
+        //         ckfinder: {
+        //             uploadUrl: '/uploadImage' // 이미지 업로드를 위한 URL 설정
+        //         },
+        //         toolbar: {
+        //             items: [
+        //                 'heading',
+        //                 '|',
+        //                 'bold',
+        //                 'italic',
+        //                 'link',
+        //                 'bulletedList',
+        //                 'numberedList',
+        //                 'imageUpload', // 이미지 업로드 버튼 추가
+        //                 'blockQuote',
+        //                 'undo',
+        //                 'redo'
+        //             ]
+        //         },
+        //         image: {
+        //             toolbar: [
+        //                 'imageTextAlternative',
+        //                 '|',
+        //                 'imageStyle:alignLeft',
+        //                 'imageStyle:full',
+        //                 'imageStyle:alignRight'
+        //             ],
+        //             // 이미지 업로드를 위한 설정 추가
+        //             upload: {
+        //                 // 업로드할 이미지를 처리하는 서버 엔드포인트 URL
+        //                 // 해당 URL은 이미지를 업로드하고, 업로드된 이미지의 URL을 반환해야 함
+        //                 // 서버 측 코드는 해당 URL을 구현해야 함
+        //                 // CKFinder 대신 사용할 경우에도 이 설정이 필요합니다.
+        //                 // 이미지를 업로드하고 반환하는 로직을 서버 측에 구현해야 합니다.
+        //                 // uploadUrl은 업로드하는 방식에 따라 달라질 수 있습니다.
+        //                 // 이 예시에서는 '/uploadImage'라는 경로를 사용하고 있습니다.
+        //                 // 실제로는 해당 경로를 서버 측에 맞게 구현해야 합니다.
+        //                 uploadUrl: '/uploadImage'
+        //             }
+        //         },
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
+
+        // 저장 버튼 클릭 이벤트 핸들러
+        // $(document).on('click', '#saveBtn', function () {
+        //     var title = $('#title').val(); // 제목 가져오기
+        //     var content = CKEditor.instances.content.getData(); // 에디터 내용 가져오기
+
+        //     // 서버로 전송할 데이터 생성
+        //     var data = {
+        //         title: title,
+        //         content: content
+        //     };
+
+        //     // AJAX 요청 보내기
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/save',
+        //         contentType: 'application/json',
+        //         data: JSON.stringify(data),
+        //         success: function (response) {
+        //             console.log('저장되었습니다.');
+        //             // 저장 완료 후 필요한 작업 수행
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error('저장에 실패했습니다.');
+        //         }
+        //     });
+        // });
+    </script>
+
+    <script>
+        $("#saveBtn, #closeBtn").on("click", function (e) {
+            if ($(this).attr("id") === "saveBtn") {
+                var appRegister = $("#appRegister").serialize();
+                console.log(appRegister);
+
+                //2. rest controller-> save -> return "url"value -> location.href
+                $.ajax({
+                    method: "POST",
+                    url: "/appInsert?" + appRegister
+                })
+                    .done(function (data) {
+                        alert("등록되었습니다.")
+                        window.close();
+                        window.opener.location.reload();
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("해당 공고에 등록된 이메일이 있습니다.")
+                        callback(data);
+                    });
+            } else if ($(this).attr("id") === "closeBtn") {
+                window.close();
+            }
+        });
+    </script>
+</body>
+
+</html>

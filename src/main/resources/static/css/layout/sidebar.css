@@ -1,0 +1,42 @@
+body {
+    background-color: #ffffff;
+}
+
+*,
+h1,
+h5 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+}
+
+.home {
+    font-size: 20px;
+    display: inline;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 220px;
+    /* 사이드바의 너비 설정 */
+    padding-top: 40px;
+    /* 헤더의 높이만큼 여백 추가 */
+    background-color: #f8f9fa;
+    /* 사이드바 배경색 설정 */
+    border-right: 1px solid #dee2e6;
+    /* 사이드바 테두리 설정 */
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.col-md-9.col-lg-10.px-md-4 {
+    margin-left: 260px;
+}
+
+.headTag {
+    position: fixed;
+    display: inline-block;
+    z-index: 1000;
+}

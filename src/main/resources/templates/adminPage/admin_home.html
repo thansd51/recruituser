@@ -4,25 +4,14 @@
 <!-- 공통 헤드-->
 <th:block th:replace="/fragments/head :: headFragment"></th:block>
 
+<!-- CKEditor CDN 추가 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
+<link rel="stylesheet" href="css/layout/sidebar.css">
+
 <style>
-    *,
-    h1,
-    h5 {
-        font-family: 'Noto Sans KR', sans-serif;
-        font-weight: bold;
-    }
-
-    .home {
-        font-size: 20px;
-        display: inline;
-    }
-
-    .sidebar {
-        overflow-y: auto;
-    }
-
-    /* 공고내용 */
-
     .card {
         margin-bottom: 20px;
     }
@@ -66,7 +55,35 @@
         letter-spacing: 2px;
     }
 
-    .res
+    .userManagement {
+        border: 1px solid #000000;
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .userManagement:hover {
+        border: 1px solid #000000;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    #insertBtn {
+        width: 130px;
+    }
+
+    #container {
+        width: 1000px;
+        margin: 20px auto;
+    }
+
+    .dropdown-toggle::before {
+        color: #00000000;
+    }
+
+    a.dropdown-item:active {
+        color: rgb(0, 0, 0);
+        background-color: #e6e6e6;
+    }
 </style>
 
 <body>
@@ -86,54 +103,137 @@
         <div class="row">
             <!-- 사이드바 -->
             <th:block th:replace="/fragments/sidebar :: sidebarFragment"></th:block>
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">채용공고 관리</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <div class="col-md-9 col-lg-10 px-md-4">
+                <div class="row mb-4 border-bottom"
+                    style="position: sticky; top: 0; background-color: #fff; z-index: 100; padding-top: 40px;">
+                    <div class="col">
+                        <h1 class="h2 my-3">채용공고 관리</h1>
+                    </div>
+                    <div class="col">
+                        <div class="btn-toolbar me-2 my-4 mb-md-0 float-end">
+                            <button type="button" class="btn btn-sm mx-1 btn-outline-secondary dropdown-toggle ">
+                                <span data-feather="calendar"></span>
+                                등록순
+                            </button>
+                            <button type="button" id="insertBtn"
+                                class="btn btn-sm mx-1 btn-outline-secondary rounded-0">공고
+                                등록</button>
                         </div>
-                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                            <span data-feather="calendar"></span>
-                            This week
-                        </button>
                     </div>
                 </div>
-
-                <div class="my-4 w-100" id="myChart" width="900" height="380">
-                    <div class="col" th:each="anno : ${annoList}">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-title job" th:text="${anno.appJob}"></p>
-                                <h5 class="card-text" th:text="${anno.appTitle}"></h5>
-                                <div class="d-day rounded-5"
-                                    th:text="(${anno.appDday != 0} ? 'D-' + ${anno.appDday} : 'D-Day')"></div>
-                                <p class="card-title anno_date ms-1"
-                                    th:text="|${#dates.format(anno.appStartDate, 'yyyy.MM.dd')} ~ ${#dates.format(anno.appEndDate, 'yyyy.MM.dd')}|">
-                                </p>
-                                <div class="btn-group float-end" role="group" aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-outline-primary btncolor"
-                                        id="resetBtn">초기화</button>
-                                    <button type="button" class="btn btn-outline-primary btncolor"
-                                        id="deleteBtn">삭제</button>
+                <div class="w-100" id="myChart" width="900" height="380">
+                    <div class="list">
+                        <th:block th:each="anno : ${annoList}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-title job ms-2" th:text="${anno.appJob}"></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="dropstart float-end">
+                                                <i class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" style="cursor:pointer">
+                                                    <i data-feather="settings" style="color: #000000;"></i>
+                                                </i>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item updateInfo"
+                                                            th:data-app-no="${anno.appNo}"
+                                                            style="cursor: pointer;">수정</a>
+                                                    </li>
+                                                    <div class="dropdown-divider"></div>
+                                                    <li><a class="dropdown-item deleteInfo"
+                                                            th:data-app-no="${anno.appNo}"
+                                                            style="cursor: pointer;">삭제</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="card-text appTtitle ms-3" th:text="${anno.appTitle}"
+                                            th:data-app-no="${anno.appNo}"
+                                            style="cursor: pointer; display: inline-block;">
+                                        </h5>
+                                    </div>
+                                    <div class="d-day rounded-5 ms-1"
+                                        th:text="(${anno.appDday != 0} ? 'D-' + ${anno.appDday} : 'D-Day')"></div>
+                                    <p class="card-title anno_date ms-1"
+                                        th:text="|${#dates.format(anno.appStartDate, 'yyyy.MM.dd')} ~ ${#dates.format(anno.appEndDate, 'yyyy.MM.dd')}|">
+                                    </p>
+                                    <button type="button"
+                                        class="btn btn-outline-primary btncolor rounded-0 float-end userManagement"
+                                        th:data-app-no="${anno.appNo}">지원자 조회</button>
                                 </div>
                             </div>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
-
     <!-- 공통 스크립트-->
     <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Icons -->
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/feather.min.js"></script>
     <script>
         feather.replace()
+    </script>
+    <script>
+        $(".updateInfo, #insertBtn, .deleteInfo, .appTtitle, .userManagement").on("click", function () {
+            var appNo = $(this).data("app-no");
+            var url = "/anno_crud";
+            // var actionType = $(this).hasClass('updateInfo') ? 'update' : $(this).hasClass('deleteInfo') ? 'delete' : 'insert';
+            var actionType = $(this).hasClass('updateInfo') ? 'update' : $(this).hasClass('deleteInfo') ? 'delete' : $(this).hasClass('appTtitle') ? 'detail' : $(this).hasClass('userManagement') ? 'management' : 'insert';
+
+
+            var popupW = 1400;
+            var popupH = 800;
+            var popupX = (window.screen.width - popupW) / 2;
+            var popupY = (window.screen.height - popupH) / 2;
+
+            if (actionType === 'update') {
+                $.ajax({
+                    method: "POST",
+                    url: "/admin_home?app_no=" + appNo
+                })
+                    .done(function (data) {
+                        window.open(url, 'appUpdatePopup', 'width=' + popupW + ', height=' + popupH + ', top=' + popupY + ', left=' + popupX);
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("해당 공고에 등록된 이메일이 있습니다.")
+                        callback(data);
+                    });
+            } else if (actionType === 'insert') {
+                window.open(url, 'appInsertPopup', 'width=' + popupW + ', height=' + popupH + ', top=' + popupY + ', left=' + popupX);
+            } else if (actionType === 'delete' && confirm('삭제하시겠습니까?')) {
+                $.ajax({
+                    method: "POST",
+                    url: "/appDelete?app_no=" + appNo
+                })
+                    .done(function (data) {
+                        alert('삭제되었습니다.');
+                        location.reload();
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("해당 공고에 등록된 이메일이 있습니다.")
+                        callback(data);
+                    });
+            } else if (actionType === 'detail') {
+                window.open('/anno_detail?app_no=' + appNo, 'appDetailPopup', 'width=' + popupW + ', height=' + popupH + ', top=' + popupY + ', left=' + popupX);
+            } else if (actionType === 'management') {
+                $.ajax({
+                    method: "GET",
+                    url: "/user_management?app_no=" + appNo
+                })
+                    .done(function (data) {
+                        location.href = "/user_management?app_no=" + appNo;
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("해당 공고에 등록된 이메일이 있습니다.")
+                        callback(data);
+                    });
+
+            }
+        });
     </script>
 </body>
 

@@ -1,6 +1,7 @@
 package dage.recruituser.Services;
 
 import dage.recruituser.DAO.AppBoardDAO;
+import dage.recruituser.DAO.UserManageDAO;
 import dage.recruituser.DTO.AppBoardDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,31 +11,31 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class AppBoardService {
+public class UserManageService {
+
     @Autowired
-    AppBoardDAO appBoardDAO;
+    UserManageDAO userManageDAO;
 
-
-    public AppBoardDTO selectAppBoardInfo(@Param("app_no") long app_no){
-        return appBoardDAO.selectAppBoardInfo(app_no);
+    /* 전체 지원자 조회 */
+    public List<HashMap<String, Object>> appInfoList(@Param("app_no") long app_no, @Param("proc_seq") long proc_seq){
+        return userManageDAO.selectAppInfo(app_no, proc_seq);
     }
 
-    public List<AppBoardDTO> selectAllAppBoardInfo(){
-        return appBoardDAO.selectAppBoardInfo();
+//    public List<HashMap<String, Object>> allAppList(){
+//        return userManageDAO.selectAppInfo();
+//    }
+
+
+
+    public void procUpdate(HashMap<String, Object> map){
+        userManageDAO.procUpdate(map);
     }
 
-    // 공고 등록
-    public void appRegister(HashMap<String, String> map){
-        appBoardDAO.appRegister(map);
-    }
+    /* 공고별 지원자 조회 */
+//    public HashMap<String, Object> selectAppInfo(@Param("app_no") long app_no){
+//        return userManageDAO.selectAppInfo(app_no);
+//    }
 
-    // 공고 수정
-    public void appUpdate(HashMap<String, String> map){
-        appBoardDAO.appUpdate(map);
-    }
 
-    // 공고 수정
-    public void appDelete(long app_no){
-        appBoardDAO.appDelete(app_no);
-    }
+
 }

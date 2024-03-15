@@ -2,7 +2,7 @@ package dage.recruituser.DTO;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.io.File;
 
 
 @Data

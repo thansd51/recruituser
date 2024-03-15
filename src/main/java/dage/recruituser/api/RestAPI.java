@@ -2,21 +2,30 @@ package dage.recruituser.api;
 
 import dage.recruituser.DTO.AppBoardDTO;
 import dage.recruituser.DTO.CommCodeDTO;
-import dage.recruituser.DTO.InfoUserDTO;
-import dage.recruituser.DTO.UserDTO;
+import dage.recruituser.Services.AppBoardService;
 import dage.recruituser.Services.CommCodeService;
 import dage.recruituser.Services.FormService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class RestAPI {
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @Autowired
     CommCodeService commCodeService;
@@ -24,16 +33,58 @@ public class RestAPI {
     @Autowired
     FormService formService;
 
+    @Autowired
+    AppBoardService appBoardService;
+
     @RequestMapping("/select/{grp_name}")
     public List<CommCodeDTO> selectList(@PathVariable String grp_name) {
         List<CommCodeDTO> list = commCodeService.selectCommCodeList(grp_name);
 
-//        System.out.println(list);
         return list;
     }
 
+    @RequestMapping("/select/app/{app_no}")
+    public List<AppBoardDTO> selectAppList(@PathVariable long app_no) {
+        List<AppBoardDTO> list = commCodeService.selectAppList(app_no);
+
+        return list;
+    }
+
+    @RequestMapping("/appInsert")
+    public void appRegister(HttpServletRequest request, AppBoardDTO appBoard) {
+
+        String app_no = request.getParameter("app_no");
+
+        System.out.println("app_no : " + app_no);
+
+        HashMap<String, String> AppBoard = new HashMap<>();
+
+        AppBoard.put("app_no", request.getParameter("app_no"));
+        AppBoard.put("app_title", request.getParameter("app_title"));
+        AppBoard.put("app_title_sub", request.getParameter("app_title_sub"));
+        AppBoard.put("app_job", request.getParameter("app_job"));
+        AppBoard.put("app_start_date", request.getParameter("app_start_date"));
+        AppBoard.put("app_end_date", request.getParameter("app_end_date"));
+        AppBoard.put("app_year", request.getParameter("app_year"));
+        AppBoard.put("app_degree", request.getParameter("app_degree"));
+        AppBoard.put("app_content", request.getParameter("app_content"));
+        AppBoard.put("app_file_1", request.getParameter("app_file_1"));
+        AppBoard.put("app_file_2", request.getParameter("app_file_2"));
+        AppBoard.put("app_file_3", request.getParameter("app_file_3"));
+        AppBoard.put("app_file_4", request.getParameter("app_file_4"));
+        AppBoard.put("app_file_5", request.getParameter("app_file_5"));
+
+        // 조회된 데이터가 없으면(중복된 데이터가 없으면) INSERT를 수행합니다.
+        if (app_no == null) {
+            appBoardService.appRegister(AppBoard);
+        } else {
+            // 조회된 데이터가 있으면(중복된 데이터가 있으면) UPDATE를 수행합니다.
+            appBoardService.appUpdate(AppBoard);
+        }
+    }
+
     @RequestMapping("/appUser")
-    public String appUserRegister(HttpServletRequest request, Model model, HttpSession session) {
+    public String appUserRegister(HttpServletRequest request) {
         HashMap<String, String> AppUser = new HashMap<>();
 
         AppUser.put("app_no", request.getParameter("app_no"));
@@ -54,8 +105,26 @@ public class RestAPI {
         return form_no;
     }
 
+    private String getUploadedFileName(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        String sanitizedFilename = originalFilename.replaceAll("[^a-zA-Z0-9.-]", "_"); // 특수 문자 제거
+        return UUID.randomUUID().toString() + "_" + sanitizedFilename;
+    }
+
+    private void saveUploadedFile(MultipartFile file, String fileName) {
+        try {
+            // 파일 저장
+            String filePath = Paths.get(uploadPath, fileName).toString();
+            File dest = new File(filePath);
+            file.transferTo(dest);
+        } catch (IOException e) {
+            // 파일 저장 실패 처리
+            e.printStackTrace();
+        }
+    }
+
     @RequestMapping("/infoUser")
-    public void userInfoSave(HttpServletRequest request, HttpSession session) {
+    public void userInfoSave(HttpServletRequest request, HttpServletResponse response, @RequestParam("user_profile") MultipartFile userProfile) {
         HashMap<String, String> infoUser = new HashMap<>();
 
         infoUser.put("form_no", request.getParameter("form_no"));
@@ -67,7 +136,15 @@ public class RestAPI {
         infoUser.put("user_address_dtl", request.getParameter("user_address_dtl"));
         infoUser.put("user_cp", request.getParameter("user_cp"));
         infoUser.put("user_tel", request.getParameter("user_tel"));
-        infoUser.put("user_profile", request.getParameter("user_profile"));
+
+        if (userProfile != null && !userProfile.isEmpty()) {
+            // 파일명 저장
+            String uploadedFileName = getUploadedFileName(userProfile);
+            // 파일 경로 추가
+            infoUser.put("user_profile", uploadedFileName);
+            // 파일 저장
+            saveUploadedFile(userProfile, uploadedFileName);
+        }
 
         formService.saveUserInfo(infoUser);
 
@@ -240,7 +317,7 @@ public class RestAPI {
             awdInfo.put("awd_date", request.getParameter("awd_date"));
             awdInfo.put("awd_conduct", request.getParameter("awd_conduct"));
             awdInfo.put("awd_content", request.getParameter("awd_content"));
-;
+            ;
             formService.saveAwd(awdInfo);
 
         }
@@ -260,11 +337,20 @@ public class RestAPI {
     }
 
     @RequestMapping("/appPost")
-    public void userFormPost(HttpServletRequest request, HttpSession session) {
+    public void userFormPost(HttpServletRequest request) {
 
         long form_no = Integer.valueOf(request.getParameter("form_no"));
 
         formService.deleteUserForm(form_no);
+
+    }
+
+    @RequestMapping("/appDelete")
+    public void appDelete(HttpServletRequest request) {
+
+        long app_no = Integer.valueOf(request.getParameter("app_no"));
+
+        appBoardService.appDelete(app_no);
 
     }
 

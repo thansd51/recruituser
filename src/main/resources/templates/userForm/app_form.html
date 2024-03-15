@@ -316,9 +316,7 @@
         </div>
     </div>
 </div>
-
 <!-- 공통 스크립트-->
-
 <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
 <script>
     selectOpt("emailSelection", "EMAIL_DMN");
@@ -349,7 +347,6 @@
 </script>
 
 <script th:inline="javascript">
-
     $("#next_btn").on("click", function (e) {
         /*<![CDATA[*/
         var appNo = [[${ appBoard.appNo }]];

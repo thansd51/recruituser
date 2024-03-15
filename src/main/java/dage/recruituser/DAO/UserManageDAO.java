@@ -8,20 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public interface AppBoardDAO {
-    // 선택 공고 상세 조회
-    AppBoardDTO selectAppBoardInfo(@Param("app_no") long app_no);
+public interface UserManageDAO {
+    /* 전체 지원자 조회 */
+    List<HashMap<String, Object>> selectAppInfo(@Param("app_no") long app_no, @Param("proc_seq") long proc_seq);
 
-    // 전체 공고 목록
-    List<AppBoardDTO> selectAppBoardInfo();
+//    List<HashMap<String, Object>> selectAppInfo();
 
-    // 공고 등록
-    void appRegister(HashMap<String, String> map);
+    void procUpdate(HashMap<String, Object> map);
 
-    // 공고 수정
-    void appUpdate(HashMap<String, String> map);
+    /* 공고별 지원자 조회 */
+//    HashMap<String, Object> selectAppInfo(@Param("app_no") long app_no);
 
-    // 공고 삭제
-    void appDelete(long app_no);
 
 }

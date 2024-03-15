@@ -1,93 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dage.recruituser.DAO.AppBoardDAO">
-    <select id="selectAppBoardInfo" resultType="dage.recruituser.DTO.AppBoardDTO">
+<mapper namespace="dage.recruituser.DAO.UserManageDAO">
+    <resultMap id="userListMap" type="java.util.HashMap">
+        <result column="formNo" property="formNo"/>
+        <result column="appNo" property="appNo"/>
+        <result column="procSeq" property="procSeq"/>
+        <result column="userName" property="userName"/>
+        <result column="appTitle" property="appTitle"/>
+        <result column="appJob" property="appJob"/>
+    </resultMap>
+    <select id="selectAppInfo" resultMap="userListMap">
         SELECT
-            APP_NO,
-            APP_TITLE,
-            APP_TITLE_SUB,
-            APP_YEAR,
-            APP_DEGREE,
-            APP_JOB,
-            APP_START_DATE,
-            APP_END_DATE,
-            APP_CONTENT,
-            APP_FILE_1,
-            APP_FILE_2,
-            APP_FILE_3,
-            APP_FILE_4,
-            APP_FILE_5
+            A.FORM_NO AS formNo,
+            A.APP_NO AS appNo,
+            A.PROC_SEQ AS procSeq,
+            A.USER_NAME AS userName,
+            B.APP_TITLE AS appTitle,
+            B.APP_JOB AS appJob
         FROM
-            APP_BOARD
+            APP_USER A
+        LEFT JOIN
+            APP_BOARD B
+        ON
+        A.APP_NO = B.APP_NO
         <where>
             <if test="app_no != null">
-                AND APP_NO = #{app_no}
+                AND A.APP_NO = #{app_no}
+            </if>
+            <if test="proc_seq != 0">
+                AND A.PROC_SEQ = #{proc_seq}
             </if>
         </where>
-        ORDER BY APP_NO DESC
+        ORDER BY A.FORM_NO DESC
     </select>
 
-    <!--공고 등록-->
-    <insert id="appRegister" parameterType="hashmap"  useGeneratedKeys="true" keyColumn="APP_NO" keyProperty="app_no">
-    INSERT INTO APP_BOARD (
-        APP_TITLE,
-        APP_TITLE_SUB,
-        APP_YEAR,
-        APP_DEGREE,
-        APP_JOB,
-        APP_START_DATE,
-        APP_END_DATE,
-        APP_CONTENT,
-        APP_FILE_1,
-        APP_FILE_2,
-        APP_FILE_3,
-        APP_FILE_4,
-        APP_FILE_5
-    ) VALUES (
-        #{app_title},
-        #{app_title_sub},
-        #{app_year},
-        #{app_degree},
-        #{app_job},
-        #{app_start_date},
-        #{app_end_date},
-        #{app_content},
-        #{app_file_1},
-        #{app_file_2},
-        #{app_file_3},
-        #{app_file_4},
-        #{app_file_5})
-    </insert>
-
-    <!--공고 수정-->
-    <insert id="appUpdate" parameterType="hashmap">
-        UPDATE APP_BOARD SET
-            APP_TITLE = #{app_title},
-            APP_TITLE_SUB = #{app_title_sub},
-            APP_YEAR = #{app_year},
-            APP_DEGREE = #{app_degree},
-            APP_JOB = #{app_job},
-            APP_START_DATE = #{app_start_date},
-            APP_END_DATE = #{app_end_date},
-            APP_CONTENT = #{app_content},
-            APP_FILE_1 = #{app_file_1},
-            APP_FILE_2 = #{app_file_2},
-            APP_FILE_3 = #{app_file_3},
-            APP_FILE_4 = #{app_file_4},
-            APP_FILE_5 = #{app_file_5}
+    <update id="procUpdate" parameterType="hashmap">
+        UPDATE APP_USER SET
+            PROC_SEQ = #{proc_seq}
         WHERE
-            APP_NO = #{app_no}
-    </insert>
+            FORM_NO = #{form_no}
+    </update>
 
-    <!--공고 삭제-->
-    <delete id="appDelete">
-        SET FOREIGN_KEY_CHECKS=0;
-
-        DELETE FROM
-            APP_BOARD
-        WHERE
-            APP_NO = #{app_no};
-
-        SET FOREIGN_KEY_CHECKS=1;
-    </delete>
+    <select id="selectUserInfo">
+        SELECT
+        A, B, C, D, E, F, G, H, I, J ,K, L, M
+        FROM APP_USER A
+        LEFT JOIN USER_INFO B ON A.FORM_NO = B.FORM_NO
+        LEFT JOIN PSNL_INFO C ON A.FORM_NO = C.FORM_NO
+        LEFT JOIN EDU_HIGH_INFO D ON A.FORM_NO = D.FORM_NO
+        LEFT JOIN EDU_UNIV_INFO E ON A.FORM_NO = E.FORM_NO
+        LEFT JOIN CAREER_INFO F ON A.FORM_NO = F.FORM_NO
+        LEFT JOIN PROJ_INFO G ON A.FORM_NO = G.FORM_NO
+        LEFT JOIN CERT_INFO H ON A.FORM_NO = H.FORM_NO
+        LEFT JOIN LANG_INFO I ON A.FORM_NO = I.FORM_NO
+        LEFT JOIN OA_INFO J ON A.FORM_NO = J.FORM_NO
+        LEFT JOIN ACT_INFO K ON A.FORM_NO = K.FORM_NO
+        LEFT JOIN AWD_INFO L ON A.FORM_NO = L.FORM_NO
+        LEFT JOIN SURV_ANSWER M ON A.FORM_NO = M.FORM_NO
+        WHERE A.FORM_NO = #{form_no};
+    </select>
 </mapper>

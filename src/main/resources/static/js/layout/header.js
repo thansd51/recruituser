@@ -29,12 +29,19 @@ var pageContents = [
     url: ['/app_form', '/user_info', '/edu_info', '/cert_info', '/surv_info', '/career_info', '/act_info', '/app_post'],
     leadsIndex: 1,
     backgroundImage: 'url("/images/layout/img_visual01.jpg")'
+  },
+
+  {
+    url: ['/applicant_login'],
+    leadsIndex: 2,
+    backgroundImage: 'url("/images/layout/bg_history02.jpg")'
   }
 ];
 
 var leadsContents = [
   '채용공고',
-  '입사지원'
+  '입사지원',
+  '전형결과'
 ];
 
 

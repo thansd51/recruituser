@@ -41,8 +41,6 @@
         WHERE
             FORM_NO = #{form_no}
     </select>
-
-
     <!-- 기본정보 조회 -->
     <select id="infoUserMapper" resultType="dage.recruituser.DTO.InfoUserDTO">
         SELECT
@@ -116,7 +114,7 @@
             #{user_address_dtl},
             #{user_cp},
             #{user_tel},
-            #{user_profile}
+            CASE WHEN #{user_profile} IS NOT NULL THEN #{user_profile} ELSE USER_PROFILE END
         ) ON DUPLICATE KEY UPDATE
             REQUEST_DATE = #{request_date},
             USER_GENDER = #{user_gender},
@@ -126,7 +124,7 @@
             USER_ADDR_DTL = #{user_address_dtl},
             USER_CP = #{user_cp},
             USER_TEL = #{user_tel},
-            USER_PROFILE = #{user_profile}
+            USER_PROFILE = CASE WHEN #{user_profile} IS NOT NULL THEN #{user_profile} ELSE USER_PROFILE END
     </insert>
     <insert id="savePersonalInfo" parameterType="hashmap">
         INSERT INTO PSNL_INFO (
@@ -702,144 +700,144 @@
             ANSWER_CONTENT = #{surv_answer}
     </insert>
 
-    <select id="appFormMapper" resultType="dage.recruituser.DTO.AppFormDTO">
-        SELECT
-            A.FORM_NO,
-            A.APP_NO,
-            A.USER_EMAIL,
-            A.USER_NAME,
-            A.USER_BIRTH,
-            B.APP_TITLE,
-            B.APP_JOB,
-            C.REQUEST_DATE,
-            C.USER_GENDER,
-            C.USER_NATION,
-            C.USER_ZIP,
-            C.USER_ADDR,
-            C.USER_ADDR_DTL,
-            C.USER_CP,
-            C.USER_TEL,
-            C.USER_PROFILE,
-            D.MIL_SRVC AS milServiceStatus,
-            D.MIL_TYPE,
-            D.MIL_TYPE_DTL,
-            D.MIL_DSCHR AS milDischarge,
-            D.MIL_EXEM AS milExemption,
-            D.MIL_START_DATE,
-            D.MIL_END_DATE,
-            D.VTR_SRVC AS vtrServiceStatus,
-            D.VTR_RLT AS vtrRelation,
-            D.VTR_NUM AS vtrNumber,
-            D.DIS_SRVC AS disServiceStatus,
-            D.DIS_CLS AS disClass,
-            D.DIS_RATE,
-            E.HIGH_NAME,
-            E.HIGH_LOC,
-            E.HIGH_SER,
-            E.HIGH_GRDTN_CLS AS highGrd,
-            E.HIGH_START_DATE,
-            E.HIGH_END_DATE,
-            E.HIGH_FN,
-            F.UNIV_SEQ,
-            F.UNIV_EDU,
-            F.UNIV_NAME,
-            F.UNIV_LOC,
-            F.UNIV_BRANCH,
-            F.UNIV_GRDTN_CLS AS univGrd,
-            F.UNIV_START_DATE,
-            F.UNIV_END_DATE,
-            F.UNIV_DN,
-            F.UNIV_SER,
-            F.UNIV_CLS,
-            F.UNIV_CLS_MUL,
-            F.UNIV_CLS_SUB,
-            F.UNIV_CRD,
-            F.UNIV_CRD_MAX,
-            F.UNIV_FN,
-            G.CO_NAME,
-            G.CO_STS,
-            G.CO_START_DATE,
-            G.CO_END_DATE,
-            G.CO_LOC,
-            G.CO_CLS,
-            G.CO_FORM_EMP,
-            G.CO_SALARY,
-            G.CO_DEPT,
-            G.CO_RANK,
-            G.CO_WORK,
-            G.CO_RETIRE,
-            H.PROJ_NAME,
-            H.PROJ_START_DATE,
-            H.PROJ_END_DATE,
-            H.PROJ_ORDER,
-            H.PROJ_LOC,
-            H.PROJ_WORK,
-            I.CERT_CLS,
-            I.CERT_NUM,
-            I.CERT_ISU,
-            I.CERT_DATE,
-            J.LANG_NAME,
-            J.LANG_LV,
-            K.OA_NAME,
-            K.OA_LV,
-            L.ACT_NAME,
-            L.ACT_START_DATE,
-            L.ACT_END_DATE,
-            L.ACT_FD,
-            L.ACT_CONDUCT,
-            L.ACT_CONTENT,
-            M.AWD_NAME,
-            M.AWD_DATE,
-            M.AWD_CONDUCT,
-            M.AWD_CONTENT,
-            N.QUEST_NO,
-            N.QUEST_CONTENT AS question,
-            N.ANSWER_CONTENT AS answer
-        FROM APP_USER A
-            LEFT JOIN APP_BOARD B ON A.APP_NO = B.APP_NO
-            LEFT JOIN USER_INFO C ON A.FORM_NO = C.FORM_NO
-            LEFT JOIN PSNL_INFO D ON A.FORM_NO = D.FORM_NO
-            LEFT JOIN EDU_HIGH_INFO E ON A.FORM_NO = E.FORM_NO
-            LEFT JOIN EDU_UNIV_INFO F ON A.FORM_NO = F.FORM_NO
-            LEFT JOIN CAREER_INFO G ON A.FORM_NO = G.FORM_NO
-            LEFT JOIN PROJ_INFO H ON A.FORM_NO = H.FORM_NO
-            LEFT JOIN CERT_INFO I ON A.FORM_NO = I.FORM_NO
-            LEFT JOIN LANG_INFO J ON A.FORM_NO = J.FORM_NO
-            LEFT JOIN OA_INFO K ON A.FORM_NO = K.FORM_NO
-            LEFT JOIN ACT_INFO L ON A.FORM_NO = L.FORM_NO
-            LEFT JOIN AWD_INFO M ON A.FORM_NO = M.FORM_NO
-            LEFT JOIN (
-                    SELECT
-                        A.FORM_NO,
-                        B.APP_NO,
-                        B.QUEST_NO,
-                        B.QUEST_CONTENT,
-                        C.ANSWER_CONTENT
-                    FROM
-                        APP_USER A
-                    LEFT JOIN (
-                        SELECT
-                            A.QUEST_NO,
-                            A.APP_NO,
-                            B.QUEST_CONTENT,
-                            A.QUEST_SEQ
-                        FROM
-                            SURV_QUEST A
-                        LEFT JOIN
-                            REG_QUEST B
-                        ON
-                            A.REG_QUEST_NO = B.REG_QUEST_NO) B
-                        ON
-                            A.APP_NO = B.APP_NO
-                        LEFT JOIN
-                            SURV_ANSWER C
-                        ON
-                            A.FORM_NO = C.FORM_NO AND
-                            B.QUEST_NO = C.QUEST_NO) N
-                        ON
-                            A.FORM_NO = N.FORM_NO
-        WHERE A.FORM_NO = #{form_no};
-    </select>
+<!--    <select id="appFormMapper" resultType="dage.recruituser.DTO.AppFormDTO">-->
+<!--        SELECT-->
+<!--            A.FORM_NO,-->
+<!--            A.APP_NO,-->
+<!--            A.USER_EMAIL,-->
+<!--            A.USER_NAME,-->
+<!--            A.USER_BIRTH,-->
+<!--            B.APP_TITLE,-->
+<!--            B.APP_JOB,-->
+<!--            C.REQUEST_DATE,-->
+<!--            C.USER_GENDER,-->
+<!--            C.USER_NATION,-->
+<!--            C.USER_ZIP,-->
+<!--            C.USER_ADDR,-->
+<!--            C.USER_ADDR_DTL,-->
+<!--            C.USER_CP,-->
+<!--            C.USER_TEL,-->
+<!--            C.USER_PROFILE,-->
+<!--            D.MIL_SRVC AS milServiceStatus,-->
+<!--            D.MIL_TYPE,-->
+<!--            D.MIL_TYPE_DTL,-->
+<!--            D.MIL_DSCHR AS milDischarge,-->
+<!--            D.MIL_EXEM AS milExemption,-->
+<!--            D.MIL_START_DATE,-->
+<!--            D.MIL_END_DATE,-->
+<!--            D.VTR_SRVC AS vtrServiceStatus,-->
+<!--            D.VTR_RLT AS vtrRelation,-->
+<!--            D.VTR_NUM AS vtrNumber,-->
+<!--            D.DIS_SRVC AS disServiceStatus,-->
+<!--            D.DIS_CLS AS disClass,-->
+<!--            D.DIS_RATE,-->
+<!--            E.HIGH_NAME,-->
+<!--            E.HIGH_LOC,-->
+<!--            E.HIGH_SER,-->
+<!--            E.HIGH_GRDTN_CLS AS highGrd,-->
+<!--            E.HIGH_START_DATE,-->
+<!--            E.HIGH_END_DATE,-->
+<!--            E.HIGH_FN,-->
+<!--            F.UNIV_SEQ,-->
+<!--            F.UNIV_EDU,-->
+<!--            F.UNIV_NAME,-->
+<!--            F.UNIV_LOC,-->
+<!--            F.UNIV_BRANCH,-->
+<!--            F.UNIV_GRDTN_CLS AS univGrd,-->
+<!--            F.UNIV_START_DATE,-->
+<!--            F.UNIV_END_DATE,-->
+<!--            F.UNIV_DN,-->
+<!--            F.UNIV_SER,-->
+<!--            F.UNIV_CLS,-->
+<!--            F.UNIV_CLS_MUL,-->
+<!--            F.UNIV_CLS_SUB,-->
+<!--            F.UNIV_CRD,-->
+<!--            F.UNIV_CRD_MAX,-->
+<!--            F.UNIV_FN,-->
+<!--            G.CO_NAME,-->
+<!--            G.CO_STS,-->
+<!--            G.CO_START_DATE,-->
+<!--            G.CO_END_DATE,-->
+<!--            G.CO_LOC,-->
+<!--            G.CO_CLS,-->
+<!--            G.CO_FORM_EMP,-->
+<!--            G.CO_SALARY,-->
+<!--            G.CO_DEPT,-->
+<!--            G.CO_RANK,-->
+<!--            G.CO_WORK,-->
+<!--            G.CO_RETIRE,-->
+<!--            H.PROJ_NAME,-->
+<!--            H.PROJ_START_DATE,-->
+<!--            H.PROJ_END_DATE,-->
+<!--            H.PROJ_ORDER,-->
+<!--            H.PROJ_LOC,-->
+<!--            H.PROJ_WORK,-->
+<!--            I.CERT_CLS,-->
+<!--            I.CERT_NUM,-->
+<!--            I.CERT_ISU,-->
+<!--            I.CERT_DATE,-->
+<!--            J.LANG_NAME,-->
+<!--            J.LANG_LV,-->
+<!--            K.OA_NAME,-->
+<!--            K.OA_LV,-->
+<!--            L.ACT_NAME,-->
+<!--            L.ACT_START_DATE,-->
+<!--            L.ACT_END_DATE,-->
+<!--            L.ACT_FD,-->
+<!--            L.ACT_CONDUCT,-->
+<!--            L.ACT_CONTENT,-->
+<!--            M.AWD_NAME,-->
+<!--            M.AWD_DATE,-->
+<!--            M.AWD_CONDUCT,-->
+<!--            M.AWD_CONTENT,-->
+<!--            N.QUEST_NO,-->
+<!--            N.QUEST_CONTENT AS question,-->
+<!--            N.ANSWER_CONTENT AS answer-->
+<!--        FROM APP_USER A-->
+<!--            LEFT JOIN APP_BOARD B ON A.APP_NO = B.APP_NO-->
+<!--            LEFT JOIN USER_INFO C ON A.FORM_NO = C.FORM_NO-->
+<!--            LEFT JOIN PSNL_INFO D ON A.FORM_NO = D.FORM_NO-->
+<!--            LEFT JOIN EDU_HIGH_INFO E ON A.FORM_NO = E.FORM_NO-->
+<!--            LEFT JOIN EDU_UNIV_INFO F ON A.FORM_NO = F.FORM_NO-->
+<!--            LEFT JOIN CAREER_INFO G ON A.FORM_NO = G.FORM_NO-->
+<!--            LEFT JOIN PROJ_INFO H ON A.FORM_NO = H.FORM_NO-->
+<!--            LEFT JOIN CERT_INFO I ON A.FORM_NO = I.FORM_NO-->
+<!--            LEFT JOIN LANG_INFO J ON A.FORM_NO = J.FORM_NO-->
+<!--            LEFT JOIN OA_INFO K ON A.FORM_NO = K.FORM_NO-->
+<!--            LEFT JOIN ACT_INFO L ON A.FORM_NO = L.FORM_NO-->
+<!--            LEFT JOIN AWD_INFO M ON A.FORM_NO = M.FORM_NO-->
+<!--            LEFT JOIN (-->
+<!--                    SELECT-->
+<!--                        A.FORM_NO,-->
+<!--                        B.APP_NO,-->
+<!--                        B.QUEST_NO,-->
+<!--                        B.QUEST_CONTENT,-->
+<!--                        C.ANSWER_CONTENT-->
+<!--                    FROM-->
+<!--                        APP_USER A-->
+<!--                    LEFT JOIN (-->
+<!--                        SELECT-->
+<!--                            A.QUEST_NO,-->
+<!--                            A.APP_NO,-->
+<!--                            B.QUEST_CONTENT,-->
+<!--                            A.QUEST_SEQ-->
+<!--                        FROM-->
+<!--                            SURV_QUEST A-->
+<!--                        LEFT JOIN-->
+<!--                            REG_QUEST B-->
+<!--                        ON-->
+<!--                            A.REG_QUEST_NO = B.REG_QUEST_NO) B-->
+<!--                        ON-->
+<!--                            A.APP_NO = B.APP_NO-->
+<!--                        LEFT JOIN-->
+<!--                            SURV_ANSWER C-->
+<!--                        ON-->
+<!--                            A.FORM_NO = C.FORM_NO AND-->
+<!--                            B.QUEST_NO = C.QUEST_NO) N-->
+<!--                        ON-->
+<!--                            A.FORM_NO = N.FORM_NO-->
+<!--        WHERE A.FORM_NO = #{form_no};-->
+<!--    </select>-->
 
     <!-- 지원서 삭제 -->
     <delete id="deleteUserForm">

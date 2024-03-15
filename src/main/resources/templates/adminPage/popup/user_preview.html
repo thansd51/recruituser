@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css" />
+<link rel="stylesheet" href="css/form/app_post.css" />
+
+<body>
+    <div class="container my-5">
+        <div class="modal-header pt-3">
+            <h4 class="title ms-3 m-0" th:text="${appBoard.appTitle}"></h4>
+            <div class="col">
+                <div class="btn-toolbar me-2 my-4 mb-md-0 float-end">
+                    <button type="button" id="downloadBtn" class="btn btn-sm mx-1 btn-outline-secondary rounded-0">
+                        지원서 출력
+                </div>
+            </div>
+        </div>
+        <hr class="hr">
+        <div class="row px-5">
+            <div class="modal-body">
+                <div class="row mt-3 ps-3 text-start">
+                    <form name="formNO" method="post" action="/user_management">
+                        <input type="hidden" id="app_no" name="app_no" th:value="${appBoard.appNo}">
+                        <input type="hidden" id="form_no" name="form_no" th:value="${form_no}">
+                    </form>
+                </div>
+                <table class="table mb-5">
+                    <tbody>
+                        <tr>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span>지원직무</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="1">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span th:text="${appBoard.appJob}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span>입사가능시기</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="1">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span th:text="${infoUser.requestDate}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span>이메일</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="1">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span th:text="${user_email}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row ps-3 text-start">
+                    <h4 class="title">인적사항</h4>
+                </div>
+                <table class="table mb-3">
+                    <tbody>
+                        <tr>
+                            <td class="table-light" id="idPhoto" colspan="4" rowspan="7">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <img class="userPhoto" th:if="${infoUser.userProfile != null}"
+                                            th:src="|/images/userPhoto/${infoUser.userProfile}|" />
+                                        <img class="userPhoto" th:if="${infoUser.userProfile == null}"
+                                            src="images/userimg.png" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" scope="row">
+                                <span>성명</span>
+                            <td class="table-light" colspan="2">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span th:text="${infoUser.userName}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th class="table-light" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span>생년월일</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="2">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span th:text="${infoUser.userBirth}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span>성별</span>
+                                    </div>
+                                </div>
+                            <td class="table-light" colspan="2">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span
+                                            th:text="${infoUser.userGender== 'M' ? '남성' : infoUser.userGender == 'F' ? '여성' : infoUser.userGender}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th class="table-light" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span>국적</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="2">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span th:text="${infoUser.userNation}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span>휴대전화</span>
+                                    </div>
+                                </div>
+                            <td class="table-light" colspan="2">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span th:text="${infoUser.userCp}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th class="table-light" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span>비상연락처</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="2">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span th:text="${infoUser.userTel}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span>주소지</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light" colspan="4">
+                                <div class="row-sm">
+                                    <div class="col-sm">
+                                        <span
+                                            th:text="|[${infoUser.userZip}] ${infoUser.userAddr} ${infoUser.userAddrDtl}|"></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table mb-5">
+                    <tbody>
+                        <tr>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span>병역</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light padding" colspan="1">
+                                <div class="row"
+                                    th:if="${infoPerson.milServiceStatus} != '면제' and ${infoPerson.milServiceStatus} != '비대상' and ${infoPerson.milServiceStatus} != '미필'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[병역여부]</span>
+                                        <span
+                                            th:text="|${infoPerson.milServiceStatus} (${infoPerson.milType}/${infoPerson.milTypeDtl})|"></span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[복무기간]</span>
+                                        <span th:text="|${infoPerson.milStartDate} ~ ${infoPerson.milEndDate}|"></span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[전역사유]</span>
+                                        <span th:text="${infoPerson.milDischarge}"></span>
+                                    </div>
+                                </div>
+                                <div class="row"
+                                    th:if="${infoPerson.milServiceStatus} == '비대상' or ${infoPerson.milServiceStatus} == '미필'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[병역여부]</span>
+                                        <span th:text="${infoPerson.milServiceStatus}"></span>
+                                    </div>
+                                </div>
+                                <div class="row" th:if="${infoPerson.milServiceStatus} == '면제'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[병역여부]</span>
+                                        <span th:text="${infoPerson.milServiceStatus}"></span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[면제사유]</span>
+                                        <span th:text="${infoPerson.milExemption}"></span>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span>보훈</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="table-light padding" colspan="1">
+                                <div class="row" th:if="${infoPerson.vtrServiceStatus} == 'T'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[보훈여부]</span>
+                                        <span>해당</span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[보훈관계]</span>
+                                        <span th:text="${infoPerson.vtrRelation}"></span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[보훈번호]</span>
+                                        <span th:text="${infoPerson.vtrNumber}"></span>
+                                    </div>
+                                </div>
+                                <div class="row" th:if="${infoPerson.vtrServiceStatus} == 'F'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[보훈여부]</span>
+                                        <span>비해당</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <div class="row-sm">
+                                    <div class="col-sm text-center">
+                                        <span>장애</span>
+                                    </div>
+                                </div>
+                            <td class="table-light padding" colspan="1">
+                                <div class="row" th:if="${infoPerson.disServiceStatus} == 'T'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[장애여부]</span>
+                                        <span>해당</span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[장애구분]</span>
+                                        <span th:text="${infoPerson.disClass}"></span>
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[장애등급]</span>
+                                        <span th:text="${infoPerson.disRate}"></span>
+                                    </div>
+                                </div>
+                                <div class="row" th:if="${infoPerson.disServiceStatus} == 'F'">
+                                    <div class="col-sm-auto">
+                                        <span class="subTag">[장애여부]</span>
+                                        <span>비해당</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row ps-3 text-start">
+                    <h4 class="title">학력사항</h4>
+                </div>
+                <table class="table mb-5">
+                    <tbody>
+                        <tr>
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <span>고등학교</span>
+                            </th>
+                            <td class="table-light padding" colspan="1">
+                                <div class="row">
+                                    <div class="subTag" th:if="${eduHighInfo.highFn} == 'T'">
+                                        [최종학력]</div>
+                                    <div class="row content my-1">
+                                        <div class="col-sm-auto pe-0 me-3">
+                                            <h5 class="infoTitle mb-0"
+                                                th:text="|${eduHighInfo.highName} (${eduHighInfo.highLoc})|">
+                                            </h5>
+                                        </div>
+                                        <div class="col-sm-auto infoTag">
+                                            <span
+                                                th:text="|${eduHighInfo.highStartDate} ~ ${eduHighInfo.highEndDate} (${eduHighInfo.highGrd})|"></span>
+                                        </div>
+                                    </div>
+                                    <div class="my-2" th:text="${eduHighInfo.highSer}">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${getUniv.univName != '' and getUniv.univName != null}">
+                            <th class="table-light thTitle" colspan="2" scope="row">
+                                <span>대학교</span>
+                            <td class="table-light padding" colspan="1">
+                                <div class="row" th:each="eduUnivDto, count : ${eduUnivInfo}">
+                                    <div class="row">
+                                        <div class="subTag" th:if="${eduUnivDto.univFn} == 'T'">
+                                            [최종학력]</div>
+                                        <div class="row content my-1">
+                                            <div class="col-sm-auto pe-0 me-3">
+                                                <h5 style="display:inline;" class="infoTitle mb-0"
+                                                    th:text="|${eduUnivDto.univName} [${eduUnivDto.univEdu}]|">
+                                                </h5>
+                                                <p style="display:inline;"
+                                                    th:text="'(' + ${eduUnivDto.univBranch} + '/' + (${eduUnivDto.univDn == 'D' ? '주간' : eduUnivDto.univDn == 'N' ? '야간' : ''}) + ') '">
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-auto infoTag">
+                                                <span
+                                                    th:text="|${eduUnivDto.univStartDate} ~ ${eduUnivDto.univEndDate} (${eduUnivDto.univGrd})|"></span>
+                                            </div>
+                                        </div>
+                                        <div class="my-2">
+                                            <span class="me-5"
+                                                th:text="|[${eduUnivDto.univSer}] ${eduUnivDto.univCls}|"></span>
+                                            <span class="me-5"
+                                                th:if="${eduUnivDto.univClsMul != null and eduUnivDto.univClsMul != ''}"
+                                                th:text="|[복수전공]${eduUnivDto.univClsMul}|"></span>
+                                            <span class="me-5"
+                                                th:if="${eduUnivDto.univClsSub != null and eduUnivDto.univClsSub != ''}"
+                                                th:text="|[부전공]${eduUnivDto.univClsSub}|"></span>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-1 pe-0 me-3">
+                                                지역
+                                            </div>
+                                            <div class="col-sm-auto infoTag" th:text="${eduUnivDto.univLoc}">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-1 pe-0 me-3">
+                                                학점
+                                            </div>
+                                            <div class="col-sm-auto infoTag"
+                                                th:text="|${eduUnivDto.univCrd} / ${eduUnivDto.univCrd}|">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row my-3 contour" th:if="${!count.last}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <th:block
+                    th:if="${(getCareer.coName != '' and getCareer.coName != null) or (getProject.projName != '' and getProject.projName != null)}">
+                    <div class="row ps-3 text-start">
+                        <h4 class="title">경력사항</h4>
+                    </div>
+                    <table class="table mb-5">
+                        <tbody>
+                            <tr th:if="${getCareer.coName != '' and getCareer.coName != null}">
+                                <th class="table-light thTitle" colspan="2" scope="row">
+                                    <span>경력사항</span>
+                                <td class="table-light padding" colspan="1">
+                                    <div class="subTag">[총경력] O년 O개월</div>
+                                    <div class="row" th:each="careerInfoDto, count : ${careerInfo}">
+                                        <div class="row">
+                                            <div class="row content my-1">
+                                                <div class="col-sm-auto pe-0 me-3">
+                                                    <h5 class="infoTitle mb-0" th:text="${careerInfoDto.coName}">
+                                                    </h5>
+                                                </div>
+                                                <div class="col-sm-auto infoTag">
+                                                    <span
+                                                        th:if="${careerInfoDto.coEndDate == null or careerInfoDto.coEndDate == ''}"
+                                                        th:text="|${careerInfoDto.coStartDate} ~ ${careerInfoDto.coSts}중|"></span>
+                                                    <span
+                                                        th:unless="${careerInfoDto.coEndDate == null or careerInfoDto.coEndDate == ''}"
+                                                        th:text="|${careerInfoDto.coStartDate} ~ ${careerInfoDto.coEndDate}|"></span>
+                                                    <span class="period ms-1">(O년
+                                                        O개월)</span>
+                                                </div>
+                                            </div>
+                                            <div class="my-2">
+                                                <span class="me-5"
+                                                    th:text="|${careerInfoDto.coDept} ${careerInfoDto.coRank}|"></span>
+                                            </div>
+                                            <div class="mb-2">
+                                                <span class="me-5" th:text="${careerInfoDto.coWork}"></span>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${careerInfoDto.coCls != null or careerInfoDto.coCls != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    업종
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${careerInfoDto.coCls}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${careerInfoDto.coLoc != null or careerInfoDto.coLoc != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    소재지
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${careerInfoDto.coLoc}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${careerInfoDto.coFormEmp != null or careerInfoDto.coFormEmp != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    고용형태
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${careerInfoDto.coFormEmp}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${careerInfoDto.coSalary != null or careerInfoDto.coSalary != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    연봉
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${careerInfoDto.coSalary}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${careerInfoDto.coRetire != null or careerInfoDto.coRetire != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    퇴직사유
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${careerInfoDto.coRetire}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-2 contour" th:if="${!count.last}"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${getProject.projName != '' and getProject.projName != null}">
+                                <th class="table-light thTitle" colspan="2" scope="row">
+                                    <span>프로젝트</span>
+                                <td class="table-light padding" colspan="1">
+                                    <div class="row" th:each="projectInfoDto, count : ${projectInfo}">
+                                        <div class="row">
+                                            <div class="row content my-1">
+                                                <div class="col-sm-auto pe-0 me-3">
+                                                    <h5 class="infoTitle mb-0" th:text="${projectInfoDto.projName}">
+                                                    </h5>
+                                                </div>
+                                                <div class="col-sm-auto infoTag">
+                                                    <span
+                                                        th:text="|${projectInfoDto.projStartDate} ~ ${projectInfoDto.projEndDate}|"></span>
+                                                </div>
+                                            </div>
+                                            <div class="my-2">
+                                                <span class="me-5" th:text="${projectInfoDto.projWork}"></span>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${projectInfoDto.projOrder != null or projectInfoDto.projOrder != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    발주처
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${projectInfoDto.projOrder}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${projectInfoDto.projLoc != null or projectInfoDto.projLoc != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    근무지역
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${projectInfoDto.projLoc}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-2 contour" th:if="${!count.last}"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </th:block>
+                <th:block
+                    th:if="${(getCert.certCls != '' and getCert.certCls != null) or (getLang.langName != '' and getLang.langName != null) or (getOa.oaName != '' and getOa.oaName != null)}">
+                    <div class="row ps-3 text-start">
+                        <h4 class="title">외국어/자격사항</h4>
+                    </div>
+                    <table class="table mb-5">
+                        <tbody>
+                            <tr th:if="${getCert.certCls != '' and getCert.certCls != null}">
+                                <th class="table-light thTitle" colspan="2" scope="row">
+                                    <span>자격사항</span>
+                                <td class="table-light padding" colspan="1">
+                                    <div class="row" th:each="certInfoDto, count : ${certInfo}">
+                                        <div class="row">
+                                            <div class="row content my-1">
+                                                <div class="col-sm-auto pe-0 me-3">
+                                                    <h5 class="infoTitle mb-0" th:text="${certInfoDto.certCls}">
+                                                    </h5>
+                                                </div>
+                                                <div class="col-sm-auto infoTag">
+                                                    <span
+                                                        th:if="${certInfoDto.certDate != null or certInfoDto.certDate != ''}"
+                                                        th:text="${certInfoDto.certDate}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row my-2"
+                                                th:if="${certInfoDto.certCls != null or certInfoDto.certCls != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    발급기관
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${certInfoDto.certCls}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${certInfoDto.certNum != null or certInfoDto.certNum != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    등록번호
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${certInfoDto.certNum}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-2 contour" th:if="${!count.last}"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                th:if="${(getLang.langName != '' and getLang.langName != null) or (getOa.oaName != '' and getOa.oaName != null)}">
+                                <th class="table-light thTitle" colspan="2" scope="row">
+                                    <span>활용능력</span>
+                                <td class="table-light padding" colspan="1">
+                                    <div class="row">
+                                        <div class="col" th:if="${getLang.langName != '' and getLang.langName != null}">
+                                            <div class="row content my-1">
+                                                <h5 class="infoTitle">외국어
+                                                    활용능력
+                                                </h5>
+                                            </div>
+                                            <div class="row" th:each="langInfoDto : ${langInfo}">
+                                                <div class="row">
+                                                    <div class="row my-2"
+                                                        th:if="${langInfoDto.langName != null or langInfoDto.langName != ''}">
+                                                        <div class="col-sm-auto pe-0 me-3"
+                                                            th:text="${langInfoDto.langName}">
+                                                        </div>
+                                                        <div class="col-sm-auto infoTag"
+                                                            th:text="${langInfoDto.langLv}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col" th:if="${getOa.oaName != '' and getOa.oaName != null}">
+                                            <div class="row content my-1">
+                                                <h5 class="infoTitle">IT
+                                                    활용능력
+                                                </h5>
+                                            </div>
+                                            <div class="row" th:each="oaInfoDto : ${oaInfo}">
+                                                <div class="row">
+                                                    <div class="row my-2"
+                                                        th:if="${oaInfoDto.oaName != null and oaInfoDto.oaName != ''}">
+                                                        <div class="col-sm-auto pe-0 me-3"
+                                                            th:text="${oaInfoDto.oaName}">
+                                                        </div>
+                                                        <div class="col-sm-auto infoTag" th:text="${oaInfoDto.oaLv}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </th:block>
+                <th:block
+                    th:if="${(getAct.actName != '' and getAct.actName != null) or (getAwd.awdName != '' and getAwd.awdName != null)}">
+                    <div class="row ps-3 text-start">
+                        <h4 class="title">활동사항</h4>
+                    </div>
+                    <table class="table mb-5">
+                        <tbody>
+                            <tr th:if="${getAct.actName != '' and getAct.actName != null}">
+                                <th class="table-light thTitle" colspan="2" scope="row">
+                                    <span>경험/활동/교육</span>
+                                <td class="table-light padding" colspan="1">
+                                    <div class="row" th:each="actInfoDto, count : ${actInfo}">
+                                        <div class="row">
+                                            <div class="row content my-1">
+                                                <div class="col-sm-auto pe-0 me-3">
+                                                    <h5 class="infoTitle mb-0" th:text="${actInfoDto.actName}">
+                                                    </h5>
+                                                </div>
+                                                <div class="col-sm-auto infoTag">
+                                                    <span
+                                                        th:text="|${actInfoDto.actStartDate} ~ ${actInfoDto.actEndDate}|"></span>
+                                                </div>
+                                                <div class="my-2">
+                                                    <span class="me-5" th:text="${actInfoDto.actContent}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row my-2"
+                                                th:if="${actInfoDto.actFd != null or actInfoDto.actFd != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    분야
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${actInfoDto.actFd}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${actInfoDto.actConduct != null or actInfoDto.actConduct != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    주관기간
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${actInfoDto.actConduct}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-2 contour" th:if="${!count.last}"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${getAwd.awdName != '' and getAwd.awdName != null}">
+                                <th class="table-light thTitle" colspan="2" scope="row">
+                                    <span>수상내역</span>
+                                <td class="table-light padding" colspan="1">
+                                    <div class="row" th:each="awdInfoDto, count : ${awdInfo}">
+                                        <div class="row">
+                                            <div class="row content my-1">
+                                                <div class="col-sm-auto pe-0 me-3">
+                                                    <h5 class="infoTitle mb-0" th:text="${awdInfoDto.awdName}">
+                                                    </h5>
+                                                </div>
+                                                <div class="col-sm-auto infoTag">
+                                                    <span th:text="${awdInfoDto.awdDate}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="my-2">
+                                                <span class="me-5" th:text="${awdInfoDto.awdContent}"></span>
+                                            </div>
+                                            <div class="row mb-2"
+                                                th:if="${awdInfoDto.awdConduct != null or awdInfoDto.awdConduct != ''}">
+                                                <div class="col-sm-1 pe-0 me-3">
+                                                    수상기관
+                                                </div>
+                                                <div class="col-sm-auto infoTag" th:text="${awdInfoDto.awdConduct}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-2 contour" th:if="${!count.last}"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </th:block>
+                <div class="row ps-3 text-start">
+                    <h4 class="title">자기소개</h4>
+                </div>
+                <table class="table mb-5">
+                    <tbody>
+                        <td class="table-light padding" colspan="1">
+                            <th:block th:each="survInfoDto, count : ${survInfo}">
+                                <div class="row content my-1">
+                                    <div class="col-sm-auto pe-0 me-3 mb-3">
+                                        <h5 class="infoTitle mb-0" th:text="${survInfoDto.question}">
+                                        </h5>
+                                    </div>
+                                    <div class="my-2">
+                                        <span class="me-5" th:text="${survInfoDto.answer}"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-4 contour" th:if="${!count.last}"></div>
+                            </th:block>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+    <script>
+        $("#downloadBtn").click(function () {
+
+            // HTML 파일을 읽어들이는 함수
+            function readHTMLFile(file, callback) {
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file, true);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4) {
+                        if (rawFile.status === 200 || rawFile.status == 0) {
+                            var allText = rawFile.responseText;
+                            callback(allText);
+                        }
+                    }
+                }
+                rawFile.send(null);
+            }
+
+            // HTML 파일 경로
+            var htmlFilePath = "your_html_file.html";
+
+            // HTML 파일을 읽고 서버로 전송하는 함수
+            function sendHTMLToServer(htmlContent) {
+                // AJAX 요청을 통해 서버로 HTML 전송
+                $.ajax({
+                    type: "POST",
+                    url: "/convertToPdf",
+                    data: { htmlContent: htmlContent },
+                    success: function (response) {
+                        console.log("PDF 생성 완료:", response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("PDF 생성 중 오류 발생:", error);
+                    }
+                });
+            }
+
+            // HTML 파일 읽어서 서버로 전송
+            readHTMLFile(htmlFilePath, function (htmlContent) {
+                sendHTMLToServer(htmlContent);
+            });
+
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/convertToPdf", // PDF 생성 컨트롤러 엔드포인트
+            //     data: { name: name }, // 전송할 데이터
+            //     success: function (data) {
+            //         // PDF 파일 다운로드
+            //         var blob = new Blob([data], { type: 'application/pdf' });
+            //         var url = window.URL.createObjectURL(blob);
+            //         var a = document.createElement('a');
+            //         a.href = url;
+            //         a.download = 'output.pdf';
+            //         document.body.appendChild(a);
+            //         a.click();
+            //         window.URL.revokeObjectURL(url);
+            //     },
+            //     error: function (xhr, status, error) {
+            //         // 오류 처리
+            //         console.error("PDF 생성 중 오류 발생:", error);
+            //     }
+            // });
+        });
+    </script>
+</body>
+
+</html>

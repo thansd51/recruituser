@@ -1,52 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samsung Careers</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <style>
-        .card {
-            margin-bottom: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지원서 관리</title>
+<!-- 부트스트랩 CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  /* 추가적인 스타일링은 여기에 작성하세요 */
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .applicant-info {
+    margin-bottom: 5px;
+  }
+
+  .applicant-info span {
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
-
-<div class="container">
-    <h1 class="mt-4 mb-4">Samsung Careers</h1>
-    
-    <div class="row">
-        <!-- 채용공고 카드 -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Software Engineer</h5>
-                    <p class="card-text">We are looking for talented software engineers to join our team.</p>
-                    <a href="#" class="btn btn-primary">Apply Now</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 더 많은 채용공고 카드들 추가 가능 -->
-        <!-- <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Job Title</h5>
-                    <p class="card-text">Job description goes here.</p>
-                    <a href="#" class="btn btn-primary">Apply Now</a>
-                </div>
-            </div>
-        </div> -->
+<div class="w-100" id="myChart" width="900" height="380">
+  <div class="row user_container">
+    <div class="col border border-2 border-secondary-subtle rounded-2 px-0 pb-2">
+      <h5 class="border-bottom py-2">지원서 접수</h5>
+      <div class="col process text-center" id="process_list">
+        <!-- 여기에 지원자 카드가 추가될 것입니다. -->
+      </div>
     </div>
+    <div class="col border border-2 border-secondary-subtle rounded-2">
+      <h5 class="border-bottom py-2">서류 심사</h5>
+    </div>
+    <div class="col border border-2 border-secondary-subtle rounded-2">
+      <h5 class="border-bottom py-2">실무 면접</h5>
+    </div>
+    <div class="col border border-2 border-secondary-subtle rounded-2">
+      <h5 class="border-bottom py-2">최종 검토</h5>
+    </div>
+  </div>
 </div>
 
-<!-- Bootstrap JS (Optional) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // 가상의 지원자 데이터
+  const applicants = [
+    { name: "홍길동", position: "개발자", submissionDate: "2024-03-12", status: "지원서 접수" },
+    { name: "김철수", position: "디자이너", submissionDate: "2024-03-11", status: "지원서 접수" },
+    // 추가 데이터는 이와 같이 계속될 수 있습니다.
+  ];
 
+  // 카드 생성 함수
+  function createApplicantCard(applicant) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = `
+      <div class="applicant-info">
+        <span>이름:</span> ${applicant.name}
+      </div>
+      <div class="applicant-info">
+        <span>직무:</span> ${applicant.position}
+      </div>
+      <div class="applicant-info">
+        <span>제출일:</span> ${applicant.submissionDate}
+      </div>
+    `;
+    return card;
+  }
+
+  // "process_list"에 카드 추가
+  const processList = document.getElementById('process_list');
+  applicants.forEach(applicant => {
+    if (applicant.status === "지원서 접수") {
+      const card = createApplicantCard(applicant);
+      processList.appendChild(card);
+    }
+  });
+</script>
 </body>
 </html>

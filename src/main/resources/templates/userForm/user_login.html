@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통 헤드-->
+<th:block th:replace="/fragments/head :: headFragment"></th:block>
+
+<!-- Custom Stylesheets -->
+<link rel="stylesheet" href="css/form/form.css">
+<link rel="stylesheet" href="css/form/app_post.css">
+
+<!-- 공통 Nav -->
+<th:block th:replace="/fragments/top :: topbarFragment"></th:block>
+
+<body>
+    <!-- content -->
+    <div class="container my-5">
+        <div class="row p-5">
+            
+        </div>
+    </div>
+    <!-- 공통 스크립트-->
+    <th:block th:replace="/fragments/script :: scriptFragment"></th:block>
+    <script>
+        $("#btn_app_submit, #btn_app_delete").on("click", function (e) {
+            var appNo = $("#app_no").val();
+            var formNo = $("#form_no").val();
+
+
+            if ($(this).attr('id') === "btn_app_submit") {
+                $.ajax({
+                    method: "GET",
+                    url: "/user_management?app_no=" + appNo + "&form_no=" + formNo
+                })
+                    .done(function (data) {
+                        alert("성공")
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패")
+                        callback(data);
+                    });
+            } else if ($(this).attr('id') === "btn_app_delete") {
+                $.ajax({
+                    method: "POST",
+                    url: "/appPost?form_no=" + formNo
+                })
+                    .done(function (msg) {
+                        location.href = "/app_form";
+                    })
+                    .fail(function (data, textStatus, errorThrown) {
+                        alert("실패")
+                        callback(data);
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

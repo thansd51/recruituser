@@ -1,6 +1,7 @@
 package dage.recruituser.Services;
 
 import dage.recruituser.DAO.CommCodeDAO;
+import dage.recruituser.DTO.AppBoardDTO;
 import dage.recruituser.DTO.CommCodeDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,9 @@ public class CommCodeService {
 
     public List<CommCodeDTO> selectCommCodeList(@Param("GRP_NAME") String GRP_NAME){
         return commCodeDAO.selectCommCodeList(GRP_NAME);
+    }
+
+    public List<AppBoardDTO> selectAppList(@Param("APP_NO") long app_no){
+        return commCodeDAO.selectAppList(app_no);
     }
 }

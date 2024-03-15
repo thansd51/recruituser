@@ -1,37 +1,49 @@
 package dage.recruituser.Controller;
 
-// 타임리프 템플릿 엔진에서 settlement.html 파일을 context와 내려준다.
-
-import com.lowagie.text.DocumentException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.OutputStream;
 
-String html = templateEngine.process("settlement", context);
-// PdfRender 클래스
-@Component
-@RequiredArgsConstructor
-@Slf4j
-public class PdfRender {
+@Controller
+public class PdfController {
 
-    public ByteArrayOutputStream generatePdfFromHtml(String html)
-            throws DocumentException, IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        //renderer 설정
-        ITextRenderer renderer = new ITextRenderer();
+    private final TemplateEngine templateEngine;
 
-        renderer.getFontResolver();
-        renderer.setDocumentFromString(html);
-        renderer.layout();
-        // PDF 만들어준다.
-        renderer.createPDF(outputStream);
+    public PdfController(TemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
+    }
 
-        outputStream.close();
-        // outputStream 으로 리턴후 S3로 파일업로드를 stream 형태로 올린다.
-        return outputStream;
+    @PostMapping("/convertToPdf")
+    public void convertToPdf(@RequestParam("name") String name, HttpServletResponse response) throws Exception {
+        // Thymeleaf 컨텍스트 설정
+        Context context = new Context();
+        context.setVariable("name", name); // 파라미터로 전달된 이름 설정
+
+        // Thymeleaf 템플릿 로드 및 프로세스
+        String htmlContent = templateEngine.process("template.html", context);
+
+        // Flying Saucer를 사용하여 HTML을 PDF로 변환
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocumentFromString(htmlContent);
+            renderer.layout();
+            renderer.createPDF(outputStream);
+
+            // PDF 파일로 출력
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=output.pdf");
+            try (OutputStream responseOutputStream = response.getOutputStream()) {
+                outputStream.writeTo(responseOutputStream);
+                outputStream.flush();
+            }
+        }
     }
 }

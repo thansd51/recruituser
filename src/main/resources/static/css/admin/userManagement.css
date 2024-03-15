@@ -1,0 +1,84 @@
+.userManagement {
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.userManagement:hover {
+    border: 1px solid #000000;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#insertBtn {
+    width: 130px;
+}
+
+#container {
+    width: 1000px;
+    margin: 20px auto;
+}
+
+.dropdown-toggle::before {
+    color: #00000000;
+}
+
+a.dropdown-item:active {
+    color: rgb(0, 0, 0);
+    background-color: #e6e6e6;
+}
+
+.col.process {
+    height: 680px;
+    max-height: 680px;
+    overflow-y: auto;
+}
+
+.col.process::-webkit-scrollbar {
+    width: 10px;
+}
+
+.col.process::-webkit-scrollbar-thumb {
+    background-color: #a3a3a3;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+.col.process::-webkit-scrollbar-track {
+    background-color: rgb(204, 204, 204);
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.feather.feather-clock {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    bottom: 1px;
+}
+
+.selected {
+    border: 2px solid rgb(59, 135, 206);
+    background-color: rgba(59, 135, 206, 0.1);
+    /* 하늘색 반투명 배경 */
+    position: relative;
+    /* 상대 위치 지정 */
+}
+
+.selected::after {
+    content: "";
+    background-image: url('/images/check.svg');
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.user_name {
+    cursor: pointer;
+    display: inline-block;
+}
